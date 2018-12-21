@@ -86,7 +86,7 @@ public class TableDbEditor : UnityEditor.Editor
                 bChangedInGameDB = true;
         }
 
-        //뭔가 바뀐 내용이 있으면 => 다이얼로그 테이블들은 키값이 모두 같아 새로운 테이블 추가해도 업데이트 안되므로 이 조건 생략
+        //뭔가 바뀐 내용이 있으면 => 스테이지 레벨 테이블들은 키값이 모두 같아 새로운 테이블 추가해도 업데이트 안되므로 이 조건 생략
         //if (bChangedInGameDB == true)
         //{
             string[] inGameDBTableText =    {

@@ -46,10 +46,10 @@ public partial class StageMgr : MonoBehaviour
     private bool m_bPauseScroll = false;
     public bool IsPauseScroll { get { return m_bPauseScroll; } set { m_bPauseScroll = value; } }
 
-    int m_fCurAnswer;
-    int m_iSelected_Left;
-    int m_iSelected_Right;
-    int m_iSelected_Operator;
+    //int m_fCurAnswer;
+    //int m_iSelected_Left;
+    //int m_iSelected_Right;
+    //int m_iSelected_Operator;
 
     private void Awake()
     {
@@ -89,6 +89,7 @@ public partial class StageMgr : MonoBehaviour
             //sb.Append("CoroutineStageEvent_");
             //sb.Append(MyUtility.ConvertToString(StageNum));
             //StartCoroutine(sb.ToString());
+            StartCoroutine("CoroutineCheckPlayTime");
         }
         else
         {
@@ -174,7 +175,6 @@ public partial class StageMgr : MonoBehaviour
     {
         yield return StartCoroutine("CoroutineCheckGameStart");
 
-        float fMoveTime = 0.0f;
         while (StageState < STAGE_STATE.GAMECLEAR)
         {
             PlayTime += Time.deltaTime;
@@ -203,31 +203,31 @@ public partial class StageMgr : MonoBehaviour
         }
     }
 
-    void ResetDigits()
-    {
-        m_fCurAnswer = 10;
+    //void ResetDigits()
+    //{
+    //    m_fCurAnswer = 10;
 
-        SetFormulaForAnswer();
-    }
+    //    SetFormulaForAnswer();
+    //}
 
-    void SetFormulaForAnswer()
-    {
-        eOPERATOR eOperator = (eOPERATOR)Random.Range(0, (int)eOPERATOR.DIVISION);
+    //void SetFormulaForAnswer()
+    //{
+    //    eOPERATOR eOperator = (eOPERATOR)Random.Range(0, (int)eOPERATOR.DIVISION);
 
-        switch(eOperator)
-        {
-            case eOPERATOR.ADDITION:
-                break;
-            case eOPERATOR.SUBTRACTION:
-                break;
-            case eOPERATOR.MULTIPLICATION:
-                break;
-            case eOPERATOR.DIVISION:
-                break;
-            default:
-                break;
-        }
-    }
+    //    switch(eOperator)
+    //    {
+    //        case eOPERATOR.ADDITION:
+    //            break;
+    //        case eOPERATOR.SUBTRACTION:
+    //            break;
+    //        case eOPERATOR.MULTIPLICATION:
+    //            break;
+    //        case eOPERATOR.DIVISION:
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //}
 
 
 

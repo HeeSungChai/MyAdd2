@@ -114,6 +114,7 @@ public class TableDB// : UnityEditor.Editor
 
         for (int i = 1; i < lines.Length; ++i)
         {
+            //한 row의 전체 값들
             string[] arrayData = lines[i].Split('\t');
             int id = -1;
             try
@@ -157,6 +158,7 @@ public class TableDB// : UnityEditor.Editor
                 }
                 if (!dicInGameDB.ContainsKey(id))
                     dicInGameDB.Add(id, new Dictionary<eKEY_TABLEDB, object>());
+                //한 row의 전체 값들
                 if (dicInGameDB[id].ContainsKey(key))
                     dicInGameDB[id][key] = value;
                 else
@@ -174,7 +176,7 @@ public class TableDB// : UnityEditor.Editor
         m_bEndLoad = true;
     }
 
-    public object GetInGameDB(eTABLE_LIST inGameDBTable, int id, string key)
+    public object GetData(eTABLE_LIST inGameDBTable, int id, string key)
     {
         try
         {
@@ -209,9 +211,9 @@ public class TableDB// : UnityEditor.Editor
         }
     }
 
-    public object GetInGameDB(eTABLE_LIST inGameDBTable, int id, eKEY_TABLEDB key)
+    public object GetData(eTABLE_LIST inGameDBTable, int id, eKEY_TABLEDB key)
     {
-        return GetInGameDB(inGameDBTable, id, MyUtility.ConvertToString(key));
+        return GetData(inGameDBTable, id, MyUtility.ConvertToString(key));
     }
 
     public void Clear()
