@@ -17,11 +17,14 @@ public class DigitSpawner : MonoBehaviour
     public List<GameObject> m_listOriginPref;
     public int m_iObjPoolCapacity = 1;
     private List<GameObject> m_objPool;
-    private List<GameObject> m_listSpawnedObj;
+    //private List<GameObject> m_listSpawnedObj;
     //public int m_iMaxSpawnCount = 20;
     eTABLE_LIST m_eTableStageLevel;
     int m_iLineID = 1;
     public Vector3[] m_arrSpawnPos;
+    public float m_fHeightSpawn;
+    public float m_fHeightGreat;
+    public float m_fHeightCool;
     float m_fAppearTime;
     bool m_bSpawnedAll;
     NumDropCtrl m_scriptLowest;
@@ -49,6 +52,8 @@ public class DigitSpawner : MonoBehaviour
     private void Awake()
     {
         MyGlobals.DigitSpawner = this;
+
+        EventListener.AddListener("OnCorrectAnswer", this);
     }
 
     void Start()
@@ -60,7 +65,8 @@ public class DigitSpawner : MonoBehaviour
 
         //일거리. 현재 레벨 얻어와 반영하기
         m_eTableStageLevel = eTABLE_LIST.STAGE_LEVEL_1;
-        m_fAppearTime = ((float)TableDB.Instance.GetData(m_eTableStageLevel, m_iLineID, eKEY_TABLEDB.f_APPEARTIME));
+        //m_fAppearTime = ((float)TableDB.Instance.GetData(m_eTableStageLevel, m_iLineID, eKEY_TABLEDB.f_APPEARTIME));
+        m_fAppearTime = GetAppearTime();
         StartCoroutine("CoroutineSpawn");
         StartCoroutine("CoroutineCheckLowestDigit");
     }
@@ -109,7 +115,6 @@ public class DigitSpawner : MonoBehaviour
     {
         float fHeightOfLowestObj = 10000f;
         float fHeightOfThisObj;
-        //bool bLowestChanged = false;
         while (MyGlobals.StageMgr.StageState < STAGE_STATE.GAMECLEAR)
         {
             //소환된 숫자 없으면 리턴
@@ -120,41 +125,8 @@ public class DigitSpawner : MonoBehaviour
             }
 
             //lowest였던 애가 바닥에 닿으면 다른애가 lowest가 될 수 있도록
-            if (fHeightOfLowestObj <= 0f)
+            //if (fHeightOfLowestObj <= 0f || (m_scriptLowest && m_scriptLowest.IsCorrect()))
                 fHeightOfLowestObj = 10000f;
-
-            //for (int i = 0; i < m_objPool.Count; ++i)
-            //{
-            //    if (m_objPool[i].gameObject.activeSelf == false)
-            //        continue;
-
-            //    //최초로 소환된 숫자는 무조건 lowest
-            //    if (m_scriptLowestPrev == null)
-            //    {
-            //        m_scriptLowest = m_objPool[i].GetComponent<NumDropCtrl>();
-            //        LowestChanged();
-            //        yield return null;
-            //        continue;
-            //    }
-
-            //    m_scriptCurDigit = m_objPool[i].GetComponent<NumDropCtrl>();
-
-            //    if (m_scriptLowest == m_scriptCurDigit)
-            //        continue;
-
-            //    fHeightOfThisObj = m_scriptCurDigit.GetHeight();
-            //    if (fHeightOfThisObj <= 0f)
-            //        continue;
-
-            //    fHeightOfLowestObj = m_scriptLowestPrev.GetHeight();
-            //    if (fHeightOfLowestObj <= 0f)
-            //        fHeightOfLowestObj = 10000f;
-            //    if (fHeightOfLowestObj > fHeightOfThisObj)
-            //    {
-            //        m_scriptLowest = m_scriptCurDigit;
-            //        bLowestChanged = true;
-            //    }
-            //}
 
             //활성화된 모든 숫자를 루프 돌면서 가장 높이가 낮은놈을 찾음
             for (int i = 0; i < m_objPool.Count; ++i)
@@ -163,7 +135,11 @@ public class DigitSpawner : MonoBehaviour
                     continue;
 
                 m_scriptCurDigit = m_objPool[i].GetComponent<NumDropCtrl>();
-                if (m_scriptCurDigit.IsReachToBottom())
+
+                //if (m_scriptLowest && (m_scriptCurDigit == m_scriptLowest))
+                //    continue;
+
+                if (m_scriptCurDigit.IsReachToBottom() || m_scriptCurDigit.IsCorrect())
                     continue;
 
                 fHeightOfThisObj = m_scriptCurDigit.GetHeight();
@@ -175,17 +151,10 @@ public class DigitSpawner : MonoBehaviour
             }
 
             //그놈이 이전프레임이 가장 낮았던 놈이 아니면 숫자 입력부 갱신
-            if(m_scriptLowestPrev == null || m_scriptLowest != m_scriptLowestPrev)
+            if(m_scriptLowestPrev == null || m_scriptLowest.GetDigit() != LowestDigit)
             {
                 LowestChanged();
             }
-
-
-            //if (bLowestChanged)
-            //{
-            //    bLowestChanged = false;
-            //    LowestChanged();
-            //}
 
             yield return null;
         }
@@ -221,7 +190,8 @@ public class DigitSpawner : MonoBehaviour
             m_objPool[iObjIndex].GetComponent<NumDropCtrl>().Init(m_arrSpawnPos[iIndexSpawnPos], iNextNum, fDuration);
             m_objPool[iObjIndex].SetActive(true);
             ++m_iLineID;
-            m_fAppearTime = ((float)TableDB.Instance.GetData(m_eTableStageLevel, m_iLineID, eKEY_TABLEDB.f_APPEARTIME));
+            //m_fAppearTime = ((float)TableDB.Instance.GetData(m_eTableStageLevel, m_iLineID, eKEY_TABLEDB.f_APPEARTIME));
+            m_fAppearTime = GetAppearTime();
         }
         else
         {
@@ -263,25 +233,32 @@ public class DigitSpawner : MonoBehaviour
         if (iExamNum > 0)
             return iExamNum;
 
-        bool bIsAllZero = false;
-        strExamManual = ((string)TableDB.Instance.GetData(m_eTableStageLevel, m_iLineID, eKEY_TABLEDB.s_EXAM_MANUAL));
-        if (strExamManual.Equals("0/0/0/0/0"))
-            bIsAllZero = true;
+        ////다섯개의 숫자중 하나를 고르는 경우(하나의 column에서 /로 나누는 경우)
+        //bool bIsAllZero = false;
+        //strExamManual = ((string)TableDB.Instance.GetData(m_eTableStageLevel, m_iLineID, eKEY_TABLEDB.s_EXAM_MANUAL));
+        //if (strExamManual.Equals("0/0/0/0/0"))
+        //    bIsAllZero = true;
+        
+        //다섯개의 숫자중 하나를 고르는 경우(각각 별도의 column을 사용하는 경우)
+        bool bIsAllZero = true;
+        m_arrExamManual[0] = ((int)TableDB.Instance.GetData(m_eTableStageLevel, m_iLineID, eKEY_TABLEDB.i_EXAM_MANUAL_1));
+        m_arrExamManual[1] = ((int)TableDB.Instance.GetData(m_eTableStageLevel, m_iLineID, eKEY_TABLEDB.i_EXAM_MANUAL_2));
+        m_arrExamManual[2] = ((int)TableDB.Instance.GetData(m_eTableStageLevel, m_iLineID, eKEY_TABLEDB.i_EXAM_MANUAL_3));
+        m_arrExamManual[3] = ((int)TableDB.Instance.GetData(m_eTableStageLevel, m_iLineID, eKEY_TABLEDB.i_EXAM_MANUAL_4));
+        m_arrExamManual[4] = ((int)TableDB.Instance.GetData(m_eTableStageLevel, m_iLineID, eKEY_TABLEDB.i_EXAM_MANUAL_5));
 
-        //다섯개의 숫자중 하나를 고르는 경우
+        for (int i = 0; i < m_arrExamManual.Length; ++i)
+        {
+            if (m_arrExamManual[i] != 0)
+                bIsAllZero = false;
+        }
+
         if (bIsAllZero == false)
         {
-            string[] keys = strExamManual.Split('/');
-
-            //for (int i = 0; i < keys.Length; ++i)
-            //{
-            //    m_arrExamManual[i] = int.Parse(keys[i]);
-            //}
-
             iExamNum = 0;
-            while (iExamNum == 0)
+            while (iExamNum != 0)
             {
-                iExamNum = int.Parse(keys[Random.Range(0, keys.Length)]);
+                iExamNum = m_arrExamManual[Random.Range(0, m_arrExamManual.Length)];
             }
             return iExamNum;
         }
@@ -291,6 +268,38 @@ public class DigitSpawner : MonoBehaviour
         iMaxValue = ((int)TableDB.Instance.GetData(m_eTableStageLevel, m_iLineID, eKEY_TABLEDB.i_EXAM_FTRANDOM_MAX));
 
         return Random.Range(iMinValue, iMaxValue + 1);
+    }
+
+    string strAppearTime;
+    string[] arrkeys;
+    float fMinute;
+    float fSecond;
+    float fMilliSecond;
+    float GetAppearTime()
+    {
+        strAppearTime = ((string)TableDB.Instance.GetData(m_eTableStageLevel, m_iLineID, eKEY_TABLEDB.s_APPEARTIME));
+        arrkeys = strAppearTime.Split('/');
+        fMinute = float.Parse(arrkeys[0]);
+        fSecond = float.Parse(arrkeys[1]);
+        fMilliSecond = float.Parse(arrkeys[2]);
+        strAppearTime = (fMinute * 60f + fSecond).ToString() + '.' + fMilliSecond.ToString();
+        return float.Parse(strAppearTime);
+    }
+
+    eEVALUATION eEvaluation;
+    float fCurHeight;
+    void OnCorrectAnswer()
+    {
+        fCurHeight = m_scriptLowest.GetHeight();
+
+        if (fCurHeight >= m_fHeightGreat)
+            eEvaluation = eEVALUATION.GREAT;
+        else if (fCurHeight >= m_fHeightCool)
+            eEvaluation = eEVALUATION.COOL;
+        else
+            eEvaluation = eEVALUATION.NICE;
+
+        m_scriptLowest.Correct(eEvaluation);
     }
 
     //int PickOne()

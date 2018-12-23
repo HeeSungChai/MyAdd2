@@ -53,9 +53,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 9d1054a1b53174e46bd32f8d15d3a6a4, type: 2}
   mSprites:
+  - name: Background_Vertical
+    x: 245
+    y: 0
+    width: 68
+    height: 256
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: Black
-    x: 0
-    y: 101
+    x: 314
+    y: 51
     width: 128
     height: 27
     borderLeft: 0
@@ -67,8 +80,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Blue
-    x: 0
-    y: 6
+    x: 443
+    y: 34
     width: 60
     height: 44
     borderLeft: 0
@@ -79,9 +92,61 @@ MonoBehaviour:
     paddingRight: 2
     paddingTop: 2
     paddingBottom: 2
-  - name: WhiteSimple
+  - name: Cool_alpha
+    x: 314
+    y: 79
+    width: 143
+    height: 84
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 48
+    paddingRight: 65
+    paddingTop: 82
+    paddingBottom: 90
+  - name: Great_alpha
     x: 0
-    y: 51
+    y: 2
+    width: 244
+    height: 89
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 12
+    paddingRight: 0
+    paddingTop: 87
+    paddingBottom: 80
+  - name: Nice_alpha
+    x: 314
+    y: 164
+    width: 146
+    height: 92
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 52
+    paddingRight: 58
+    paddingTop: 81
+    paddingBottom: 83
+  - name: Star_alpha
+    x: 0
+    y: 92
+    width: 161
+    height: 164
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 22
+    paddingRight: 30
+    paddingTop: 32
+    paddingBottom: 42
+  - name: WhiteSimple
+    x: 314
+    y: 1
     width: 60
     height: 49
     borderLeft: 0

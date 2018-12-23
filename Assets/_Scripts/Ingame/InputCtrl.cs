@@ -15,16 +15,22 @@ public class InputCtrl : MonoBehaviour
     public GameObject[] m_arrObjLeftDigits;
     public GameObject[] m_arrObjRightDigits;
     public GameObject[] m_arrObjOperators;
-    public UILabel[] m_arrLabelLeftDigits;
-    public UILabel[] m_arrLabelRightDigits;
+    RePositioner[] m_arrScriptPositionerLeft;
+    RePositioner[] m_arrScriptPositionerRight;
+    InputButtonCtrl[] m_arrScriptInputButtonLeft;
+    InputButtonCtrl[] m_arrScriptInputButtonRight;
+    InputButtonCtrl[] m_arrScriptInputButtonOperator;
 
     int m_iCurAnswer;
     int m_iCorrectAnswerLeft;
     int m_iCorrectAnswerRight;
     int m_iCorrectAnswerOperator;
-    int m_iSelected_Left;
-    int m_iSelected_Right;
+    int m_iSelectedDigitLeft;
+    int m_iSelectedDigitRight;
     eOPERATOR m_eSelected_Operator;
+    int m_iIndexSelectedLeft;
+    int m_iIndexSelectedRight;
+    int m_iIndexSelectedOperator;
     int[] m_listLeftDigits;
     int[] m_listRightDigits;
     List<int> m_listCandidates;
@@ -44,15 +50,26 @@ public class InputCtrl : MonoBehaviour
 
     void Start ()
     {
-        m_arrLabelLeftDigits = new UILabel[m_arrObjLeftDigits.Length];
-        for(int i = 0; i < m_arrObjLeftDigits.Length; ++i)
+        m_arrScriptPositionerLeft = new RePositioner[m_arrObjLeftDigits.Length];
+        m_arrScriptInputButtonLeft = new InputButtonCtrl[m_arrObjLeftDigits.Length];
+        for (int i = 0; i < m_arrObjLeftDigits.Length; ++i)
         {
-            m_arrLabelLeftDigits[i] = m_arrObjLeftDigits[i].GetComponentInChildren<UILabel>();
+            m_arrScriptPositionerLeft[i] = m_arrObjLeftDigits[i].GetComponentInChildren<RePositioner>();
+            m_arrScriptInputButtonLeft[i] = m_arrObjLeftDigits[i].GetComponentInChildren<InputButtonCtrl>();
         }
-        m_arrLabelRightDigits = new UILabel[m_arrObjRightDigits.Length];
+
+        m_arrScriptPositionerRight = new RePositioner[m_arrObjRightDigits.Length];
+        m_arrScriptInputButtonRight = new InputButtonCtrl[m_arrObjRightDigits.Length];
         for (int i = 0; i < m_arrObjRightDigits.Length; ++i)
         {
-            m_arrLabelRightDigits[i] = m_arrObjRightDigits[i].GetComponentInChildren<UILabel>();
+            m_arrScriptPositionerRight[i] = m_arrObjRightDigits[i].GetComponentInChildren<RePositioner>();
+            m_arrScriptInputButtonRight[i] = m_arrObjRightDigits[i].GetComponentInChildren<InputButtonCtrl>();
+        }
+
+        m_arrScriptInputButtonOperator = new InputButtonCtrl[m_arrObjOperators.Length];
+        for(int i = 0; i < m_arrObjOperators.Length; ++i)
+        {
+            m_arrScriptInputButtonOperator[i] = m_arrObjOperators[i].GetComponentInChildren<InputButtonCtrl>();
         }
 
         ResetSelection();
@@ -64,11 +81,6 @@ public class InputCtrl : MonoBehaviour
         //일거리. 연산기호에 해당하는 캐릭터를 획득한 경우에만 해당 오퍼레이터 활성화
     }
 	
-	//public void OnDigitThrowed ()
- //   {
- //       ResetDigits();
- //   }
-
     public void OnLowestChanged()
     {
         ResetDigits();
@@ -81,7 +93,7 @@ public class InputCtrl : MonoBehaviour
             return;
 
         SetFormulaForAnswer();
-        ReplaceInputDigit();
+        AllocateInputDigits();
     }
 
     void SetFormulaForAnswer()
@@ -136,68 +148,41 @@ public class InputCtrl : MonoBehaviour
         }
     }
 
-    void ReplaceInputDigit()
+    void AllocateInputDigits()
     {
-        m_arrLabelLeftDigits.Initialize();
-
-        //정답 숫자를 랜덤한 위치에 위치시킴
-        int iRandomIndex = Random.Range(0, m_arrLabelLeftDigits.Length);
-        m_arrLabelLeftDigits[iRandomIndex].text = m_iCorrectAnswerLeft.ToString();
+        //정답 숫자를 랜덤한 위치에 배치
+        int iRandomIndex = Random.Range(0, m_arrScriptPositionerLeft.Length);
+        m_arrScriptPositionerLeft[iRandomIndex].ResetDigit(m_iCorrectAnswerLeft);
         m_listLeftDigits[iRandomIndex] = m_iCorrectAnswerLeft;
 
         int iMax = MyGlobals.MaxValue + 1;
-        for (int i = 0; i < m_arrLabelLeftDigits.Length; ++i)
+        for (int i = 0; i < m_arrScriptPositionerLeft.Length; ++i)
         {
-            if(int.Parse(m_arrLabelLeftDigits[i].text) == 0)
+            if(i != iRandomIndex)
             {
                 int iRandomValue = Random.Range(1, iMax);
-                m_arrLabelLeftDigits[i].text = iRandomValue.ToString();
+                m_arrScriptPositionerLeft[i].ResetDigit(iRandomValue);
                 m_listLeftDigits[i] = iRandomValue;
             }
         }
 
-        m_arrLabelRightDigits.Initialize();
-
-        iRandomIndex = Random.Range(0, m_arrLabelRightDigits.Length);
-        m_arrLabelRightDigits[iRandomIndex].text = m_iCorrectAnswerRight.ToString();
+        iRandomIndex = Random.Range(0, m_arrScriptPositionerRight.Length);
+        m_arrScriptPositionerRight[iRandomIndex].ResetDigit(m_iCorrectAnswerRight);
         m_listRightDigits[iRandomIndex] = m_iCorrectAnswerRight;
 
-        for (int i = 0; i < m_arrLabelRightDigits.Length; ++i)
+        for (int i = 0; i < m_arrScriptPositionerRight.Length; ++i)
         {
-            if (int.Parse(m_arrLabelRightDigits[i].text) == 0)
+            if (i != iRandomIndex)
             {
                 int iRandomValue = Random.Range(1, iMax);
-                m_arrLabelRightDigits[i].text = iRandomValue.ToString();
+                m_arrScriptPositionerRight[i].ResetDigit(iRandomValue);
                 m_listRightDigits[i] = iRandomValue;
             }
         }
-    }
 
-    void ResetSelection()
-    {
-        m_bSelected_Left = false;
-        m_bSelected_Right = false;
-        m_bSelected_Operator = false;
+        ResetSelection();
     }
-
-    void SelectLeft(int iIndex)
-    {
-        m_bSelected_Left = true;
-        m_iSelected_Left = m_listLeftDigits[iIndex];
-    }
-
-    void SelectRight(int iIndex)
-    {
-        m_bSelected_Right = true;
-        m_iSelected_Right = m_listRightDigits[iIndex];
-    }
-
-    void SelectOperator(eOPERATOR eOperator)
-    {
-        m_bSelected_Operator = true;
-        m_eSelected_Operator = eOperator;
-    }
-
+    
     int tempAnswer;
     void CheckIsCorrectAnswer()
     {
@@ -206,16 +191,16 @@ public class InputCtrl : MonoBehaviour
             switch(m_eSelected_Operator)
             {
                 case eOPERATOR.ADDITION:
-                    tempAnswer = m_iSelected_Left + m_iSelected_Right;
+                    tempAnswer = m_iSelectedDigitLeft + m_iSelectedDigitRight;
                     break;
                 case eOPERATOR.SUBTRACTION:
-                    tempAnswer = m_iSelected_Left - m_iSelected_Right;
+                    tempAnswer = m_iSelectedDigitLeft - m_iSelectedDigitRight;
                     break;
                 case eOPERATOR.MULTIPLICATION:
-                    tempAnswer = m_iSelected_Left * m_iSelected_Right;
+                    tempAnswer = m_iSelectedDigitLeft * m_iSelectedDigitRight;
                     break;
                 case eOPERATOR.DIVISION:
-                    tempAnswer = m_iSelected_Left / m_iSelected_Right;
+                    tempAnswer = m_iSelectedDigitLeft / m_iSelectedDigitRight;
                     break;
             }
 
@@ -233,7 +218,7 @@ public class InputCtrl : MonoBehaviour
     {
         ////정답인 경우 
         //해당 숫자 지우고 
-
+        EventListener.Broadcast("OnCorrectAnswer");
 
         //great/cool/nice에 따라 정답 이펙트 띄우고 
 
@@ -265,6 +250,73 @@ public class InputCtrl : MonoBehaviour
 
 
         Debug.Log("IsWrong");
+    }
+
+    void ResetSelection()
+    {
+        m_iIndexSelectedLeft = -1;
+        m_iIndexSelectedRight = -1;
+        m_bSelected_Left = false;
+        m_bSelected_Right = false;
+        m_bSelected_Operator = false;
+        EventListener.Broadcast("OnDeselectAll");
+    }
+
+    void SelectLeft(int iIndex)
+    {
+        if (m_iIndexSelectedLeft == -1)
+        {
+            m_arrScriptInputButtonLeft[iIndex].Select();
+        }
+
+        if (m_iIndexSelectedLeft != -1 && m_iIndexSelectedLeft != iIndex)
+        {
+            m_arrScriptInputButtonLeft[iIndex].Select();
+            m_arrScriptInputButtonLeft[m_iIndexSelectedLeft].Deselect();
+        }
+
+        m_bSelected_Left = true;
+        m_iSelectedDigitLeft = m_listLeftDigits[iIndex];
+        m_iIndexSelectedLeft = iIndex;
+
+        CheckIsCorrectAnswer();
+    }
+
+    void SelectRight(int iIndex)
+    {
+        if(m_iIndexSelectedRight == -1)
+        {
+            m_arrScriptInputButtonRight[iIndex].Select();
+        }
+
+        if (m_iIndexSelectedRight != -1 && m_iIndexSelectedRight != iIndex)
+        {
+            m_arrScriptInputButtonRight[iIndex].Select();
+            m_arrScriptInputButtonRight[m_iIndexSelectedRight].Deselect();
+        }
+        m_bSelected_Right = true;
+        m_iSelectedDigitRight = m_listRightDigits[iIndex];
+        m_iIndexSelectedRight = iIndex;
+
+        CheckIsCorrectAnswer();
+    }
+
+    void SelectOperator(eOPERATOR eOperator)
+    {
+        if (m_bSelected_Operator == false)
+        {
+            m_arrScriptInputButtonOperator[(int)eOperator].Select();
+        }
+
+        if (m_bSelected_Operator && m_eSelected_Operator != eOperator)
+        {
+            m_arrScriptInputButtonOperator[(int)eOperator].Select();
+            m_arrScriptInputButtonOperator[(int)m_eSelected_Operator].Deselect();
+        }
+        
+        m_bSelected_Operator = true;
+        m_eSelected_Operator = eOperator;
+        CheckIsCorrectAnswer();
     }
 
     public void OnSelect_Left_1()
