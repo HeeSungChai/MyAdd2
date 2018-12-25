@@ -292,8 +292,12 @@
     <Compile Include="Assets\_Scripts\CSV\TableList.cs" />
     <Compile Include="Assets\_Scripts\CSV\ThreadProcessor.cs" />
     <Compile Include="Assets\_Scripts\Ingame\DigitSpawner.cs" />
+    <Compile Include="Assets\_Scripts\Ingame\InputButtonCtrl.cs" />
     <Compile Include="Assets\_Scripts\Ingame\InputCtrl.cs" />
+    <Compile Include="Assets\_Scripts\Ingame\NumDropCtrl.cs" />
+    <Compile Include="Assets\_Scripts\Ingame\RePositioner.cs" />
     <Compile Include="Assets\_Scripts\Ingame\StageMgr.cs" />
+    <Compile Include="Assets\_Scripts\Ingame\SuperGaugeCtrl.cs" />
     <Compile Include="Assets\_Scripts\Utility\EventListener.cs" />
     <Compile Include="Assets\_Scripts\Utility\Multimap.cs" />
     <Compile Include="Assets\_Scripts\Utility\MyGlobals.cs" />
@@ -301,26 +305,6 @@
     <Compile Include="Assets\_Scripts\Utility\MyUtility.cs" />
     <Compile Include="Assets\_Scripts\Utility\ObjActivator.cs" />
     <Compile Include="Assets\_Scripts\Utility\Value.cs" />
-    <Compile Include="Assets\GUIPackCartoon\Demo\Scripts\AnimatedButton.cs" />
-    <Compile Include="Assets\GUIPackCartoon\Demo\Scripts\BackgroundMusic.cs" />
-    <Compile Include="Assets\GUIPackCartoon\Demo\Scripts\ColorSwapper.cs" />
-    <Compile Include="Assets\GUIPackCartoon\Demo\Scripts\Fader.cs" />
-    <Compile Include="Assets\GUIPackCartoon\Demo\Scripts\InitialPlayerPrefs.cs" />
-    <Compile Include="Assets\GUIPackCartoon\Demo\Scripts\LevelScene.cs" />
-    <Compile Include="Assets\GUIPackCartoon\Demo\Scripts\MusicButton.cs" />
-    <Compile Include="Assets\GUIPackCartoon\Demo\Scripts\MusicManager.cs" />
-    <Compile Include="Assets\GUIPackCartoon\Demo\Scripts\MuteBackgroundMusic.cs" />
-    <Compile Include="Assets\GUIPackCartoon\Demo\Scripts\PlayPopup.cs" />
-    <Compile Include="Assets\GUIPackCartoon\Demo\Scripts\PlayPopupOpener.cs" />
-    <Compile Include="Assets\GUIPackCartoon\Demo\Scripts\Popup.cs" />
-    <Compile Include="Assets\GUIPackCartoon\Demo\Scripts\PopupOpener.cs" />
-    <Compile Include="Assets\GUIPackCartoon\Demo\Scripts\SceneTransition.cs" />
-    <Compile Include="Assets\GUIPackCartoon\Demo\Scripts\SoundButton.cs" />
-    <Compile Include="Assets\GUIPackCartoon\Demo\Scripts\SoundManager.cs" />
-    <Compile Include="Assets\GUIPackCartoon\Demo\Scripts\SpinWheel.cs" />
-    <Compile Include="Assets\GUIPackCartoon\Demo\Scripts\SpriteSwapper.cs" />
-    <Compile Include="Assets\GUIPackCartoon\Demo\Scripts\TintedButton.cs" />
-    <Compile Include="Assets\GUIPackCartoon\Demo\Scripts\Transition.cs" />
     <Compile Include="Assets\NGUI\Examples\Scripts\InventorySystem\Game\EquipItems.cs" />
     <Compile Include="Assets\NGUI\Examples\Scripts\InventorySystem\Game\EquipRandomItem.cs" />
     <Compile Include="Assets\NGUI\Examples\Scripts\InventorySystem\Game\UICursor.cs" />
@@ -463,8 +447,6 @@
     <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\GUIPackCartoon\Demo\Fonts\OFL.txt" />
-    <None Include="Assets\GUIPackCartoon\Demo\Shaders\GrayTint.shader" />
     <None Include="Assets\NGUI\Examples\Atlases\Fantasy\Fantasy Font - Normal.txt" />
     <None Include="Assets\NGUI\Examples\Atlases\Refractive\Refractive Font - Header.txt" />
     <None Include="Assets\NGUI\Examples\Atlases\Refractive\Refractive Font - Normal.txt" />
