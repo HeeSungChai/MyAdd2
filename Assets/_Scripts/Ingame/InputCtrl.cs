@@ -427,4 +427,10 @@ public class InputCtrl : MonoBehaviour
         SelectOperator(eOPERATOR.DIVISION);
         Debug.Log("OnSelect_Operator_DIVISION");
     }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
+        EventListener.RemoveListener(this);
+    }
 }

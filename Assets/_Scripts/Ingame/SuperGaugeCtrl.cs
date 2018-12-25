@@ -10,7 +10,7 @@ public class SuperGaugeCtrl : MonoBehaviour
     public float m_fFillAmountCool;
     public float m_fFillAmountNice;
     public float m_fTimeToFill;
-
+    
     void Start ()
     {
         EventListener.AddListener("OnCorrectAnswer", this);
@@ -58,5 +58,11 @@ public class SuperGaugeCtrl : MonoBehaviour
             yield return null;
         }
         m_sprGauge.fillAmount = m_fFillAmountTarget;
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
+        EventListener.RemoveListener(this);
     }
 }

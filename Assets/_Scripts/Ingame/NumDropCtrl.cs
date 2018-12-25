@@ -132,6 +132,7 @@ public class NumDropCtrl : MonoBehaviour
         m_label.gameObject.SetActive(false);
         ActivateFailEffect();
         Invoke("DisableObj", 1.0f);
+        EventListener.Broadcast("OnFailed");
     }
 
     void ActivateFailEffect()
@@ -169,5 +170,11 @@ public class NumDropCtrl : MonoBehaviour
         }
 
         this.gameObject.SetActive(false);
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
+        EventListener.RemoveListener(this);
     }
 }

@@ -202,9 +202,11 @@ public partial class StageMgr : MonoBehaviour
             yield return null;
         }
     }
-
+        
     private void OnDestroy()
     {
+        StopAllCoroutines();
+        EventListener.RemoveListener(this);
         Resources.UnloadUnusedAssets();
     }
 }

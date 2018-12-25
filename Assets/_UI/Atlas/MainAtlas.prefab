@@ -67,8 +67,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Black
-    x: 245
-    y: 244
+    x: 190
+    y: 230
     width: 128
     height: 27
     borderLeft: 0
@@ -81,7 +81,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: Blue
     x: 162
-    y: 350
+    y: 369
     width: 60
     height: 44
     borderLeft: 0
@@ -94,7 +94,7 @@ MonoBehaviour:
     paddingBottom: 2
   - name: Cool_alpha
     x: 363
-    y: 335
+    y: 217
     width: 143
     height: 84
     borderLeft: 0
@@ -106,8 +106,8 @@ MonoBehaviour:
     paddingTop: 82
     paddingBottom: 90
   - name: Fail_alpha
-    x: 427
-    y: 425
+    x: 245
+    y: 258
     width: 72
     height: 37
     borderLeft: 0
@@ -119,8 +119,8 @@ MonoBehaviour:
     paddingTop: 27
     paddingBottom: 36
   - name: FailBG_alpha
-    x: 363
-    y: 272
+    x: 69
+    y: 195
     width: 120
     height: 62
     borderLeft: 0
@@ -146,7 +146,7 @@ MonoBehaviour:
     paddingBottom: 80
   - name: Grey 1
     x: 245
-    y: 277
+    y: 296
     width: 117
     height: 117
     borderLeft: 0
@@ -158,8 +158,8 @@ MonoBehaviour:
     paddingTop: 6
     paddingBottom: 5
   - name: Nice_alpha
-    x: 280
-    y: 420
+    x: 363
+    y: 302
     width: 146
     height: 92
     borderLeft: 0
@@ -184,20 +184,20 @@ MonoBehaviour:
     paddingTop: 32
     paddingBottom: 42
   - name: WhiteSimple
-    x: 427
-    y: 463
-    width: 60
-    height: 49
+    x: 162
+    y: 414
+    width: 116
+    height: 98
     borderLeft: 0
     borderRight: 0
     borderTop: 0
     borderBottom: 0
-    paddingLeft: 2
-    paddingRight: 2
-    paddingTop: 4
-    paddingBottom: 2
+    paddingLeft: 6
+    paddingRight: 6
+    paddingTop: 8
+    paddingBottom: 4
   - name: Yellow 1
-    x: 162
+    x: 363
     y: 395
     width: 117
     height: 117

@@ -46,4 +46,9 @@ public class RePositioner : MonoBehaviour {
 
         m_transform.localPosition = m_vPosTarget;
     }
+
+    private void OnDestroy()
+    {
+        EventListener.RemoveListener(this);
+    }
 }

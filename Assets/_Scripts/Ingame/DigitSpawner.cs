@@ -313,4 +313,10 @@ public class DigitSpawner : MonoBehaviour
     //{
     //    return m_arrExamManual[Random.Range(0, m_arrExamManual.Length)];
     //}
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
+        EventListener.RemoveListener(this);
+    }
 }

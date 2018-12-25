@@ -55,4 +55,9 @@ public class InputButtonCtrl : MonoBehaviour
     {
         Deselect();
     }
+
+    private void OnDestroy()
+    {
+        EventListener.RemoveListener(this);
+    }
 }
