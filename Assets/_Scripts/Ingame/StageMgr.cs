@@ -203,34 +203,6 @@ public partial class StageMgr : MonoBehaviour
         }
     }
 
-    //void ResetDigits()
-    //{
-    //    m_fCurAnswer = 10;
-
-    //    SetFormulaForAnswer();
-    //}
-
-    //void SetFormulaForAnswer()
-    //{
-    //    eOPERATOR eOperator = (eOPERATOR)Random.Range(0, (int)eOPERATOR.DIVISION);
-
-    //    switch(eOperator)
-    //    {
-    //        case eOPERATOR.ADDITION:
-    //            break;
-    //        case eOPERATOR.SUBTRACTION:
-    //            break;
-    //        case eOPERATOR.MULTIPLICATION:
-    //            break;
-    //        case eOPERATOR.DIVISION:
-    //            break;
-    //        default:
-    //            break;
-    //    }
-    //}
-
-
-
     private void OnDestroy()
     {
         Resources.UnloadUnusedAssets();

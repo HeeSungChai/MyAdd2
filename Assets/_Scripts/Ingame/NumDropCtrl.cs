@@ -13,8 +13,10 @@ public enum eEVALUATION
 public class NumDropCtrl : MonoBehaviour
 {
     public UILabel m_label;
+    public Color m_colorDefault;
     public Transform m_transform;
     public GameObject m_objCorrectStar;
+    public GameObject m_objFailStar;
     public GameObject[] m_objEvaluation;
     Vector3 m_vStartPos;
     Vector3 m_vTargetPos;
@@ -22,13 +24,11 @@ public class NumDropCtrl : MonoBehaviour
     bool m_bReachToBottom;
     bool m_bCorrect;
 
-    //private void Awake()
-    //{
-    //    if (m_label == null)
-    //        m_label = GetComponentInChildren<UILabel>();
-    //    if (m_transform == null)
-    //        m_transform = m_label.gameObject.transform;
-    //}
+    private void Awake()
+    {
+        m_colorDefault = m_label.color;
+        EventListener.AddListener("OnActivateSuperSkill", this);
+    }
 
     private void OnEnable()
     {
@@ -50,7 +50,7 @@ public class NumDropCtrl : MonoBehaviour
         m_bReachToBottom = false;
         m_vStartPos = vSpawnPos;
         m_vTargetPos = m_vStartPos;
-        m_vTargetPos.y = 0.0f;
+        m_vTargetPos.y = MyGlobals.DigitSpawner.m_fHeightFail;
         m_transform.localPosition = m_vStartPos;
         m_label.text = num.ToString();
         m_fFallDuration = fFallDuration;
@@ -73,6 +73,7 @@ public class NumDropCtrl : MonoBehaviour
 
         m_transform.localPosition = m_vTargetPos;
         m_bReachToBottom = true;
+        Failed();
         //m_label.gameObject.SetActive(false);
         Invoke("DisableObj", 1.0f);
     }
@@ -97,6 +98,16 @@ public class NumDropCtrl : MonoBehaviour
         return int.Parse(m_label.text);
     }
 
+    public void SetTextColor(Color _color)
+    {
+        m_label.color = _color;
+    }
+
+    public void SetTextColorDefault()
+    {
+        m_label.color = m_colorDefault;
+    }
+
     public void Correct(eEVALUATION eEvaluation)
     {
         //정답인 경우 레이블 비활성화, Great여부 판정,
@@ -115,13 +126,48 @@ public class NumDropCtrl : MonoBehaviour
         m_objEvaluation[(int)eEvaluation].SetActive(true);
     }
 
+    void Failed()
+    {
+        m_bCorrect = true;
+        m_label.gameObject.SetActive(false);
+        ActivateFailEffect();
+        Invoke("DisableObj", 1.0f);
+    }
+
+    void ActivateFailEffect()
+    {
+        m_objFailStar.transform.localPosition = m_transform.localPosition;
+        m_objFailStar.SetActive(true);
+
+        m_objEvaluation[(int)eEVALUATION.FAIL].transform.localPosition = m_transform.localPosition;
+        m_objEvaluation[(int)eEVALUATION.FAIL].SetActive(true);
+    }
+
+    float fCurHeight;
+    eEVALUATION eEvaluation;
+    void OnActivateSuperSkill()
+    {
+        fCurHeight = GetHeight();
+
+        if (fCurHeight >= MyGlobals.DigitSpawner.m_fHeightGreat)
+            eEvaluation = eEVALUATION.GREAT;
+        else if (fCurHeight >= MyGlobals.DigitSpawner.m_fHeightCool)
+            eEvaluation = eEVALUATION.COOL;
+        else
+            eEvaluation = eEVALUATION.NICE;
+
+        Correct(eEvaluation);
+    }
+
     void DisableObj()
     {
         m_objCorrectStar.SetActive(false);
+        m_objFailStar.SetActive(false);
         for (int i = 0; i < m_objEvaluation.Length; ++i)
         {
             m_objEvaluation[i].SetActive(false);
         }
+
         this.gameObject.SetActive(false);
     }
 }

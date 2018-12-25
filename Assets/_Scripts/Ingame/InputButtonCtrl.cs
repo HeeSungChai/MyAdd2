@@ -32,7 +32,7 @@ public class InputButtonCtrl : MonoBehaviour
         }
         m_tweenScale.enabled = true;
         m_tweenScale.PlayForward();
-        m_tweenScale.ResetToBeginning();
+        //m_tweenScale.ResetToBeginning();
     }
 
     public void Deselect ()
@@ -43,7 +43,7 @@ public class InputButtonCtrl : MonoBehaviour
         }
         m_tweenScale.enabled = true;
         m_tweenScale.PlayReverse();
-        m_tweenScale.ResetToBeginning();
+        //m_tweenScale.ResetToBeginning();
     }
 
     void OnDeselectAll()

@@ -25,8 +25,10 @@ public class DigitSpawner : MonoBehaviour
     public float m_fHeightSpawn;
     public float m_fHeightGreat;
     public float m_fHeightCool;
+    public float m_fHeightFail;
     float m_fAppearTime;
     bool m_bSpawnedAll;
+    public Color m_colorLowest;
     NumDropCtrl m_scriptLowest;
     private int m_iLowestDigit;
     public int LowestDigit {
@@ -166,6 +168,11 @@ public class DigitSpawner : MonoBehaviour
             return;
         //m_scriptLowest = m_scriptNewLowest;
         LowestDigit = m_scriptLowest.GetDigit();
+
+        if(m_scriptLowestPrev)
+            m_scriptLowestPrev.SetTextColorDefault();
+
+        m_scriptLowest.SetTextColor(m_colorLowest);
         m_scriptLowestPrev = m_scriptLowest;
         EventListener.Broadcast("OnLowestChanged");
     }
@@ -286,20 +293,20 @@ public class DigitSpawner : MonoBehaviour
         return float.Parse(strAppearTime);
     }
 
-    eEVALUATION eEvaluation;
+    public eEVALUATION m_eEvaluation;
     float fCurHeight;
     void OnCorrectAnswer()
     {
         fCurHeight = m_scriptLowest.GetHeight();
 
         if (fCurHeight >= m_fHeightGreat)
-            eEvaluation = eEVALUATION.GREAT;
+            m_eEvaluation = eEVALUATION.GREAT;
         else if (fCurHeight >= m_fHeightCool)
-            eEvaluation = eEVALUATION.COOL;
+            m_eEvaluation = eEVALUATION.COOL;
         else
-            eEvaluation = eEVALUATION.NICE;
+            m_eEvaluation = eEVALUATION.NICE;
 
-        m_scriptLowest.Correct(eEvaluation);
+        m_scriptLowest.Correct(m_eEvaluation);
     }
 
     //int PickOne()

@@ -15,11 +15,14 @@ public class InputCtrl : MonoBehaviour
     public GameObject[] m_arrObjLeftDigits;
     public GameObject[] m_arrObjRightDigits;
     public GameObject[] m_arrObjOperators;
+    public float m_fInputDeactivateDuration;
+    bool m_bInputAllowed = true;
     RePositioner[] m_arrScriptPositionerLeft;
     RePositioner[] m_arrScriptPositionerRight;
     InputButtonCtrl[] m_arrScriptInputButtonLeft;
     InputButtonCtrl[] m_arrScriptInputButtonRight;
     InputButtonCtrl[] m_arrScriptInputButtonOperator;
+    public SuperGaugeCtrl m_scriptGaugeCtrl;
 
     int m_iCurAnswer;
     int m_iCorrectAnswerLeft;
@@ -94,6 +97,7 @@ public class InputCtrl : MonoBehaviour
 
         SetFormulaForAnswer();
         AllocateInputDigits();
+        //Invoke("AllocateInputDigits", 0.2f);
     }
 
     void SetFormulaForAnswer()
@@ -206,11 +210,14 @@ public class InputCtrl : MonoBehaviour
 
             m_iCurAnswer = MyGlobals.DigitSpawner.LowestDigit;
             if (tempAnswer == m_iCurAnswer)
+            {
                 IsCorrectAnswer();
+            }
             else
                 IsWrongAnswer();
 
-            ResetSelection();
+            //ResetSelection();
+            Invoke("ResetSelection", 0.2f);
         }
     }
 
@@ -220,14 +227,11 @@ public class InputCtrl : MonoBehaviour
         //해당 숫자 지우고 
         EventListener.Broadcast("OnCorrectAnswer");
 
-        //great/cool/nice에 따라 정답 이펙트 띄우고 
-
-
         //점수 올리고 
 
 
         //필살기 게이지 채우고
-
+        //m_scriptGaugeCtrl.IncreaseGauge();
 
         //그 다음 타겟에 맞춰 숫자 입력부 재설정
 
@@ -254,16 +258,31 @@ public class InputCtrl : MonoBehaviour
 
     void ResetSelection()
     {
+        //Debug.Log("ResetSelection");
         m_iIndexSelectedLeft = -1;
         m_iIndexSelectedRight = -1;
         m_bSelected_Left = false;
         m_bSelected_Right = false;
         m_bSelected_Operator = false;
         EventListener.Broadcast("OnDeselectAll");
+        StopCoroutine("CoroutineDeactivateInputDuringRelocation");
+        StartCoroutine("CoroutineDeactivateInputDuringRelocation");
+    }
+    
+    IEnumerator CoroutineDeactivateInputDuringRelocation()
+    {
+        m_bInputAllowed = false;
+
+        yield return new WaitForSeconds(m_fInputDeactivateDuration);
+
+        m_bInputAllowed = true;
     }
 
     void SelectLeft(int iIndex)
     {
+        if (!m_bInputAllowed)
+            return;
+
         if (m_iIndexSelectedLeft == -1)
         {
             m_arrScriptInputButtonLeft[iIndex].Select();
@@ -284,7 +303,10 @@ public class InputCtrl : MonoBehaviour
 
     void SelectRight(int iIndex)
     {
-        if(m_iIndexSelectedRight == -1)
+        if (!m_bInputAllowed)
+            return;
+
+        if (m_iIndexSelectedRight == -1)
         {
             m_arrScriptInputButtonRight[iIndex].Select();
         }
@@ -303,6 +325,9 @@ public class InputCtrl : MonoBehaviour
 
     void SelectOperator(eOPERATOR eOperator)
     {
+        if (!m_bInputAllowed)
+            return;
+
         if (m_bSelected_Operator == false)
         {
             m_arrScriptInputButtonOperator[(int)eOperator].Select();
