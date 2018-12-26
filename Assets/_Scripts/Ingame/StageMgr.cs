@@ -43,8 +43,8 @@ public partial class StageMgr : MonoBehaviour
     }
 
     public float PlayTime { get; set; }
-    private bool m_bPauseScroll = false;
-    public bool IsPauseScroll { get { return m_bPauseScroll; } set { m_bPauseScroll = value; } }
+    private bool m_bPauseDrop = false;
+    public bool IsPauseDrop { get { return m_bPauseDrop; } set { m_bPauseDrop = value; } }
 
     //int m_fCurAnswer;
     //int m_iSelected_Left;
@@ -99,13 +99,13 @@ public partial class StageMgr : MonoBehaviour
     public void OnGameClear()
     {
         StageState = STAGE_STATE.GAMECLEAR;
-        IsPauseScroll = true;
+        IsPauseDrop = true;
     }
 
     public void OnGameOver(bool bContinuePossible = true)
     {
         StageState = STAGE_STATE.GAMEOVER;
-        IsPauseScroll = true;
+        IsPauseDrop = true;
 
         if(bContinuePossible)
             Invoke("TimeScaleZero", 3.0f);
@@ -116,13 +116,13 @@ public partial class StageMgr : MonoBehaviour
         if (GameType == INGAME_TYPE.ADVENTURE)
         {
             StageState = STAGE_STATE.PLAYING;
-            IsPauseScroll = false;
+            IsPauseDrop = false;
             //MyGlobals.BGMMgr.ReplayBGM();
         }
         else
         {
             StageState = STAGE_STATE.PLAYING;
-            IsPauseScroll = false;
+            IsPauseDrop = false;
             //IngameUICtrl.instance.SetLevelInfo(CurLevel);
         }
     }
@@ -168,7 +168,6 @@ public partial class StageMgr : MonoBehaviour
         StageState = STAGE_STATE.PLAYING;
 
         EventListener.Broadcast("OnGameStart");
-        StartCoroutine("CoroutineCheckCurDistance");
     }
 
     IEnumerator CoroutineCheckPlayTime()
@@ -179,7 +178,7 @@ public partial class StageMgr : MonoBehaviour
         {
             PlayTime += Time.deltaTime;
 
-            if (IsPauseScroll)
+            if (IsPauseDrop)
             {
                 yield return null;
                 continue;
@@ -189,20 +188,6 @@ public partial class StageMgr : MonoBehaviour
         }
     }
 
-    IEnumerator CoroutineCheckCurDistance()
-    {
-        while (StageState < STAGE_STATE.GAMECLEAR)
-        {
-            if (IsPauseScroll)
-            {
-                yield return null;
-                continue;
-            }
-
-            yield return null;
-        }
-    }
-        
     private void OnDestroy()
     {
         StopAllCoroutines();

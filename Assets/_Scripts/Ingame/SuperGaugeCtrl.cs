@@ -10,7 +10,8 @@ public class SuperGaugeCtrl : MonoBehaviour
     public float m_fFillAmountCool;
     public float m_fFillAmountNice;
     public float m_fTimeToFill;
-    
+    public Animation m_AnimGaugeGain;
+
     void Start ()
     {
         EventListener.AddListener("OnCorrectAnswer", this);
@@ -18,7 +19,7 @@ public class SuperGaugeCtrl : MonoBehaviour
         m_sprButton.gameObject.SetActive(false);
     }
 	
-    void OnActivateSuperSkill()
+    public void OnActivateSuperSkill()
     {
         m_sprButton.gameObject.SetActive(false);
         EventListener.Broadcast("OnActivateSuperSkill");
@@ -40,8 +41,8 @@ public class SuperGaugeCtrl : MonoBehaviour
         StopCoroutine("CoroutineFillGauge");
         StartCoroutine("CoroutineFillGauge");
 
-        if (m_sprGauge.fillAmount >= 1.0)
-            m_sprButton.gameObject.SetActive(true);
+        //StopCoroutine("CoroutinePlayGaugeEffect");
+        //StartCoroutine("CoroutinePlayGaugeEffect");
     }
 
     float m_fFillAmountTarget;
@@ -58,6 +59,23 @@ public class SuperGaugeCtrl : MonoBehaviour
             yield return null;
         }
         m_sprGauge.fillAmount = m_fFillAmountTarget;
+        if (m_sprGauge.fillAmount >= 1.0)
+            m_sprButton.gameObject.SetActive(true);
+    }
+
+    IEnumerator CoroutinePlayGaugeEffect()  ////show the booster gain effect(휘리릭)
+    {
+        float AAnimLength = m_AnimGaugeGain.clip.length;
+
+        m_AnimGaugeGain.gameObject.SetActive(true);
+
+        m_AnimGaugeGain.Rewind();
+        m_AnimGaugeGain.Play();
+
+        yield return new WaitForSeconds(AAnimLength);
+
+        m_AnimGaugeGain.Stop();
+        m_AnimGaugeGain.gameObject.SetActive(false);
     }
 
     private void OnDestroy()

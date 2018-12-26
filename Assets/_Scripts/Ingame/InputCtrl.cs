@@ -33,7 +33,6 @@ public class InputCtrl : MonoBehaviour
     eOPERATOR m_eSelected_Operator;
     int m_iIndexSelectedLeft;
     int m_iIndexSelectedRight;
-    int m_iIndexSelectedOperator;
     int[] m_listLeftDigits;
     int[] m_listRightDigits;
     List<int> m_listCandidates;
@@ -103,7 +102,7 @@ public class InputCtrl : MonoBehaviour
     void SetFormulaForAnswer()
     {
         //일거리. 빼기, 곱하기, 나누기 캐릭터가 오픈되지 않은 경우에는 중간 연산자는 더하기만 가능하도록 해야함
-        m_iCorrectAnswerOperator = Random.Range(0, (int)eOPERATOR.DIVISION);
+        m_iCorrectAnswerOperator = Random.Range(0, (int)eOPERATOR.DIVISION+1);
 
         switch ((eOPERATOR)m_iCorrectAnswerOperator)
         {
@@ -187,29 +186,32 @@ public class InputCtrl : MonoBehaviour
         ResetSelection();
     }
     
-    int tempAnswer;
     void CheckIsCorrectAnswer()
     {
-        if(m_bSelected_Left && m_bSelected_Right && m_bSelected_Operator)
+        int iUserAnswer;
+        if (m_bSelected_Left && m_bSelected_Right && m_bSelected_Operator)
         {
             switch(m_eSelected_Operator)
             {
                 case eOPERATOR.ADDITION:
-                    tempAnswer = m_iSelectedDigitLeft + m_iSelectedDigitRight;
+                    iUserAnswer = m_iSelectedDigitLeft + m_iSelectedDigitRight;
                     break;
                 case eOPERATOR.SUBTRACTION:
-                    tempAnswer = m_iSelectedDigitLeft - m_iSelectedDigitRight;
+                    iUserAnswer = m_iSelectedDigitLeft - m_iSelectedDigitRight;
                     break;
                 case eOPERATOR.MULTIPLICATION:
-                    tempAnswer = m_iSelectedDigitLeft * m_iSelectedDigitRight;
+                    iUserAnswer = m_iSelectedDigitLeft * m_iSelectedDigitRight;
                     break;
                 case eOPERATOR.DIVISION:
-                    tempAnswer = m_iSelectedDigitLeft / m_iSelectedDigitRight;
+                    iUserAnswer = m_iSelectedDigitLeft / m_iSelectedDigitRight;
+                    break;
+                default:
+                    iUserAnswer = 0;
                     break;
             }
 
             m_iCurAnswer = MyGlobals.DigitSpawner.LowestDigit;
-            if (tempAnswer == m_iCurAnswer)
+            if (iUserAnswer == m_iCurAnswer)
             {
                 IsCorrectAnswer();
             }

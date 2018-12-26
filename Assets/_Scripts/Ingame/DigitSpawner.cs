@@ -263,10 +263,11 @@ public class DigitSpawner : MonoBehaviour
         if (bIsAllZero == false)
         {
             iExamNum = 0;
-            while (iExamNum != 0)
+            while (iExamNum == 0)
             {
                 iExamNum = m_arrExamManual[Random.Range(0, m_arrExamManual.Length)];
             }
+
             return iExamNum;
         }
 

@@ -39,6 +39,13 @@ public class HpBarMgr : MonoBehaviour
 
     }
 
+    public void RecoverHp()
+    {
+        ++m_iIndexCurHp;
+        m_arrScriptHpCtrl[m_iIndexCurHp].gameObject.SetActive(true);
+        m_arrScriptHpCtrl[m_iIndexCurHp].ActivateHP();
+    }
+
     void OnFailed()
     {
         m_arrScriptHpCtrl[m_iIndexCurHp].DisableHP();

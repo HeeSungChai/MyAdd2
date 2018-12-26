@@ -113,11 +113,11 @@ public class NumDropCtrl : MonoBehaviour
         //정답인 경우 레이블 비활성화, Great여부 판정,
         m_bCorrect = true;
         m_label.gameObject.SetActive(false);
-        ActivateCorrentEffect(eEvaluation);
+        ActivateCorrectEffect(eEvaluation);
         Invoke("DisableObj", 1.0f);
     }
 
-    void ActivateCorrentEffect(eEVALUATION eEvaluation)
+    void ActivateCorrectEffect(eEVALUATION eEvaluation)
     {
         m_objCorrectStar.transform.localPosition = m_transform.localPosition;
         m_objCorrectStar.SetActive(true);
