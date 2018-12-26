@@ -103,6 +103,8 @@ public class InputCtrl : MonoBehaviour
     {
         //일거리. 빼기, 곱하기, 나누기 캐릭터가 오픈되지 않은 경우에는 중간 연산자는 더하기만 가능하도록 해야함
         m_iCorrectAnswerOperator = Random.Range(0, (int)eOPERATOR.DIVISION+1);
+        if(m_iCorrectAnswerOperator == (int)eOPERATOR.DIVISION && m_iCurAnswer > 45)
+            m_iCorrectAnswerOperator = Random.Range(0, (int)eOPERATOR.DIVISION);
 
         switch ((eOPERATOR)m_iCorrectAnswerOperator)
         {
