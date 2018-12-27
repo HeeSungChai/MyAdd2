@@ -5,6 +5,13 @@ using System; //for enum
 
 public class MyUtility
 {
+    static public void Swap<T>(ref T left, ref T right)
+    {
+        T tempT = left;
+        left = right;
+        right = tempT;
+    }
+
     static public T ParsingStringToEnumType<T>(string _strValue, bool bUseTryCatch = false)
     {
         T enumType;
