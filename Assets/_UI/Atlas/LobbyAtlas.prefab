@@ -54,8 +54,8 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 016e18e5ee2b50140af07cddab1c9a47, type: 2}
   mSprites:
   - name: ArrowSimpleLeft
-    x: 109
-    y: 7
+    x: 129
+    y: 132
     width: 107
     height: 124
     borderLeft: 0
@@ -67,7 +67,7 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 2
   - name: ArrowSimpleRight
-    x: 0
+    x: 117
     y: 7
     width: 108
     height: 124
@@ -80,7 +80,7 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 2
   - name: Blue
-    x: 241
+    x: 358
     y: 212
     width: 60
     height: 44
@@ -93,8 +93,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 2
   - name: Coin
-    x: 129
-    y: 148
+    x: 226
+    y: 23
     width: 111
     height: 108
     borderLeft: 0
@@ -106,8 +106,8 @@ MonoBehaviour:
     paddingTop: 10
     paddingBottom: 10
   - name: Grey
-    x: 217
-    y: 120
+    x: 237
+    y: 133
     width: 128
     height: 27
     borderLeft: 0
@@ -118,6 +118,19 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: Next
+    x: 237
+    y: 161
+    width: 120
+    height: 95
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 4
+    paddingRight: 4
+    paddingTop: 2
+    paddingBottom: 4
   - name: Settings
     x: 0
     y: 132
@@ -131,6 +144,19 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 2
     paddingBottom: 2
+  - name: WhiteSimple 1
+    x: 0
+    y: 33
+    width: 116
+    height: 98
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 6
+    paddingRight: 6
+    paddingTop: 8
+    paddingBottom: 4
   mPixelSize: 1
   mReplacement: {fileID: 0}
   mCoordinates: 0

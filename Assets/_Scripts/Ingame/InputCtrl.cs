@@ -30,6 +30,7 @@ public class InputCtrl : MonoBehaviour
     InputButtonCtrl[] m_arrScriptInputButtonRight;
     InputButtonCtrl[] m_arrScriptInputButtonOperator;
     public SuperGaugeCtrl m_scriptGaugeCtrl;
+    public UILabel m_labelAnswer;
 
     int m_iCurAnswer;
     int m_iCorrectAnswerLeft;
@@ -167,6 +168,9 @@ public class InputCtrl : MonoBehaviour
             default:
                 break;
         }
+
+        ShowAnswer();
+
     }
 
     void SetFormulaForAnswer2()//1~9의 숫자만 사용하는 버전
@@ -241,6 +245,15 @@ public class InputCtrl : MonoBehaviour
             default:
                 break;
         }
+
+        ShowAnswer();
+    }
+
+    void ShowAnswer()
+    {
+#if DEBUG
+        m_labelAnswer.text = m_iCorrectAnswerLeft.ToString() + ((eOPERATOR)m_iCorrectAnswerOperator).ToString() + m_iCorrectAnswerRight.ToString();
+#endif
     }
 
     void AllocateInputDigits()
