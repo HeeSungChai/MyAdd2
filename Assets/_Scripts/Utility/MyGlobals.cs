@@ -27,6 +27,7 @@ public class MyGlobals
     public static bool EnterIngameFromOutgame { get; set; }
     public static bool EnteringIngame { get; set; }
     public static int MaxValue = 81;
+    public static int MaxInputValue = 9;
 
     public static void GoBackToMenu()
     {

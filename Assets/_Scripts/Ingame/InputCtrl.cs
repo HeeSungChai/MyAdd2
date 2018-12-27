@@ -99,12 +99,69 @@ public class InputCtrl : MonoBehaviour
         //Invoke("AllocateInputDigits", 0.2f);
     }
 
-    void SetFormulaForAnswer()
+    //1~81의 숫자를 사용하는 버전
+    //void SetFormulaForAnswer()
+    //{
+    //    //일거리. 빼기, 곱하기, 나누기 캐릭터가 오픈되지 않은 경우에는 중간 연산자는 더하기만 가능하도록 해야함
+    //    m_iCorrectAnswerOperator = Random.Range(0, (int)eOPERATOR.DIVISION+1);
+    //    if(m_iCorrectAnswerOperator == (int)eOPERATOR.DIVISION && m_iCurAnswer > 45)
+    //        m_iCorrectAnswerOperator = Random.Range(0, (int)eOPERATOR.DIVISION);
+
+    //    switch ((eOPERATOR)m_iCorrectAnswerOperator)
+    //    {
+    //        //더하기일 경우 (정답 - 정답보다 작은 랜덤 왼쪽숫자) = 오른쪽 숫자
+    //        case eOPERATOR.ADDITION:
+    //            {
+    //                m_iCorrectAnswerLeft = Random.Range(1, m_iCurAnswer);
+    //                m_iCorrectAnswerRight = m_iCurAnswer - m_iCorrectAnswerLeft;
+    //            }
+    //            break;
+    //        //뺄셈일 경우 (정답보다 큰 랜덤 왼쪽숫자 - 정답) = 오른쪽 숫자
+    //        case eOPERATOR.SUBTRACTION:
+    //            {
+    //                m_iCorrectAnswerLeft = Random.Range(m_iCurAnswer + 1, MyGlobals.MaxValue + 1);
+    //                m_iCorrectAnswerRight = m_iCorrectAnswerLeft - m_iCurAnswer;
+    //            }
+    //            break;
+    //        //곱하기일 경우 
+    //        case eOPERATOR.MULTIPLICATION:
+    //            {
+    //                m_listCandidates.Clear();
+    //                for (int i = 1; i <= m_iCurAnswer; ++i)
+    //                {
+    //                    if (m_iCurAnswer % i == 0)
+    //                        m_listCandidates.Add(i);
+    //                }
+    //                m_iCorrectAnswerLeft = m_listCandidates[Random.Range(0, m_listCandidates.Count)];
+    //                m_iCorrectAnswerRight = m_iCurAnswer / m_iCorrectAnswerLeft;
+    //            }
+    //            break;
+    //        //나누기일 경우
+    //        case eOPERATOR.DIVISION:
+    //            {
+    //                m_listCandidates.Clear();
+    //                for (int i = 1; i <= MyGlobals.MaxValue; ++i)
+    //                {
+    //                    if (m_iCurAnswer * i <= MyGlobals.MaxValue)
+    //                        m_listCandidates.Add(i);
+    //                }
+    //                m_iCorrectAnswerRight = m_listCandidates[Random.Range(0, m_listCandidates.Count)];
+    //                m_iCorrectAnswerLeft = m_iCurAnswer * m_iCorrectAnswerRight;
+    //            }
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //}
+
+    void SetFormulaForAnswer()//1~9의 숫자만 사용하는 버전
     {
-        //일거리. 빼기, 곱하기, 나누기 캐릭터가 오픈되지 않은 경우에는 중간 연산자는 더하기만 가능하도록 해야함
-        m_iCorrectAnswerOperator = Random.Range(0, (int)eOPERATOR.DIVISION+1);
-        if(m_iCorrectAnswerOperator == (int)eOPERATOR.DIVISION && m_iCurAnswer > 45)
-            m_iCorrectAnswerOperator = Random.Range(0, (int)eOPERATOR.DIVISION);
+        if (m_iCurAnswer > 18)      //한자리 숫자만 사용하게 되면 18을 초과하는 수는 무조건 연산기호가 곱하기가 되고
+            m_iCorrectAnswerOperator = (int)eOPERATOR.MULTIPLICATION;
+        else if(m_iCurAnswer > 9)   //9를 초과하는 수는 빼기와 나누기가 답이 될 수 없음
+            m_iCorrectAnswerOperator = Random.Range(0, 2) == 1 ? (int)eOPERATOR.ADDITION : (int)eOPERATOR.MULTIPLICATION;
+        else
+            m_iCorrectAnswerOperator = Random.Range(0, (int)eOPERATOR.DIVISION + 1);
 
         switch ((eOPERATOR)m_iCorrectAnswerOperator)
         {
@@ -118,7 +175,7 @@ public class InputCtrl : MonoBehaviour
             //뺄셈일 경우 (정답보다 큰 랜덤 왼쪽숫자 - 정답) = 오른쪽 숫자
             case eOPERATOR.SUBTRACTION:
                 {
-                    m_iCorrectAnswerLeft = Random.Range(m_iCurAnswer + 1, MyGlobals.MaxValue + 1);
+                    m_iCorrectAnswerLeft = Random.Range(m_iCurAnswer + 1, MyGlobals.MaxInputValue + 1);
                     m_iCorrectAnswerRight = m_iCorrectAnswerLeft - m_iCurAnswer;
                 }
                 break;
@@ -139,9 +196,9 @@ public class InputCtrl : MonoBehaviour
             case eOPERATOR.DIVISION:
                 {
                     m_listCandidates.Clear();
-                    for (int i = 1; i <= MyGlobals.MaxValue; ++i)
+                    for (int i = 1; i <= MyGlobals.MaxInputValue; ++i)
                     {
-                        if (m_iCurAnswer * i <= MyGlobals.MaxValue)
+                        if (m_iCurAnswer * i <= MyGlobals.MaxInputValue)
                             m_listCandidates.Add(i);
                     }
                     m_iCorrectAnswerRight = m_listCandidates[Random.Range(0, m_listCandidates.Count)];
@@ -160,7 +217,10 @@ public class InputCtrl : MonoBehaviour
         m_arrScriptPositionerLeft[iRandomIndex].ResetDigit(m_iCorrectAnswerLeft);
         m_listLeftDigits[iRandomIndex] = m_iCorrectAnswerLeft;
 
-        int iMax = MyGlobals.MaxValue + 1;
+        //1~81
+        //int iMax = MyGlobals.MaxValue + 1;
+        //1~9
+        int iMax = MyGlobals.MaxInputValue + 1;
         for (int i = 0; i < m_arrScriptPositionerLeft.Length; ++i)
         {
             if(i != iRandomIndex)
