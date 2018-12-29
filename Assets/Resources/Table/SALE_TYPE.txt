@@ -1,0 +1,3 @@
+﻿i_TYPE	s_ITEM_NAME_KR	s_ITEM_NAME_US
+1	현금구매	
+2	코인구매	

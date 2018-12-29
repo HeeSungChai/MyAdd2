@@ -1,0 +1,6 @@
+﻿i_ID	s_CHAR_NAME_KR	s_CHAR_NAME_US	s_CHAR_STORY_KR	s_CHAR_STORY_US	s_SKILL_KR	s_SKILL_US	i_UNLOCK_STAGE_INFO
+200	더하기맨	ADD MAN	언제 어디서 태어나..	when~	더하기로 계산하여..정답..(%d%)	Add ….finish…(%d%)	0
+201	뻬기맨	ADD MAN	언제 어디서 태어나..	when~	더하기로 계산하여..정답..(%d%)	Add ….finish…(%d%)	2
+202	곱하기맨	ADD MAN	언제 어디서 태어나..	when~	더하기로 계산하여..정답..(%d%)	Add ….finish…(%d%)	4
+203	나누기맨	ADD MAN	언제 어디서 태어나..	when~	더하기로 계산하여..정답..(%d%)	Add ….finish…(%d%)	6
+204	무한도전모드	Infinity challenger	모드 언락 전용	캐릭터 아님	모드 언락 전용	캐릭터 아님	40

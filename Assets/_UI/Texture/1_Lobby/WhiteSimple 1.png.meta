@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 3aab62ddb3e32aa4e83fc9bf0061568c
-timeCreated: 1545727911
+timeCreated: 1545988541
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName: {}
@@ -45,7 +45,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spriteBorder: {x: 382, y: 382, z: 382, w: 382}
+  spriteBorder: {x: 433, y: 395, z: 433, w: 395}
   spritePixelsToUnits: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -77,7 +77,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Android
-    maxTextureSize: 128
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: 4
     textureCompression: 0

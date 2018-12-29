@@ -54,8 +54,8 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 9d1054a1b53174e46bd32f8d15d3a6a4, type: 2}
   mSprites:
   - name: Background_Vertical
-    x: 0
-    y: 1
+    x: 246
+    y: 256
     width: 68
     height: 256
     borderLeft: 0
@@ -67,8 +67,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Black
-    x: 190
-    y: 230
+    x: 0
+    y: 109
     width: 128
     height: 27
     borderLeft: 0
@@ -80,8 +80,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Blue
-    x: 162
-    y: 369
+    x: 163
+    y: 468
     width: 60
     height: 44
     borderLeft: 0
@@ -93,8 +93,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 2
   - name: Cool_alpha
-    x: 363
-    y: 217
+    x: 238
+    y: 76
     width: 143
     height: 84
     borderLeft: 0
@@ -106,8 +106,8 @@ MonoBehaviour:
     paddingTop: 82
     paddingBottom: 90
   - name: Fail_alpha
-    x: 245
-    y: 258
+    x: 122
+    y: 70
     width: 72
     height: 37
     borderLeft: 0
@@ -119,8 +119,8 @@ MonoBehaviour:
     paddingTop: 27
     paddingBottom: 36
   - name: FailBG_alpha
-    x: 69
-    y: 195
+    x: 0
+    y: 12
     width: 120
     height: 62
     borderLeft: 0
@@ -133,7 +133,7 @@ MonoBehaviour:
     paddingBottom: 27
   - name: Great_alpha
     x: 0
-    y: 258
+    y: 257
     width: 244
     height: 89
     borderLeft: 0
@@ -145,8 +145,8 @@ MonoBehaviour:
     paddingTop: 87
     paddingBottom: 80
   - name: Grey 1
-    x: 245
-    y: 296
+    x: 0
+    y: 138
     width: 117
     height: 117
     borderLeft: 0
@@ -158,8 +158,8 @@ MonoBehaviour:
     paddingTop: 6
     paddingBottom: 5
   - name: Nice_alpha
-    x: 363
-    y: 302
+    x: 238
+    y: 162
     width: 146
     height: 92
     borderLeft: 0
@@ -170,6 +170,19 @@ MonoBehaviour:
     paddingRight: 58
     paddingTop: 81
     paddingBottom: 83
+  - name: Square
+    x: 163
+    y: 416
+    width: 50
+    height: 50
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: Star_alpha
     x: 0
     y: 348
@@ -184,21 +197,21 @@ MonoBehaviour:
     paddingTop: 32
     paddingBottom: 42
   - name: WhiteSimple
-    x: 162
-    y: 414
+    x: 383
+    y: 62
     width: 116
     height: 98
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
+    borderLeft: 19
+    borderRight: 19
+    borderTop: 19
+    borderBottom: 19
     paddingLeft: 6
     paddingRight: 6
     paddingTop: 8
     paddingBottom: 4
   - name: Yellow 1
-    x: 363
-    y: 395
+    x: 119
+    y: 138
     width: 117
     height: 117
     borderLeft: 0

@@ -1,0 +1,26 @@
+﻿i_ID	s_GRADE_NAME_KR	s_GRADE_NAME_US	s_RESOURCE	s_CONDITION	i_REWARD_ID	i_REWARD_AMOUNT
+100	수학 입문	Math beginner		스테이지모드 레벨 1 오픈 시	-1	-1
+101	유치원 1년차	Kidergarten first grader		스테이지모드 레벨 2 클리어	-1	-1
+102	유치원 2년차	Kidergarten first grader		스테이지모드 레벨 3 클리어	-1	-1
+103	유치원 3년차	Kidergarten first grader		스테이지모드 레벨 4 클리어	-1	-1
+104	초등학교 1년차	Kidergarten first grader		스테이지모드 레벨 5 클리어	-1	-1
+105	초등학교 2년차	Kidergarten first grader		스테이지모드 레벨 7 클리어	-1	-1
+106	초등학교 3년차	Kidergarten first grader		스테이지모드 레벨 9 클리어	-1	-1
+107	초등학교 4년차	Kidergarten first grader		스테이지모드 레벨 11 클리어	-1	-1
+108	초등학교 5년차	Kidergarten first grader		스테이지모드 레벨 14 클리어	-1	-1
+109	초등학교 6년차	Kidergarten first grader		스테이지모드 레벨 17 클리어	-1	-1
+110	중학교 1년차	Kidergarten first grader		스테이지모드 레벨 20 클리어	-1	-1
+111	중학교 2년차	Kidergarten first grader		스테이지모드 레벨 21 클리어	-1	-1
+112	중학교 3년차	Kidergarten first grader		스테이지모드 레벨 23 클리어	-1	-1
+113	고등학교 1년차	Kidergarten first grader		스테이지모드 레벨 25 클리어	-1	-1
+114	고등학교 2년차	Kidergarten first grader		스테이지모드 레벨 26 클리어	-1	-1
+115	고등학교 3년차	Kidergarten first grader		스테이지모드 레벨 39 클리어	-1	-1
+116	대학교 1년차	Kidergarten first grader		스테이지모드 레벨 30 클리어	-1	-1
+117	대학교 2년차	Kidergarten first grader		스테이지모드 레벨 32 클리어	-1	-1
+118	대학교 3년차	Kidergarten first grader		스테이지모드 레벨 34 클리어	-1	-1
+119	대학교 4년차	Kidergarten first grader		스테이지모드 레벨 37 클리어	-1	-1
+120	학사	Kidergarten first grader		스테이지모드 레벨 40 클리어	-1	-1
+121	석사	Kidergarten first grader		스테이지모드 레벨 43 클리어	-1	-1
+122	박사	Kidergarten first grader		스테이지모드 레벨 46 클리어	-1	-1
+123	교수	Kidergarten first grader		스테이지모드 레벨 50 클리어	-1	-1
+124	수학의 신	God of Math		무한모드에서 100콤보 이상 달성 시	-1	-1

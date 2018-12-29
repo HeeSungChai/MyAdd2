@@ -1,0 +1,9 @@
+﻿i_ID	s_ITEM_NAME_KR	s_ITEM_NAME_US	s_ITEM_INFO_KR	s_ITEM_INFO_US	i_ITEM_ID	i_ITEM_SET_VALUE	i_ITEM_LIMIT	i_ITEM_PRICE_TYPE	i_ITEM_PRICE_US
+300	광고제거	NO ADD	광고 제거	a	0	1	1	1	0.99
+301	코인 10	COIN 10	게임 내에서 사용되는 화폐 (10개)	a	400	10	0	1	0.99
+302	코인 50	COIN 50	게임 내에서 사용되는 화폐 (50개)	a	400	50	0	1	4.99
+303	코인 100	COIN 100	게임 내에서 사용되는 화폐 (100개)	a	400	100	0	1	9.99
+304	코인 300	COIN 300	게임 내에서 사용되는 화폐 (300개)	a	400	300	0	1	29.99
+305	지우개	ERASER	가장 가까운 문제 하나를 제거	a	401	1	0	2	300
+306	시계	CLOCK	일정 시간 (3초) 동안 화면을 정지	a	402	1	0	2	400
+307	회복	RECOVERY	체력 회복 (1칸)	RECOVERY H.P (1 PIECE)	403	1	0	2	500
