@@ -28,8 +28,9 @@ public class HpCtrl : MonoBehaviour
         if (!m_tweenScale)
             return;
 
-        m_tweenScale.ResetToBeginning();
-        m_tweenScale.enabled = true;
+        //m_tweenScale.ResetToBeginning();
+        //m_tweenScale.enabled = true;
+        m_tweenScale.PlayForward();
     }
 
     public void DisableHP()
@@ -37,7 +38,7 @@ public class HpCtrl : MonoBehaviour
         if (!m_tweenScale)
             return;
 
-        m_tweenScale.enabled = true;
+        //m_tweenScale.enabled = true;
         m_tweenScale.PlayReverse();
 
         StopCoroutine("CoroutineDisableHP");

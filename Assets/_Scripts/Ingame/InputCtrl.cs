@@ -10,15 +10,9 @@ public enum eOPERATOR
     DIVISION,
 }
 
-public enum eINPUT_TYPE
-{
-    FROM_ONE_TO_NINE,
-    FROM_ONE_TO_EIGHTYONE,
-}
-
 public class InputCtrl : MonoBehaviour
 {
-    public eINPUT_TYPE m_eInputType;
+    //public eINPUT_TYPE m_eInputType;
     public GameObject[] m_arrObjLeftDigits;
     public GameObject[] m_arrObjRightDigits;
     public GameObject[] m_arrObjOperators;
@@ -106,7 +100,7 @@ public class InputCtrl : MonoBehaviour
         if (m_iCurAnswer == 0)
             return;
 
-        if(m_eInputType == eINPUT_TYPE.FROM_ONE_TO_EIGHTYONE)
+        if(MyGlobals.StageMgr.m_eInputType == eINPUT_TYPE.FROM_ONE_TO_EIGHTYONE)
             SetFormulaForAnswer();
         else
             SetFormulaForAnswer2();
@@ -273,7 +267,7 @@ public class InputCtrl : MonoBehaviour
         //1~9
         //int iMax = MyGlobals.MaxInputValue + 1;
         int iMax;
-        if (m_eInputType == eINPUT_TYPE.FROM_ONE_TO_NINE)
+        if (MyGlobals.StageMgr.m_eInputType == eINPUT_TYPE.FROM_ONE_TO_NINE)
             iMax = MyGlobals.MaxInputValue + 1;
         else
             iMax = MyGlobals.MaxValue + 1;

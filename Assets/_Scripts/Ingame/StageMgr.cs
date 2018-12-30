@@ -13,6 +13,12 @@ public enum STAGE_STATE
     GAMECLEAR,
 }
 
+public enum eINPUT_TYPE
+{
+    FROM_ONE_TO_NINE,
+    FROM_ONE_TO_EIGHTYONE,
+}
+
 public partial class StageMgr : MonoBehaviour
 {
     private bool m_bIsTest = false;
@@ -42,14 +48,11 @@ public partial class StageMgr : MonoBehaviour
         set { m_eStageNum = value; }
     }
 
+    public eINPUT_TYPE m_eInputType;
+
     public float PlayTime { get; set; }
     private bool m_bPauseDrop = false;
     public bool IsPauseDrop { get { return m_bPauseDrop; } set { m_bPauseDrop = value; } }
-
-    //int m_fCurAnswer;
-    //int m_iSelected_Left;
-    //int m_iSelected_Right;
-    //int m_iSelected_Operator;
 
     private void Awake()
     {
@@ -73,6 +76,7 @@ public partial class StageMgr : MonoBehaviour
         EventListener.AddListener("OnDivergeSelected", this);
         EventListener.AddListener("OnGameClear", this);
         EventListener.AddListener("OnGameOver", this);
+        EventListener.AddListener("OnTimePaused", this);
 
 #if UNITY_ANDROID || UNITY_IPHONE
         //Application.targetFrameRate = 60;
@@ -186,6 +190,21 @@ public partial class StageMgr : MonoBehaviour
 
             yield return new WaitForEndOfFrame();
         }
+    }
+
+    void OnTimePaused()
+    {
+        StopCoroutine("CoroutineTimePause");
+        StartCoroutine("CoroutineTimePause");
+    }
+
+    IEnumerator CoroutineTimePause()
+    {
+        IsPauseDrop = true;
+
+        yield return new WaitForSeconds(3.0f);
+
+        IsPauseDrop = false;
     }
 
     private void OnDestroy()

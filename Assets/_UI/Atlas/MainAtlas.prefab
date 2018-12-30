@@ -67,8 +67,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Black
-    x: 0
-    y: 109
+    x: 267
+    y: 17
     width: 128
     height: 27
     borderLeft: 0
@@ -80,8 +80,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Blue
-    x: 163
-    y: 468
+    x: 316
+    y: 273
     width: 60
     height: 44
     borderLeft: 0
@@ -92,9 +92,48 @@ MonoBehaviour:
     paddingRight: 2
     paddingTop: 2
     paddingBottom: 2
+  - name: BlueButton
+    x: 0
+    y: 155
+    width: 109
+    height: 100
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 10
+    paddingRight: 9
+    paddingTop: 10
+    paddingBottom: 10
+  - name: Bomb
+    x: 379
+    y: 198
+    width: 84
+    height: 119
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 6
+  - name: Clock
+    x: 267
+    y: 132
+    width: 110
+    height: 122
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 2
+    paddingTop: 3
+    paddingBottom: 3
   - name: Cool_alpha
-    x: 238
-    y: 76
+    x: 267
+    y: 46
     width: 143
     height: 84
     borderLeft: 0
@@ -106,8 +145,8 @@ MonoBehaviour:
     paddingTop: 82
     paddingBottom: 90
   - name: Fail_alpha
-    x: 122
-    y: 70
+    x: 119
+    y: 5
     width: 72
     height: 37
     borderLeft: 0
@@ -119,8 +158,8 @@ MonoBehaviour:
     paddingTop: 27
     paddingBottom: 36
   - name: FailBG_alpha
-    x: 0
-    y: 12
+    x: 379
+    y: 134
     width: 120
     height: 62
     borderLeft: 0
@@ -145,7 +184,7 @@ MonoBehaviour:
     paddingTop: 87
     paddingBottom: 80
   - name: Grey 1
-    x: 0
+    x: 111
     y: 138
     width: 117
     height: 117
@@ -158,8 +197,8 @@ MonoBehaviour:
     paddingTop: 6
     paddingBottom: 5
   - name: Nice_alpha
-    x: 238
-    y: 162
+    x: 119
+    y: 44
     width: 146
     height: 92
     borderLeft: 0
@@ -170,9 +209,22 @@ MonoBehaviour:
     paddingRight: 58
     paddingTop: 81
     paddingBottom: 83
+  - name: Pink
+    x: 316
+    y: 319
+    width: 111
+    height: 93
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 10
+    paddingRight: 7
+    paddingTop: 10
+    paddingBottom: 7
   - name: Square
-    x: 163
-    y: 416
+    x: 429
+    y: 362
     width: 50
     height: 50
     borderLeft: 0
@@ -196,9 +248,22 @@ MonoBehaviour:
     paddingRight: 30
     paddingTop: 32
     paddingBottom: 42
+  - name: SuperGauge
+    x: 412
+    y: 4
+    width: 34
+    height: 128
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: WhiteSimple
-    x: 383
-    y: 62
+    x: 316
+    y: 414
     width: 116
     height: 98
     borderLeft: 19
@@ -210,8 +275,8 @@ MonoBehaviour:
     paddingTop: 8
     paddingBottom: 4
   - name: Yellow 1
-    x: 119
-    y: 138
+    x: 0
+    y: 19
     width: 117
     height: 117
     borderLeft: 0

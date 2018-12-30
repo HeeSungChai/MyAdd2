@@ -56,6 +56,7 @@ public class DigitSpawner : MonoBehaviour
         MyGlobals.DigitSpawner = this;
 
         EventListener.AddListener("OnCorrectAnswer", this);
+        //EventListener.AddListener("OnActivated_Eraser", this);
     }
 
     void Start()
@@ -309,6 +310,11 @@ public class DigitSpawner : MonoBehaviour
 
         m_scriptLowest.Correct(m_eEvaluation);
     }
+
+    //void OnActivated_Eraser()
+    //{
+    //    OnCorrectAnswer();
+    //}
 
     //int PickOne()
     //{

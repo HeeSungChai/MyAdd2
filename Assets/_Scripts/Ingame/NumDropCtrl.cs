@@ -61,6 +61,12 @@ public class NumDropCtrl : MonoBehaviour
         float fElased = 0.0f;
         while(fElased < m_fFallDuration)
         {
+            if (MyGlobals.StageMgr.IsPauseDrop)
+            {
+                yield return null;
+                continue;
+            }
+
             fElased += Time.deltaTime;
 
             m_transform.localPosition = Vector3.Lerp(m_vStartPos, m_vTargetPos, fElased / m_fFallDuration);

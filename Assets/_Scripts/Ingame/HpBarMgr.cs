@@ -5,18 +5,21 @@ using UnityEngine;
 public class HpBarMgr : MonoBehaviour
 {
     public HpCtrl[] m_arrScriptHpCtrl;
+    int m_iFullHP;
     int m_iIndexCurHp;
     public float m_fDelayActivateEachHp;
 
     private void Awake()
     {
         EventListener.AddListener("OnFailed", this);
+        EventListener.AddListener("OnRecoverHp", this);
     }
 
     void Start()
     {
-        m_iIndexCurHp = m_arrScriptHpCtrl.Length - 1;
-        for (int i = 0; i < m_arrScriptHpCtrl.Length; ++i)
+        m_iFullHP = m_arrScriptHpCtrl.Length;
+        m_iIndexCurHp = m_iFullHP - 1;
+        for (int i = 0; i < m_iFullHP; ++i)
         {
             m_arrScriptHpCtrl[i].gameObject.SetActive(false);
         }
@@ -28,7 +31,7 @@ public class HpBarMgr : MonoBehaviour
     {
         int iActivatedCount = 0;
 
-        while(iActivatedCount < m_arrScriptHpCtrl.Length)
+        while(iActivatedCount < m_iFullHP)
         {
             yield return new WaitForSeconds(m_fDelayActivateEachHp);
 
@@ -39,7 +42,15 @@ public class HpBarMgr : MonoBehaviour
 
     }
 
-    public void RecoverHp()
+    public bool IsHpFull()
+    {
+        if (m_iIndexCurHp + 1 == m_iFullHP)
+            return true;
+        else
+            return false;
+    }
+
+    public void OnRecoverHp()
     {
         ++m_iIndexCurHp;
         m_arrScriptHpCtrl[m_iIndexCurHp].gameObject.SetActive(true);
