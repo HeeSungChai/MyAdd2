@@ -180,6 +180,8 @@ public class InputCtrl : MonoBehaviour
         }
         else if (m_iCurAnswer > 8)
             m_iCorrectAnswerOperator = Random.Range(0, 3) == 0 ? (int)eOPERATOR.DIVISION : Random.Range(0, 2) == 0 ? (int)eOPERATOR.ADDITION : (int)eOPERATOR.MULTIPLICATION;
+        else if(m_iCurAnswer == 0)
+            m_iCorrectAnswerOperator = Random.Range(0, 3) == 0 ? (int)eOPERATOR.ADDITION : Random.Range(0, 2) == 0 ? (int)eOPERATOR.SUBTRACTION : (int)eOPERATOR.MULTIPLICATION;
         else
             m_iCorrectAnswerOperator = Random.Range(0, (int)eOPERATOR.DIVISION + 1);
 
@@ -191,7 +193,7 @@ public class InputCtrl : MonoBehaviour
                     if (m_iCurAnswer > MyGlobals.MaxInputValue)
                         m_iCorrectAnswerLeft = Random.Range(m_iCurAnswer - MyGlobals.MaxInputValue, MyGlobals.MaxInputValue);
                     else
-                        m_iCorrectAnswerLeft = Random.Range(1, m_iCurAnswer);
+                        m_iCorrectAnswerLeft = Random.Range(0, m_iCurAnswer);
 
                     m_iCorrectAnswerRight = m_iCurAnswer - m_iCorrectAnswerLeft;
                 }
@@ -199,7 +201,7 @@ public class InputCtrl : MonoBehaviour
             //뺄셈일 경우 (정답보다 큰 랜덤 왼쪽숫자 - 정답) = 오른쪽 숫자
             case eOPERATOR.SUBTRACTION:
                 {
-                    m_iCorrectAnswerLeft = Random.Range(m_iCurAnswer + 1, MyGlobals.MaxInputValue + 1);
+                    m_iCorrectAnswerLeft = Random.Range(m_iCurAnswer, MyGlobals.MaxInputValue + 1);
                     m_iCorrectAnswerRight = m_iCorrectAnswerLeft - m_iCurAnswer;
                 }
                 break;
@@ -207,17 +209,29 @@ public class InputCtrl : MonoBehaviour
             case eOPERATOR.MULTIPLICATION:
                 {
                     m_listCandidates.Clear();
-                    for (int i = 1; i <= MyGlobals.MaxInputValue; ++i)
+
+                    if (m_iCurAnswer == 0)
                     {
-                        if ((m_iCurAnswer % i == 0) && ((m_iCurAnswer / i) <= MyGlobals.MaxInputValue))
+                        for (int i = 1; i <= MyGlobals.MaxInputValue; ++i)
+                        {
                             m_listCandidates.Add(i);
+                        }
+                        m_iCorrectAnswerRight = 0;
                     }
-                    if (m_listCandidates.Count < 1)
-                        m_iCorrectAnswerLeft = 1;
                     else
-                        //Range Min을 0으로 두면 예를들어 15를 위해 왼쪽1 오른쪽 15가 될수도 있으므로 Min을 1로 두어 3*5등이 나오도록
-                        m_iCorrectAnswerLeft = m_listCandidates[Random.Range(0, m_listCandidates.Count)];
-                    m_iCorrectAnswerRight = m_iCurAnswer / m_iCorrectAnswerLeft;
+                    {
+                        for (int i = 1; i <= MyGlobals.MaxInputValue; ++i)
+                        {
+                            if ((m_iCurAnswer % i == 0) && ((m_iCurAnswer / i) <= MyGlobals.MaxInputValue))
+                                m_listCandidates.Add(i);
+                        }
+                        if (m_listCandidates.Count < 1)
+                            m_iCorrectAnswerLeft = 1;
+                        else
+                            //Range Min을 0으로 두면 예를들어 15를 위해 왼쪽1 오른쪽 15가 될수도 있으므로 Min을 1로 두어 3*5등이 나오도록
+                            m_iCorrectAnswerLeft = m_listCandidates[Random.Range(0, m_listCandidates.Count)];
+                        m_iCorrectAnswerRight = m_iCurAnswer / m_iCorrectAnswerLeft;
+                    }
 
                     if(Random.Range(0, 2) == 0)
                         MyUtility.Swap<int>(ref m_iCorrectAnswerLeft, ref m_iCorrectAnswerRight);
@@ -280,7 +294,7 @@ public class InputCtrl : MonoBehaviour
                 //iRandomValue = Random.Range(1, iMax);
                 do
                 {
-                    iRandomValue = Random.Range(1, iMax);
+                    iRandomValue = Random.Range(0, iMax);
                 }
                 while (m_listLeftDigits.Contains(iRandomValue));
 
@@ -305,7 +319,7 @@ public class InputCtrl : MonoBehaviour
                 //iRandomValue = Random.Range(1, iMax);
                 do
                 {
-                    iRandomValue = Random.Range(1, iMax);
+                    iRandomValue = Random.Range(0, iMax);
                 }
                 while (m_listRightDigits.Contains(iRandomValue));
 
