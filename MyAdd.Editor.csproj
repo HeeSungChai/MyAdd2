@@ -420,7 +420,18 @@
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed 2.shader" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed 3.shader" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed.shader" />
-    <None Include="Assets\Resources\Table\STAGE_LEVEL_1.txt" />
+    <None Include="Assets\Resources\Table\CHAR_INFO.txt" />
+    <None Include="Assets\Resources\Table\CharLevel\CHAR_LEVEL_ADD.txt" />
+    <None Include="Assets\Resources\Table\CharLevel\CHAR_LEVEL_DIV.txt" />
+    <None Include="Assets\Resources\Table\CharLevel\CHAR_LEVEL_MUL.txt" />
+    <None Include="Assets\Resources\Table\CharLevel\CHAR_LEVEL_SUB.txt" />
+    <None Include="Assets\Resources\Table\INFINITY_RANDOM.txt" />
+    <None Include="Assets\Resources\Table\ITEM_ID.txt" />
+    <None Include="Assets\Resources\Table\ITEM_TABLE.txt" />
+    <None Include="Assets\Resources\Table\REWARD_TABLE.txt" />
+    <None Include="Assets\Resources\Table\SALE_TYPE.txt" />
+    <None Include="Assets\Resources\Table\StageLevel\STAGE_LEVEL_1.txt" />
+    <None Include="Assets\Resources\Table\TITLE_MARK.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

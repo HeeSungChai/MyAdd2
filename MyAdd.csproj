@@ -292,8 +292,12 @@
     <Compile Include="Assets\_Scripts\CSV\TableList.cs" />
     <Compile Include="Assets\_Scripts\CSV\ThreadProcessor.cs" />
     <Compile Include="Assets\_Scripts\Ingame\DigitSpawner.cs" />
+    <Compile Include="Assets\_Scripts\Ingame\HpBarMgr.cs" />
+    <Compile Include="Assets\_Scripts\Ingame\HpCtrl.cs" />
     <Compile Include="Assets\_Scripts\Ingame\InputButtonCtrl.cs" />
     <Compile Include="Assets\_Scripts\Ingame\InputCtrl.cs" />
+    <Compile Include="Assets\_Scripts\Ingame\ItemCoolTimeCtrl.cs" />
+    <Compile Include="Assets\_Scripts\Ingame\ItemCtrl.cs" />
     <Compile Include="Assets\_Scripts\Ingame\NumDropCtrl.cs" />
     <Compile Include="Assets\_Scripts\Ingame\RePositioner.cs" />
     <Compile Include="Assets\_Scripts\Ingame\StageMgr.cs" />
@@ -302,6 +306,7 @@
     <Compile Include="Assets\_Scripts\Utility\Multimap.cs" />
     <Compile Include="Assets\_Scripts\Utility\MyGlobals.cs" />
     <Compile Include="Assets\_Scripts\Utility\MySingleton.cs" />
+    <Compile Include="Assets\_Scripts\Utility\MyTweenScaler.cs" />
     <Compile Include="Assets\_Scripts\Utility\MyUtility.cs" />
     <Compile Include="Assets\_Scripts\Utility\ObjActivator.cs" />
     <Compile Include="Assets\_Scripts\Utility\Value.cs" />
@@ -488,7 +493,18 @@
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed 2.shader" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed 3.shader" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed.shader" />
-    <None Include="Assets\Resources\Table\STAGE_LEVEL_1.txt" />
+    <None Include="Assets\Resources\Table\CHAR_INFO.txt" />
+    <None Include="Assets\Resources\Table\CharLevel\CHAR_LEVEL_ADD.txt" />
+    <None Include="Assets\Resources\Table\CharLevel\CHAR_LEVEL_DIV.txt" />
+    <None Include="Assets\Resources\Table\CharLevel\CHAR_LEVEL_MUL.txt" />
+    <None Include="Assets\Resources\Table\CharLevel\CHAR_LEVEL_SUB.txt" />
+    <None Include="Assets\Resources\Table\INFINITY_RANDOM.txt" />
+    <None Include="Assets\Resources\Table\ITEM_ID.txt" />
+    <None Include="Assets\Resources\Table\ITEM_TABLE.txt" />
+    <None Include="Assets\Resources\Table\REWARD_TABLE.txt" />
+    <None Include="Assets\Resources\Table\SALE_TYPE.txt" />
+    <None Include="Assets\Resources\Table\StageLevel\STAGE_LEVEL_1.txt" />
+    <None Include="Assets\Resources\Table\TITLE_MARK.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
