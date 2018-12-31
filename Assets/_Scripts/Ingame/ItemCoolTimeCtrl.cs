@@ -9,6 +9,24 @@ public class ItemCoolTimeCtrl : MonoBehaviour
     public float m_fCoolTime;
     float m_fFillAmount;
     bool m_bIsCoolTime;
+    public TweenScale m_tweenScale;
+
+    private void Start()
+    {
+        if (m_tweenScale == null)
+            m_tweenScale = GetComponentInChildren<TweenScale>();
+
+        EventListener.AddListener("OnGameStart", this);
+    }
+
+    void OnGameStart()
+    {
+        if (m_tweenScale)
+        {
+            m_tweenScale.ResetToBeginning();
+            m_tweenScale.PlayForward();
+        }
+    }
 
     public bool IsCoolTime()
     {
@@ -43,5 +61,11 @@ public class ItemCoolTimeCtrl : MonoBehaviour
         m_sprBtn.fillAmount = 1.0f;
         m_sprIcon.fillAmount = 1.0f;
         m_bIsCoolTime = false;
+
+        if (m_tweenScale)
+        {
+            m_tweenScale.ResetToBeginning();
+            m_tweenScale.PlayForward();
+        }
     }
 }

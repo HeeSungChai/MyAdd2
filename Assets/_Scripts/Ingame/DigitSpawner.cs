@@ -50,6 +50,7 @@ public class DigitSpawner : MonoBehaviour
                 m_iLowestDigit = value;
         }
     }
+    public int DigitsCount;
 
     private void Awake()
     {
@@ -200,6 +201,7 @@ public class DigitSpawner : MonoBehaviour
             ++m_iLineID;
             //m_fAppearTime = ((float)TableDB.Instance.GetData(m_eTableStageLevel, m_iLineID, eKEY_TABLEDB.f_APPEARTIME));
             m_fAppearTime = GetAppearTime();
+            ++DigitsCount;
         }
         else
         {
@@ -309,6 +311,7 @@ public class DigitSpawner : MonoBehaviour
             m_eEvaluation = eEVALUATION.NICE;
 
         m_scriptLowest.Correct(m_eEvaluation);
+        --DigitsCount;
     }
 
     //void OnActivated_Eraser()

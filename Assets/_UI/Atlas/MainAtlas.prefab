@@ -81,7 +81,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: Blue
     x: 316
-    y: 273
+    y: 266
     width: 60
     height: 44
     borderLeft: 0
@@ -93,6 +93,19 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 2
   - name: BlueButton
+    x: 316
+    y: 312
+    width: 109
+    height: 100
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 10
+    paddingRight: 9
+    paddingTop: 10
+    paddingBottom: 10
+  - name: BlueButtonBG
     x: 0
     y: 155
     width: 109
@@ -106,8 +119,8 @@ MonoBehaviour:
     paddingTop: 10
     paddingBottom: 10
   - name: Bomb
-    x: 379
-    y: 198
+    x: 434
+    y: 393
     width: 84
     height: 119
     borderLeft: 0
@@ -158,8 +171,8 @@ MonoBehaviour:
     paddingTop: 27
     paddingBottom: 36
   - name: FailBG_alpha
-    x: 379
-    y: 134
+    x: 427
+    y: 329
     width: 120
     height: 62
     borderLeft: 0
@@ -210,8 +223,8 @@ MonoBehaviour:
     paddingTop: 81
     paddingBottom: 83
   - name: Pink
-    x: 316
-    y: 319
+    x: 379
+    y: 217
     width: 111
     height: 93
     borderLeft: 0
@@ -223,8 +236,8 @@ MonoBehaviour:
     paddingTop: 10
     paddingBottom: 7
   - name: Square
-    x: 429
-    y: 362
+    x: 379
+    y: 165
     width: 50
     height: 50
     borderLeft: 0
@@ -249,8 +262,8 @@ MonoBehaviour:
     paddingTop: 32
     paddingBottom: 42
   - name: SuperGauge
-    x: 412
-    y: 4
+    x: 163
+    y: 384
     width: 34
     height: 128
     borderLeft: 0

@@ -20,8 +20,9 @@ public class ItemCtrl : MonoBehaviour
 
     public void OnPress_Eraser()
     {
-        //일거리. 화면상에 떨어지는 숫자가 없으면 무시
-
+        //화면상에 떨어지는 숫자가 없으면 무시
+        if (MyGlobals.DigitSpawner.DigitsCount <= 0)
+            return;
 
         if (m_scriptCoolTime[(int)eITEM_TYPE.ERASER].IsCoolTime())
             return;
@@ -41,8 +42,9 @@ public class ItemCtrl : MonoBehaviour
 
     public void OnPress_Heart()
     {
-        //일거리. 현재 HP가 꽉 차있으면 무시
-
+        //현재 HP가 꽉 차있으면 무시
+        if (MyGlobals.HpBarMgr.IsHpFull())
+            return;
 
         if (m_scriptCoolTime[(int)eITEM_TYPE.RECOVERY].IsCoolTime())
             return;

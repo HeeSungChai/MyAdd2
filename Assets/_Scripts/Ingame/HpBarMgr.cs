@@ -11,6 +11,7 @@ public class HpBarMgr : MonoBehaviour
 
     private void Awake()
     {
+        MyGlobals.HpBarMgr = this;
         EventListener.AddListener("OnFailed", this);
         EventListener.AddListener("OnRecoverHp", this);
     }

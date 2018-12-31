@@ -21,6 +21,7 @@ public class MyGlobals
     //public static BGMManager BGMMgr { get; set; }
     private static DigitSpawner m_DigitSpawner;
     public static DigitSpawner DigitSpawner { get; set; }
+    public static HpBarMgr HpBarMgr { get; set; }
 
     public static INGAME_TYPE GameType { get; set; }
     public static STAGE_NUM StageNum { get; set; }

@@ -166,7 +166,8 @@ public partial class StageMgr : MonoBehaviour
                 break;
             }
 
-            yield return new WaitForEndOfFrame();
+            //yield return new WaitForEndOfFrame();
+            yield return null;
         }
 
         StageState = STAGE_STATE.PLAYING;
@@ -180,15 +181,15 @@ public partial class StageMgr : MonoBehaviour
 
         while (StageState < STAGE_STATE.GAMECLEAR)
         {
-            PlayTime += Time.deltaTime;
-
             if (IsPauseDrop)
             {
                 yield return null;
                 continue;
             }
 
-            yield return new WaitForEndOfFrame();
+            PlayTime += Time.deltaTime;
+
+            yield return null;
         }
     }
 

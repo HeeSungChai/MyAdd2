@@ -139,6 +139,7 @@ public class NumDropCtrl : MonoBehaviour
         ActivateFailEffect();
         Invoke("DisableObj", 1.0f);
         EventListener.Broadcast("OnFailed");
+        --MyGlobals.DigitSpawner.DigitsCount;
     }
 
     void ActivateFailEffect()
