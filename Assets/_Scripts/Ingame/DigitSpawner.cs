@@ -155,7 +155,9 @@ public class DigitSpawner : MonoBehaviour
             }
 
             //그놈이 이전프레임이 가장 낮았던 놈이 아니면 숫자 입력부 갱신
-            if(m_scriptLowestPrev == null || m_scriptLowest.GetDigit() != LowestDigit)
+            if(m_scriptLowestPrev == null || 
+                m_scriptLowest != m_scriptLowestPrev || 
+                m_scriptLowest.GetDigit() != LowestDigit)
             {
                 LowestChanged();
             }
@@ -240,7 +242,7 @@ public class DigitSpawner : MonoBehaviour
         //지정된 숫자를 출력하는 경우
         int iExamNum = ((int)TableDB.Instance.GetData(m_eTableStageLevel, m_iLineID, eKEY_TABLEDB.i_EXAM_NUM));
 
-        if (iExamNum > 0)
+        if (iExamNum > -1)
             return iExamNum;
 
         ////다섯개의 숫자중 하나를 고르는 경우(하나의 column에서 /로 나누는 경우)
@@ -250,7 +252,7 @@ public class DigitSpawner : MonoBehaviour
         //    bIsAllZero = true;
         
         //다섯개의 숫자중 하나를 고르는 경우(각각 별도의 column을 사용하는 경우)
-        bool bIsAllZero = true;
+        bool bUseOneOfExamManual = false;
         m_arrExamManual[0] = ((int)TableDB.Instance.GetData(m_eTableStageLevel, m_iLineID, eKEY_TABLEDB.i_EXAM_MANUAL_1));
         m_arrExamManual[1] = ((int)TableDB.Instance.GetData(m_eTableStageLevel, m_iLineID, eKEY_TABLEDB.i_EXAM_MANUAL_2));
         m_arrExamManual[2] = ((int)TableDB.Instance.GetData(m_eTableStageLevel, m_iLineID, eKEY_TABLEDB.i_EXAM_MANUAL_3));
@@ -259,14 +261,14 @@ public class DigitSpawner : MonoBehaviour
 
         for (int i = 0; i < m_arrExamManual.Length; ++i)
         {
-            if (m_arrExamManual[i] != 0)
-                bIsAllZero = false;
+            if (m_arrExamManual[i] != -1)
+                bUseOneOfExamManual = true;
         }
 
-        if (bIsAllZero == false)
+        if (bUseOneOfExamManual)
         {
-            iExamNum = 0;
-            while (iExamNum == 0)
+            iExamNum = -1;
+            while (iExamNum == -1)
             {
                 iExamNum = m_arrExamManual[Random.Range(0, m_arrExamManual.Length)];
             }
@@ -277,6 +279,8 @@ public class DigitSpawner : MonoBehaviour
         //지정된 범위 내에서 랜덤하게 뽑는 경우
         iMinValue = ((int)TableDB.Instance.GetData(m_eTableStageLevel, m_iLineID, eKEY_TABLEDB.i_EXAM_FTRANDOM_MIN));
         iMaxValue = ((int)TableDB.Instance.GetData(m_eTableStageLevel, m_iLineID, eKEY_TABLEDB.i_EXAM_FTRANDOM_MAX));
+        iMinValue = Mathf.Clamp(iMinValue, 0, MyGlobals.MaxValue);
+        iMaxValue = Mathf.Clamp(iMaxValue, 0, MyGlobals.MaxValue);
 
         return Random.Range(iMinValue, iMaxValue + 1);
     }

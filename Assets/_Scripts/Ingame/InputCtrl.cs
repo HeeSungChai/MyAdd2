@@ -81,7 +81,7 @@ public class InputCtrl : MonoBehaviour
         }
 
         ResetSelection();
-        ResetDigits();
+        //ResetDigits();
     }
 
     public void SetOperatorCondition()
@@ -97,7 +97,7 @@ public class InputCtrl : MonoBehaviour
     void ResetDigits()
     {
         m_iCurAnswer = MyGlobals.DigitSpawner.LowestDigit;
-        if (m_iCurAnswer == 0)
+        if (m_iCurAnswer == -1)
             return;
 
         if(MyGlobals.StageMgr.m_eInputType == eINPUT_TYPE.FROM_ONE_TO_EIGHTYONE)
@@ -116,6 +116,8 @@ public class InputCtrl : MonoBehaviour
         m_iCorrectAnswerOperator = Random.Range(0, (int)eOPERATOR.DIVISION + 1);
         if (m_iCorrectAnswerOperator == (int)eOPERATOR.DIVISION && m_iCurAnswer > 45)
             m_iCorrectAnswerOperator = Random.Range(0, (int)eOPERATOR.DIVISION);
+        else if (m_iCurAnswer == 0)
+            m_iCorrectAnswerOperator = Random.Range(0, 2) == 0 ? (int)eOPERATOR.SUBTRACTION : (int)eOPERATOR.MULTIPLICATION;
 
         switch ((eOPERATOR)m_iCorrectAnswerOperator)
         {
@@ -181,7 +183,7 @@ public class InputCtrl : MonoBehaviour
         else if (m_iCurAnswer > 8)
             m_iCorrectAnswerOperator = Random.Range(0, 3) == 0 ? (int)eOPERATOR.DIVISION : Random.Range(0, 2) == 0 ? (int)eOPERATOR.ADDITION : (int)eOPERATOR.MULTIPLICATION;
         else if(m_iCurAnswer == 0)
-            m_iCorrectAnswerOperator = Random.Range(0, 3) == 0 ? (int)eOPERATOR.ADDITION : Random.Range(0, 2) == 0 ? (int)eOPERATOR.SUBTRACTION : (int)eOPERATOR.MULTIPLICATION;
+            m_iCorrectAnswerOperator = Random.Range(0, 2) == 0 ? (int)eOPERATOR.SUBTRACTION : (int)eOPERATOR.MULTIPLICATION;
         else
             m_iCorrectAnswerOperator = Random.Range(0, (int)eOPERATOR.DIVISION + 1);
 
@@ -348,7 +350,14 @@ public class InputCtrl : MonoBehaviour
                     iUserAnswer = m_iSelectedDigitLeft * m_iSelectedDigitRight;
                     break;
                 case eOPERATOR.DIVISION:
-                    iUserAnswer = m_iSelectedDigitLeft / m_iSelectedDigitRight;
+                    {
+                        if(m_iSelectedDigitRight == 0)
+                        {
+                            IsWrongAnswer();
+                            return;
+                        }
+                        iUserAnswer = m_iSelectedDigitLeft / m_iSelectedDigitRight;
+                    }
                     break;
                 default:
                     iUserAnswer = 0;
@@ -398,7 +407,7 @@ public class InputCtrl : MonoBehaviour
 
 
         //숫자 입력부 선택 해제
-
+        ResetSelection();
 
         Debug.Log("IsWrong");
     }
