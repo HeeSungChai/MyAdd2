@@ -32,11 +32,9 @@ public class InputCtrl : MonoBehaviour
     int m_iCorrectAnswerOperator;
     int m_iSelectedDigitLeft;
     int m_iSelectedDigitRight;
-    eOPERATOR m_eSelected_Operator;
+    public eOPERATOR m_eSelected_Operator;
     int m_iIndexSelectedLeft;
     int m_iIndexSelectedRight;
-    //int[] m_listLeftDigits;
-    //int[] m_listRightDigits;
     List<int> m_listLeftDigits;
     List<int> m_listRightDigits;
     List<int> m_listCandidates;
@@ -47,12 +45,11 @@ public class InputCtrl : MonoBehaviour
 
     private void Awake()
     {
-        //m_listLeftDigits = new int[m_arrObjLeftDigits.Length];
-        //m_listRightDigits = new int[m_arrObjLeftDigits.Length];
         m_listLeftDigits = new List<int>();
         m_listRightDigits = new List<int>();
         m_listCandidates = new List<int>();
 
+        MyGlobals.InputCtrl = this;
         EventListener.AddListener("OnLowestChanged", this);
     }
 
@@ -81,7 +78,6 @@ public class InputCtrl : MonoBehaviour
         }
 
         ResetSelection();
-        //ResetDigits();
     }
 
     public void SetOperatorCondition()
@@ -106,7 +102,6 @@ public class InputCtrl : MonoBehaviour
             SetFormulaForAnswer2();
 
         AllocateInputDigits();
-        //Invoke("AllocateInputDigits", 0.2f);
     }
 
     //1~81의 숫자를 사용하는 버전
@@ -278,10 +273,6 @@ public class InputCtrl : MonoBehaviour
         m_arrScriptPositionerLeft[iRandomIndex].ResetDigit(m_iCorrectAnswerLeft);
         m_listLeftDigits[iRandomIndex] = m_iCorrectAnswerLeft;
 
-        //1~81
-        //int iMax = MyGlobals.MaxValue + 1;
-        //1~9
-        //int iMax = MyGlobals.MaxInputValue + 1;
         int iMax;
         if (MyGlobals.StageMgr.m_eInputType == eINPUT_TYPE.FROM_ONE_TO_NINE)
             iMax = MyGlobals.MaxInputValue + 1;
@@ -293,7 +284,6 @@ public class InputCtrl : MonoBehaviour
         {
             if(i != iRandomIndex)
             {
-                //iRandomValue = Random.Range(1, iMax);
                 do
                 {
                     iRandomValue = Random.Range(0, iMax);
@@ -318,7 +308,6 @@ public class InputCtrl : MonoBehaviour
         {
             if (i != iRandomIndex)
             {
-                //iRandomValue = Random.Range(1, iMax);
                 do
                 {
                     iRandomValue = Random.Range(0, iMax);
@@ -379,42 +368,26 @@ public class InputCtrl : MonoBehaviour
 
     void IsCorrectAnswer()
     {
-        ////정답인 경우 
         //해당 숫자 지우고 
+        //점수 올리고 
+        //필살기 게이지 채우고
         EventListener.Broadcast("OnCorrectAnswer");
 
-        //점수 올리고 
+        //일거리. 인피닛 모드면 콤보 수 누적
 
-
-        //필살기 게이지 채우고
-        //m_scriptGaugeCtrl.IncreaseGauge();
-
-        //그 다음 타겟에 맞춰 숫자 입력부 재설정
-
-
-        //인피닛 모드면 콤보 수 누적
-
-
-        Debug.Log("IsCorrect");
-    }
+        MyUtility.DebugLog("IsCorrect");
+    }    
 
     void IsWrongAnswer()
     {
-        ////오답인 경우 
-
-
-        //해당 숫자 유지하고
-
-
-        //숫자 입력부 선택 해제
+        ////오답인 경우 숫자 입력부 선택 해제
         ResetSelection();
 
-        Debug.Log("IsWrong");
+        MyUtility.DebugLog("IsWrong");
     }
 
     void ResetSelection()
     {
-        //Debug.Log("ResetSelection");
         m_iIndexSelectedLeft = -1;
         m_iIndexSelectedRight = -1;
         m_bSelected_Left = false;
@@ -503,85 +476,71 @@ public class InputCtrl : MonoBehaviour
     public void OnSelect_Left_1()
     {
         SelectLeft(0);
-        Debug.Log("OnSelect_Left_1");        
     }
 
     public void OnSelect_Left_2()
     {
         SelectLeft(1);
-        Debug.Log("OnSelect_Left_2");
     }
 
     public void OnSelect_Left_3()
     {
         SelectLeft(2);
-        Debug.Log("OnSelect_Left_3");
     }
 
     public void OnSelect_Left_4()
     {
         SelectLeft(3);
-        Debug.Log("OnSelect_Left_4");
     }
 
     public void OnSelect_Left_5()
     {
         SelectLeft(4);
-        Debug.Log("OnSelect_Left_5");
     }
 
     public void OnSelect_Right_1()
     {
         SelectRight(0);
-        Debug.Log("OnSelect_Right_1");
     }
 
     public void OnSelect_Right_2()
     {
         SelectRight(1);
-        Debug.Log("OnSelect_Right_2");
     }
 
     public void OnSelect_Right_3()
     {
         SelectRight(2);
-        Debug.Log("OnSelect_Right_3");
     }
 
     public void OnSelect_Right_4()
     {
         SelectRight(3);
-        Debug.Log("OnSelect_Right_4");
     }
 
     public void OnSelect_Right_5()
     {
         SelectRight(4);
-        Debug.Log("OnSelect_Right_5");
     }
 
     public void OnSelect_Operator_ADDITION()
     {
         SelectOperator(eOPERATOR.ADDITION);
-        Debug.Log("OnSelect_Operator_ADDITION");
     }
 
     public void OnSelect_Operator_SUBTRACTION()
     {
         SelectOperator(eOPERATOR.SUBTRACTION);
-        Debug.Log("OnSelect_Operator_SUBTRACTION");
     }
 
     public void OnSelect_Operator_MULTIPLICATION()
     {
         SelectOperator(eOPERATOR.MULTIPLICATION);
-        Debug.Log("OnSelect_Operator_MULTIPLICATION");
     }
 
     public void OnSelect_Operator_DIVISION()
     {
         SelectOperator(eOPERATOR.DIVISION);
-        Debug.Log("OnSelect_Operator_DIVISION");
     }
 
     private void OnDestroy()

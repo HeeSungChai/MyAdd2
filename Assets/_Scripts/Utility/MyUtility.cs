@@ -5,6 +5,13 @@ using System; //for enum
 
 public class MyUtility
 {
+    static public void DebugLog(string str)
+    {
+#if DEBUG
+        Debug.Log(str);
+#endif
+    }
+
     static public void Swap<T>(ref T left, ref T right)
     {
         T tempT = left;

@@ -49,10 +49,16 @@ public partial class StageMgr : MonoBehaviour
     }
 
     public eINPUT_TYPE m_eInputType;
+    public eCHARACTER m_eCharacter;
 
     public float PlayTime { get; set; }
     private bool m_bPauseDrop = false;
     public bool IsPauseDrop { get { return m_bPauseDrop; } set { m_bPauseDrop = value; } }
+
+
+    public int TotalScore { get; set; }
+    public int EachBonusScore { get; set; }
+    public int TotalBonusScore { get; set; }
 
     private void Awake()
     {
@@ -77,6 +83,7 @@ public partial class StageMgr : MonoBehaviour
         EventListener.AddListener("OnGameClear", this);
         EventListener.AddListener("OnGameOver", this);
         EventListener.AddListener("OnTimePaused", this);
+        EventListener.AddListener("OnCorrectAnswer", this);
 
 #if UNITY_ANDROID || UNITY_IPHONE
         //Application.targetFrameRate = 60;
@@ -206,6 +213,44 @@ public partial class StageMgr : MonoBehaviour
         yield return new WaitForSeconds(3.0f);
 
         IsPauseDrop = false;
+    }
+
+    public void UpdatePoint()
+    {
+
+    }
+
+    void OnCorrectAnswer()
+    {
+        switch (MyGlobals.InputCtrl.m_eSelected_Operator)
+        {
+            case eOPERATOR.ADDITION:
+                {
+                    if (MyGlobals.StageMgr.m_eCharacter == eCHARACTER.ADD)
+                        MyGlobals.StageMgr.TotalBonusScore += MyGlobals.StageMgr.EachBonusScore;
+                }
+                break;
+            case eOPERATOR.SUBTRACTION:
+                {
+                    if (MyGlobals.StageMgr.m_eCharacter == eCHARACTER.ADD)
+                        MyGlobals.StageMgr.TotalBonusScore += MyGlobals.StageMgr.EachBonusScore;
+                }
+                break;
+            case eOPERATOR.MULTIPLICATION:
+                {
+                    if (MyGlobals.StageMgr.m_eCharacter == eCHARACTER.ADD)
+                        MyGlobals.StageMgr.TotalBonusScore += MyGlobals.StageMgr.EachBonusScore;
+                }
+                break;
+            case eOPERATOR.DIVISION:
+                {
+                    if (MyGlobals.StageMgr.m_eCharacter == eCHARACTER.ADD)
+                        MyGlobals.StageMgr.TotalBonusScore += MyGlobals.StageMgr.EachBonusScore;
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     private void OnDestroy()
