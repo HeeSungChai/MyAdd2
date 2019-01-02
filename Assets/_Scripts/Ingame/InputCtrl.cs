@@ -124,7 +124,7 @@ public class InputCtrl : MonoBehaviour
             //더하기일 경우 (정답 - 정답보다 작은 랜덤 왼쪽숫자) = 오른쪽 숫자
             case eOPERATOR.ADDITION:
                 {
-                    m_iCorrectAnswerLeft = Random.Range(1, m_iCurAnswer);
+                    m_iCorrectAnswerLeft = Random.Range(0, m_iCurAnswer+1);
                     m_iCorrectAnswerRight = m_iCurAnswer - m_iCorrectAnswerLeft;
                 }
                 break;
@@ -180,8 +180,8 @@ public class InputCtrl : MonoBehaviour
             else
                 m_iCorrectAnswerOperator = Random.Range(0, 2) == 0 ? (int)eOPERATOR.ADDITION : (int)eOPERATOR.MULTIPLICATION;
         }
-        else if (m_iCurAnswer > 8)
-            m_iCorrectAnswerOperator = Random.Range(0, 3) == 0 ? (int)eOPERATOR.DIVISION : Random.Range(0, 2) == 0 ? (int)eOPERATOR.ADDITION : (int)eOPERATOR.MULTIPLICATION;
+        //else if (m_iCurAnswer > 8)
+        //    m_iCorrectAnswerOperator = Random.Range(0, 3) == 0 ? (int)eOPERATOR.DIVISION : Random.Range(0, 2) == 0 ? (int)eOPERATOR.ADDITION : (int)eOPERATOR.MULTIPLICATION;
         else if(m_iCurAnswer == 0)
             m_iCorrectAnswerOperator = Random.Range(0, 2) == 0 ? (int)eOPERATOR.SUBTRACTION : (int)eOPERATOR.MULTIPLICATION;
         else
@@ -195,7 +195,7 @@ public class InputCtrl : MonoBehaviour
                     if (m_iCurAnswer > MyGlobals.MaxInputValue)
                         m_iCorrectAnswerLeft = Random.Range(m_iCurAnswer - MyGlobals.MaxInputValue, MyGlobals.MaxInputValue);
                     else
-                        m_iCorrectAnswerLeft = Random.Range(0, m_iCurAnswer);
+                        m_iCorrectAnswerLeft = Random.Range(0, m_iCurAnswer+1);
 
                     m_iCorrectAnswerRight = m_iCurAnswer - m_iCorrectAnswerLeft;
                 }
