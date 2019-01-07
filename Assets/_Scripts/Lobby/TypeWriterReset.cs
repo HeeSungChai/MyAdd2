@@ -10,13 +10,24 @@ public class TypeWriterReset : MonoBehaviour
     {
         if (m_typeWriter == null)
             m_typeWriter = GetComponentInChildren<TypewriterEffect>();
+
+        m_typeWriter.gameObject.SetActive(false);
     }
 
 	void OnEnable ()
     {
         if (m_typeWriter)
         {
+            m_typeWriter.gameObject.SetActive(true);
             m_typeWriter.StartNewWrite();
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (m_typeWriter)
+        {
+            m_typeWriter.gameObject.SetActive(false);
         }
     }
 }

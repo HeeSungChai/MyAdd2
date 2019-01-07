@@ -142,7 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_eStageState: 0
   m_eGameType: 0
-  m_eStageNum: 0
+  m_iStageNum: 0
   m_eInputType: 0
   m_eCharacter: 0
   m_iCharacterLv: 1
@@ -4792,6 +4792,11 @@ Prefab:
         type: 2}
       propertyPath: onHoverOver.Array.data[0].mMethodName
       value: OnSelect_Right_5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359297685893342, guid: 4bcae9e37c23a6740a64d2a8707ecadd,
+        type: 2}
+      propertyPath: duration
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4bcae9e37c23a6740a64d2a8707ecadd, type: 2}

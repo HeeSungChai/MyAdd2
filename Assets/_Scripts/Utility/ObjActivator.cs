@@ -7,6 +7,7 @@ public class ObjActivator : MonoBehaviour
     public GameObject m_obj;
     public float m_fDelay;
     public bool m_bAutoActivation;
+    public bool m_bAutoDeactivation;
 
     virtual public void OnEnable()
     {
@@ -35,5 +36,11 @@ public class ObjActivator : MonoBehaviour
     virtual public void OnDeactivate()
     {
         m_obj.SetActive(false);
+    }
+
+    private void OnDisable()
+    {
+        if (m_bAutoDeactivation)
+            OnDeactivate();
     }
 }

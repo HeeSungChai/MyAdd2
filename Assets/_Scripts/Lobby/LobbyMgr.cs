@@ -61,7 +61,7 @@ public class LobbyMgr : MonoBehaviour
     eCHARACTER m_eCurCharacter;
     int m_iCurLevel;
     //string tempString;
-
+        
     private void Awake()
     {
         EventListener.AddListener("OnGoldAmountChanged", this);
@@ -73,7 +73,7 @@ public class LobbyMgr : MonoBehaviour
     {
         m_eTableTitle = eTABLE_LIST.TITLE_MARK;
         m_eTableChatacter = eTABLE_LIST.CHAR_INFO;
-
+       
         OnGoldAmountChanged();
         OnLanguageChanged();
         OnCharacterChanged();

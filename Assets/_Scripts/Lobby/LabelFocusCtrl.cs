@@ -9,6 +9,8 @@ public class LabelFocusCtrl : MonoBehaviour
     public Vector3 m_vScaleFocus;
     Vector3 m_vScaleOrigin;
     public float m_fDuratinoScaleTrans;
+    public Color m_colorOrigin;
+    public Color m_colorFocused;
 
     private void Awake()
     {
@@ -16,14 +18,26 @@ public class LabelFocusCtrl : MonoBehaviour
         m_vScaleOrigin = m_transform.localScale;
     }
 
+    public void SetStageNum(int iNum)
+    {
+        if(iNum <= 0 || iNum > MyGlobals.UserState.MaxSelectableLv)
+            m_label.text = "";
+        else
+            m_label.text = iNum.ToString();
+    }
+
     public void FocusOn()
     {
+        m_label.color = m_colorFocused;
+
         StopCoroutine("CoroutineFocusScaler");
         StartCoroutine("CoroutineFocusScaler", true);
     }
 
     public void FocusOff()
     {
+        m_label.color = m_colorOrigin;
+
         StopCoroutine("CoroutineFocusScaler");
         StartCoroutine("CoroutineFocusScaler", false);
     }

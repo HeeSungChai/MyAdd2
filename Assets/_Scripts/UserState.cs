@@ -11,8 +11,8 @@ public class UserState : MonoBehaviour
     public int m_iLvMi;
     public int m_iLvDoubleRobo;
     public int m_iLvDividivi;
-    public int m_iMaxSelectableLv;
-    int m_iSelectedStageLv;
+    public int MaxSelectableLv;
+    //int m_iSelectedStageLv;
 
     private void Awake()
     {

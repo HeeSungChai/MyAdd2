@@ -138,7 +138,7 @@ public class TypewriterEffect : MonoBehaviour
 	{
 		if (!mActive) return;
 
-		if (mReset)
+        if (mReset)
 		{
 			mCurrentOffset = 0;
 			mReset = false;

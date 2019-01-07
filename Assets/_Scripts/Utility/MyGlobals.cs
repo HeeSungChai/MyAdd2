@@ -33,6 +33,7 @@ public class MyGlobals
     public static eLANGUAGE Language { get; set; }
     public static INGAME_TYPE GameType { get; set; }
     public static int StageNum { get; set; }
+    public static int MaxSelectableLv { get; set; }
     public static bool EnterIngameFromOutgame { get; set; }
     public static bool EnteringIngame { get; set; }
     public static int MaxValue = 81;
