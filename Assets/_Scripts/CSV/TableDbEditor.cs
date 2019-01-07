@@ -133,7 +133,7 @@ public class TableDbEditor : UnityEditor.Editor
             fileWriter.Close();
             UnityEditor.AssetDatabase.Refresh();
 
-            //Debug.Log("Reimported Keys from Ingame DB" + strTableDBfileName);
+            MyUtility.DebugLog("Reimported Keys from Ingame DB" + strTableDBfileName);
         //}
     }
 }

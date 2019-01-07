@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System; //for enum
+using System.Text;
 
 public class MyUtility
 {
@@ -10,6 +11,30 @@ public class MyUtility
 #if DEBUG
         Debug.Log(str);
 #endif
+    }
+
+    static public string CommaSeparateDigit(int iDigit)
+    {
+        StringBuilder sb = new StringBuilder();
+
+        while (iDigit >= 10)
+        {
+            sb.Append((iDigit % 10).ToString());
+            iDigit /= 10;
+        }
+        sb.Append(iDigit.ToString());
+
+        // Revers
+        StringBuilder sb2 = new StringBuilder();
+        for (int i = sb.Length - 1; i >= 0; --i)
+        {
+            sb2.Append(sb[i]);
+
+            if (i != 0 && i % 3 == 0)
+                sb2.Append(",");
+        }
+
+        return sb2.ToString();
     }
 
     static public void Swap<T>(ref T left, ref T right)

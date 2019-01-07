@@ -34,7 +34,6 @@ public class TableDB// : UnityEditor.Editor
     private bool m_bEndLoad = false;
     public bool IsEndLoad { get { return m_bEndLoad; } }
 
-    //public const string m_strAssetPathDialogueTable = "Table/Dialogue/";
     public const string m_strAssetPathDialogueTable = "Table/";
 
     private TableDB()
@@ -64,10 +63,7 @@ public class TableDB// : UnityEditor.Editor
             return;
 
         UnityEngine.Object[] arrayTable;
-        //if (ZpGlobals.AssetM)
-        //    arrayTable = ZpGlobals.AssetM.LoadGameTables(m_strAssetPathDialogueTable);
-        //else
-            arrayTable = Resources.LoadAll(m_strAssetPathDialogueTable, typeof(TextAsset));
+        arrayTable = Resources.LoadAll(m_strAssetPathDialogueTable, typeof(TextAsset));
 
         if (arrayTable != null && arrayTable.Length > 0)
         {
@@ -133,7 +129,9 @@ public class TableDB// : UnityEditor.Editor
                 arrayData[j] = data;
                 string dataKey = keys[j];
 
-                if (string.IsNullOrEmpty(data) || data == "-1" || data == "null")
+                //기획변경으로 테이블에서 -1값을 실제 활용하게 되어 해당 조건은 뺌
+                //if (string.IsNullOrEmpty(data) || data == "-1" || data == "null")
+                if (string.IsNullOrEmpty(data) || data == "null")
                     continue;
                 object value;
                 try
@@ -142,8 +140,8 @@ public class TableDB// : UnityEditor.Editor
                 }
                 catch (FormatException)
                 {
-                    //Debug.LogError(string.Format("Wrong Data Format - Table : {0} / Line : {1} / ID : {2} / Key : {3} / Data : {4}",
-                    //    _dbTable.Key, i, id, dataKey, data));
+                    MyUtility.DebugLog(string.Format("Wrong Data Format - Table : {0} / Line : {1} / ID : {2} / Key : {3} / Data : {4}",
+                        _dbTable.Key, i, id, dataKey, data));
                     continue;
                 }
                 eKEY_TABLEDB key;
@@ -153,7 +151,7 @@ public class TableDB// : UnityEditor.Editor
                 }
                 catch (ArgumentException)
                 {
-                    //Debug.LogError("Undefined Key Data: " + "Key:" + dataKey);
+                    MyUtility.DebugLog("Undefined Key Data: " + "Key:" + dataKey);
                     continue;
                 }
                 if (!dicInGameDB.ContainsKey(id))
@@ -171,7 +169,7 @@ public class TableDB// : UnityEditor.Editor
 
     private void EndLoadInGameDBTable()
     {
-        //Debug.LogError("########## End load InGameDB table ##########");
+        MyUtility.DebugLog("########## End load InGameDB table ##########");
         m_Keys.Sort();
         m_bEndLoad = true;
     }
@@ -195,13 +193,13 @@ public class TableDB// : UnityEditor.Editor
         }
         catch (Exception)
         {
-            //Debug.Log("TableDB : Wrong eKEY_TABLEDB - " + key);
+            MyUtility.DebugLog("TableDB : Wrong eKEY_TABLEDB - " + key);
         }
 
         switch (MyUtility.ConvertToString(key).ToLower()[0])
         {
             case 'i':
-                return -1;
+                return -100;//기획변경으로 -1값을 테이블에서 사용하게 되어 읽기 실패시 -1 => -100리턴으로 변경
             case 'f':
                 return 0.0f;
             case 's':
@@ -214,6 +212,20 @@ public class TableDB// : UnityEditor.Editor
     public object GetData(eTABLE_LIST inGameDBTable, int id, eKEY_TABLEDB key)
     {
         return GetData(inGameDBTable, id, MyUtility.ConvertToString(key));
+    }
+
+    public int GetRowCount(eTABLE_LIST inGameDBTable)
+    {
+        Dictionary<int, Dictionary<eKEY_TABLEDB, object>> dicInGameDB;
+        if (m_TableDB.TryGetValue(inGameDBTable, out dicInGameDB) == true)
+        {
+            return dicInGameDB.Count;
+        }
+        else
+        {
+            MyUtility.DebugLog("TableDB : Row count 0");
+            return 0;
+        }
     }
 
     public void Clear()

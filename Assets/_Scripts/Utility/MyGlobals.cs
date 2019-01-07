@@ -10,9 +10,14 @@ public enum INGAME_TYPE
     TEST
 }
 
-public enum STAGE_NUM
-{    
+public enum eLANGUAGE
+{
+    KOREAN,
+    ENGLISH
 }
+//public enum STAGE_NUM
+//{    
+//}
 
 public class MyGlobals
 {
@@ -22,17 +27,20 @@ public class MyGlobals
     public static DigitSpawner DigitSpawner { get; set; }
     public static HpBarMgr HpBarMgr { get; set; }
     public static InputCtrl InputCtrl { get; set; }
+    public static ScoreMgr ScoreMgr { get; set; }
+    public static UserState UserState { get; set; }
 
+    public static eLANGUAGE Language { get; set; }
     public static INGAME_TYPE GameType { get; set; }
-    public static STAGE_NUM StageNum { get; set; }
+    public static int StageNum { get; set; }
     public static bool EnterIngameFromOutgame { get; set; }
     public static bool EnteringIngame { get; set; }
     public static int MaxValue = 81;
     public static int MaxInputValue = 9;
 
-    public static void GoBackToMenu()
+    public static void GoBackToLobby()
     {
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("Lobby");
         Release();
     }
 

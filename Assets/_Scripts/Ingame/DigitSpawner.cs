@@ -70,7 +70,7 @@ public class DigitSpawner : MonoBehaviour
         //일거리. 현재 레벨 얻어와 반영하기
         m_eTableStageLevel = eTABLE_LIST.STAGE_LEVEL_1;
         //m_fAppearTime = ((float)TableDB.Instance.GetData(m_eTableStageLevel, m_iLineID, eKEY_TABLEDB.f_APPEARTIME));
-        m_fAppearTime = GetAppearTime();
+        m_fAppearTime = GetNextDigitAppearTime();
         StartCoroutine("CoroutineSpawn");
         StartCoroutine("CoroutineCheckLowestDigit");
     }
@@ -96,8 +96,11 @@ public class DigitSpawner : MonoBehaviour
             SetToObjPool();
     }
 
+    int m_iTotalCount;
     public IEnumerator CoroutineSpawn()
-    {        
+    {
+        m_iTotalCount = (int)TableDB.Instance.GetRowCount(m_eTableStageLevel);
+        int iSpawedCount = 0;
         while (MyGlobals.StageMgr.StageState < STAGE_STATE.GAMECLEAR && m_bSpawnedAll == false)
         {
             if(MyGlobals.StageMgr.PlayTime < m_fAppearTime)
@@ -107,7 +110,16 @@ public class DigitSpawner : MonoBehaviour
             }
 
             //Appeartime 이 되면 다음 숫자 소환
-            SpawnOne();
+            if (iSpawedCount < m_iTotalCount)
+            {
+                ++iSpawedCount;
+                SpawnOne();
+            }
+            else
+            {
+                m_bSpawnedAll = true;
+                MyUtility.DebugLog("SpawnedAll");
+            }
 
             yield return null;
         }
@@ -193,16 +205,16 @@ public class DigitSpawner : MonoBehaviour
             //라인 1~5 에 랜덤하게 소환.
             iIndexSpawnPos = Random.Range(0, 5);
 
-            iNextNum = GetNextNum();
-            if (iNextNum == -1)
-                return;
+            iNextNum = GetNextNum();            
 
             fDuration = ((float)TableDB.Instance.GetData(m_eTableStageLevel, m_iLineID, eKEY_TABLEDB.f_SPEED_VALUE));
             m_objPool[iObjIndex].GetComponent<NumDropCtrl>().Init(m_arrSpawnPos[iIndexSpawnPos], iNextNum, fDuration);
             m_objPool[iObjIndex].SetActive(true);
             ++m_iLineID;
             //m_fAppearTime = ((float)TableDB.Instance.GetData(m_eTableStageLevel, m_iLineID, eKEY_TABLEDB.f_APPEARTIME));
-            m_fAppearTime = GetAppearTime();
+
+            if(m_iLineID <= m_iTotalCount)
+                m_fAppearTime = GetNextDigitAppearTime();
             ++DigitsCount;
         }
         else
@@ -233,7 +245,7 @@ public class DigitSpawner : MonoBehaviour
         return true;
     }
 
-    string strExamManual;
+    //string strExamManual;
     int[] m_arrExamManual = new int[5];
     int iMinValue;
     int iMaxValue;
@@ -290,7 +302,7 @@ public class DigitSpawner : MonoBehaviour
     float fMinute;
     float fSecond;
     float fMilliSecond;
-    float GetAppearTime()
+    float GetNextDigitAppearTime()
     {
         strAppearTime = ((string)TableDB.Instance.GetData(m_eTableStageLevel, m_iLineID, eKEY_TABLEDB.s_APPEARTIME));
         arrkeys = strAppearTime.Split('/');
@@ -317,17 +329,7 @@ public class DigitSpawner : MonoBehaviour
         m_scriptLowest.Correct(m_eEvaluation);
         --DigitsCount;
     }
-
-    //void OnActivated_Eraser()
-    //{
-    //    OnCorrectAnswer();
-    //}
-
-    //int PickOne()
-    //{
-    //    return m_arrExamManual[Random.Range(0, m_arrExamManual.Length)];
-    //}
-
+    
     private void OnDestroy()
     {
         StopAllCoroutines();

@@ -17,6 +17,7 @@ public enum eTABLE_LIST
 
 public enum eKEY_TABLEDB
 {
+	f_ITEM_PRICE_US,
 	f_SPEED_VALUE,
 	i_AMOUNT,
 	i_EXAM_FTRANDOM_MAX,
@@ -31,7 +32,6 @@ public enum eKEY_TABLEDB
 	i_ITEM_ID,
 	i_ITEM_LIMIT,
 	i_ITEM_PRICE_TYPE,
-	i_ITEM_PRICE_US,
 	i_ITEM_SET_VALUE,
 	i_LIFT_VALUE,
 	i_LINE_ID,
@@ -68,6 +68,8 @@ public enum eKEY_TABLEDB
 	s_RESOURCE,
 	s_SKILL_KR,
 	s_SKILL_US,
+	s_TITLE_NAME_KR,
+	s_TITLE_NAME_US,
 	END
 }
 
@@ -158,7 +160,7 @@ public enum ITEM_TABLE
 	i_ITEM_SET_VALUE,
 	i_ITEM_LIMIT,
 	i_ITEM_PRICE_TYPE,
-	i_ITEM_PRICE_US,
+	f_ITEM_PRICE_US,
 	END
 }
 
@@ -202,6 +204,8 @@ public enum STAGE_LEVEL_1
 public enum TITLE_MARK
 {
 	i_ID,
+	s_TITLE_NAME_KR,
+	s_TITLE_NAME_US,
 	s_GRADE_NAME_KR,
 	s_GRADE_NAME_US,
 	s_RESOURCE,

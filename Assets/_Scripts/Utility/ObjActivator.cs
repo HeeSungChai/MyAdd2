@@ -4,37 +4,36 @@ using UnityEngine;
 
 public class ObjActivator : MonoBehaviour
 {
-    public float m_fDelay;
     public GameObject m_obj;
+    public float m_fDelay;
+    public bool m_bAutoActivation;
 
-    virtual public void Start()
+    virtual public void OnEnable()
     {
-        //if (m_obj)
-        //    m_obj.SetActive(false);
+        if(m_bAutoActivation)
+        {
+            StopCoroutine("CoroutineDelayedActivator");
+            StartCoroutine("CoroutineDelayedActivator");
+        }
     }
 
     virtual public void OnActivate()
     {
-        if (m_obj.activeSelf == true)
-            return;
-
-        m_obj.SetActive(false);
-
         StopCoroutine("CoroutineDelayedActivator");
-        StartCoroutine("CoroutineDelayedActivator", m_fDelay);
+        StartCoroutine("CoroutineDelayedActivator");
     }
 
-    public IEnumerator CoroutineDelayedActivator(float fDelay)
+    virtual public IEnumerator CoroutineDelayedActivator()
     {
-        float fElased = 0.0f;
+        m_obj.SetActive(false);
 
-        while (fElased < fDelay)
-        {
-            fElased += Time.deltaTime;
-
-            yield return null;
-        }
+        yield return new WaitForSeconds(m_fDelay);
 
         m_obj.SetActive(true);
+    }
+
+    virtual public void OnDeactivate()
+    {
+        m_obj.SetActive(false);
     }
 }

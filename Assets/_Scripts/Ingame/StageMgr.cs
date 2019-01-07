@@ -41,24 +41,30 @@ public partial class StageMgr : MonoBehaviour
     }
 
     [SerializeField]
-    private STAGE_NUM m_eStageNum;
-    public STAGE_NUM StageNum
+    private int m_iStageNum;
+    public int StageNum
     {
-        get { return m_eStageNum; }
-        set { m_eStageNum = value; }
+        get { return m_iStageNum; }
+        set { m_iStageNum = value; }
     }
 
     public eINPUT_TYPE m_eInputType;
-    public eCHARACTER m_eCharacter;
 
     public float PlayTime { get; set; }
     private bool m_bPauseDrop = false;
     public bool IsPauseDrop { get { return m_bPauseDrop; } set { m_bPauseDrop = value; } }
 
+    [Header("Character Info")]
+    public eCHARACTER m_eCharacter;
+    public int m_iCharacterLv = 1;
 
-    public int TotalScore { get; set; }
-    public int EachBonusScore { get; set; }
-    public int TotalBonusScore { get; set; }
+    int TotalScore { get; set; }
+    int EachCorrectScore { get; set; }
+    int TotalBasicScore { get; set; }
+    int EachCharBonusScore { get; set; }
+    int TotalCharBonusScore { get; set; }
+    int EachComboBonusScore { get; set; }
+    int TotalComboBonusScore { get; set; }
 
     private void Awake()
     {
@@ -101,10 +107,39 @@ public partial class StageMgr : MonoBehaviour
             //sb.Append(MyUtility.ConvertToString(StageNum));
             //StartCoroutine(sb.ToString());
             StartCoroutine("CoroutineCheckPlayTime");
+            SetScoreValue();
         }
         else
         {
         }
+    }
+
+    void SetScoreValue()
+    {
+        EachCorrectScore = 100;
+        m_eCharacter = eCHARACTER.ADD;
+        //m_iCharacterLv = 
+
+        eTABLE_LIST eTable;
+        switch (m_eCharacter)
+        {
+            case eCHARACTER.ADD:
+                eTable = eTABLE_LIST.CHAR_LEVEL_ADD;
+                break;
+            case eCHARACTER.SUB:
+                eTable = eTABLE_LIST.CHAR_LEVEL_SUB;
+                break;
+            case eCHARACTER.MUL:
+                eTable = eTABLE_LIST.CHAR_LEVEL_MUL;
+                break;
+            case eCHARACTER.DIV:
+                eTable = eTABLE_LIST.CHAR_LEVEL_DIV;
+                break;
+            default:
+                eTable = eTABLE_LIST.CHAR_LEVEL_ADD;
+                break;
+        }
+        EachCharBonusScore = ((int)TableDB.Instance.GetData(eTable, m_iCharacterLv, eKEY_TABLEDB.i_SKILL_VALUE));
     }
 
     public void OnGameClear()
@@ -173,7 +208,6 @@ public partial class StageMgr : MonoBehaviour
                 break;
             }
 
-            //yield return new WaitForEndOfFrame();
             yield return null;
         }
 
@@ -215,42 +249,48 @@ public partial class StageMgr : MonoBehaviour
         IsPauseDrop = false;
     }
 
-    public void UpdatePoint()
-    {
-
-    }
-
     void OnCorrectAnswer()
     {
+        //기본점수
+        TotalBasicScore += EachCorrectScore;
+
+        //캐릭터 보너스 점수
         switch (MyGlobals.InputCtrl.m_eSelected_Operator)
         {
             case eOPERATOR.ADDITION:
                 {
-                    if (MyGlobals.StageMgr.m_eCharacter == eCHARACTER.ADD)
-                        MyGlobals.StageMgr.TotalBonusScore += MyGlobals.StageMgr.EachBonusScore;
+                    if (m_eCharacter == eCHARACTER.ADD)
+                        TotalCharBonusScore += EachCharBonusScore;
                 }
                 break;
             case eOPERATOR.SUBTRACTION:
                 {
-                    if (MyGlobals.StageMgr.m_eCharacter == eCHARACTER.ADD)
-                        MyGlobals.StageMgr.TotalBonusScore += MyGlobals.StageMgr.EachBonusScore;
+                    if (m_eCharacter == eCHARACTER.SUB)
+                        TotalCharBonusScore += EachCharBonusScore;
                 }
                 break;
             case eOPERATOR.MULTIPLICATION:
                 {
-                    if (MyGlobals.StageMgr.m_eCharacter == eCHARACTER.ADD)
-                        MyGlobals.StageMgr.TotalBonusScore += MyGlobals.StageMgr.EachBonusScore;
+                    if (m_eCharacter == eCHARACTER.MUL)
+                        TotalCharBonusScore += EachCharBonusScore;
                 }
                 break;
             case eOPERATOR.DIVISION:
                 {
-                    if (MyGlobals.StageMgr.m_eCharacter == eCHARACTER.ADD)
-                        MyGlobals.StageMgr.TotalBonusScore += MyGlobals.StageMgr.EachBonusScore;
+                    if (m_eCharacter == eCHARACTER.DIV)
+                        TotalCharBonusScore += EachCharBonusScore;
                 }
                 break;
             default:
                 break;
         }
+
+        //콤보 점수
+
+        //총 획득 점수
+        TotalScore = TotalBasicScore + TotalCharBonusScore + TotalComboBonusScore;
+
+        MyGlobals.ScoreMgr.UpdateScore(TotalScore);
     }
 
     private void OnDestroy()

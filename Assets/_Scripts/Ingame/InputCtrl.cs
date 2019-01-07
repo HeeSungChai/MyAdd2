@@ -357,12 +357,16 @@ public class InputCtrl : MonoBehaviour
             if (iUserAnswer == m_iCurAnswer)
             {
                 IsCorrectAnswer();
+                ResetSelection();
             }
             else
+            {
                 IsWrongAnswer();
+                Invoke("ResetSelection", 0.2f);
+            }
 
             //ResetSelection();
-            Invoke("ResetSelection", 0.2f);
+            //Invoke("ResetSelection", 0.2f);
         }
     }
 

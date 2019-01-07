@@ -81,11 +81,21 @@ public class TypewriterEffect : MonoBehaviour
 
 	public bool isActive { get { return mActive; } }
 
-	/// <summary>
-	/// Reset the typewriter effect to the beginning of the label.
-	/// </summary>
+    /// <summary>
+    /// Reset the typewriter effect to the beginning of the label.
+    /// </summary>
 
-	public void ResetToBeginning ()
+    public void StartNewWrite()
+    {
+        //Finish();
+        mReset = true;
+        mActive = true;
+        mNextChar = 0f;
+        mCurrentOffset = 0;
+        Update();
+    }
+
+    public void ResetToBeginning ()
 	{
 		Finish();
 		mReset = true;
