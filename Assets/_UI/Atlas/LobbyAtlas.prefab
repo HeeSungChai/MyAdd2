@@ -53,9 +53,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 016e18e5ee2b50140af07cddab1c9a47, type: 2}
   mSprites:
+  - name: Add
+    x: 0
+    y: 256
+    width: 240
+    height: 256
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 6
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: ArrowSimpleLeft
-    x: 341
-    y: 17
+    x: 621
+    y: 263
     width: 107
     height: 124
     borderLeft: 0
@@ -67,8 +80,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 2
   - name: ArrowSimpleRight
-    x: 242
-    y: 142
+    x: 603
+    y: 388
     width: 108
     height: 124
     borderLeft: 0
@@ -80,8 +93,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 2
   - name: Blue
-    x: 351
-    y: 172
+    x: 935
+    y: 386
     width: 60
     height: 44
     borderLeft: 0
@@ -93,8 +106,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 2
   - name: BlueCircle
-    x: 129
-    y: 267
+    x: 509
+    y: 10
     width: 118
     height: 118
     borderLeft: 0
@@ -106,8 +119,8 @@ MonoBehaviour:
     paddingTop: 6
     paddingBottom: 4
   - name: BlueWidthButton
-    x: 351
-    y: 217
+    x: 628
+    y: 82
     width: 237
     height: 51
     borderLeft: 0
@@ -119,8 +132,8 @@ MonoBehaviour:
     paddingTop: 8
     paddingBottom: 8
   - name: Bomb
-    x: 357
-    y: 284
+    x: 850
+    y: 311
     width: 84
     height: 119
     borderLeft: 0
@@ -132,8 +145,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 6
   - name: CircleWhite
-    x: 0
-    y: 138
+    x: 386
+    y: 6
     width: 122
     height: 122
     borderLeft: 0
@@ -145,8 +158,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 3
   - name: Clock
-    x: 0
-    y: 15
+    x: 510
+    y: 155
     width: 110
     height: 122
     borderLeft: 0
@@ -158,8 +171,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 3
   - name: Close
-    x: 127
-    y: 386
+    x: 384
+    y: 129
     width: 125
     height: 126
     borderLeft: 0
@@ -171,8 +184,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 1
   - name: Coin
-    x: 253
-    y: 404
+    x: 721
+    y: 154
     width: 111
     height: 108
     borderLeft: 0
@@ -183,9 +196,35 @@ MonoBehaviour:
     paddingRight: 8
     paddingTop: 10
     paddingBottom: 10
+  - name: Dividivi
+    x: 621
+    y: 134
+    width: 99
+    height: 128
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: DoubleRobo
+    x: 241
+    y: 256
+    width: 242
+    height: 256
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: Grey
-    x: 442
-    y: 307
+    x: 833
+    y: 178
     width: 128
     height: 27
     borderLeft: 0
@@ -197,8 +236,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Home
-    x: 442
-    y: 335
+    x: 821
+    y: 431
     width: 128
     height: 81
     borderLeft: 0
@@ -210,8 +249,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: MagnifyingGlass
-    x: 248
-    y: 269
+    x: 712
+    y: 396
     width: 108
     height: 116
     borderLeft: 0
@@ -222,9 +261,22 @@ MonoBehaviour:
     paddingRight: 7
     paddingTop: 5
     paddingBottom: 7
+  - name: Mi
+    x: 0
+    y: 12
+    width: 256
+    height: 243
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: Next
-    x: 365
-    y: 417
+    x: 729
+    y: 300
     width: 120
     height: 95
     borderLeft: 0
@@ -236,8 +288,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 4
   - name: Pink
-    x: 111
-    y: 44
+    x: 833
+    y: 206
     width: 111
     height: 93
     borderLeft: 0
@@ -249,8 +301,8 @@ MonoBehaviour:
     paddingTop: 10
     paddingBottom: 7
   - name: Settings
-    x: 0
-    y: 261
+    x: 257
+    y: 4
     width: 128
     height: 124
     borderLeft: 0
@@ -262,8 +314,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 2
   - name: Shop
-    x: 223
-    y: 26
+    x: 484
+    y: 278
     width: 117
     height: 115
     borderLeft: 0
@@ -275,8 +327,8 @@ MonoBehaviour:
     paddingTop: 5
     paddingBottom: 7
   - name: Square
-    x: 412
-    y: 166
+    x: 950
+    y: 462
     width: 50
     height: 50
     borderLeft: 0
@@ -288,8 +340,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: SquareRound
-    x: 0
-    y: 386
+    x: 257
+    y: 129
     width: 126
     height: 126
     borderLeft: 44
@@ -301,8 +353,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 1
   - name: YellowCircleButton
-    x: 123
-    y: 142
+    x: 484
+    y: 394
     width: 118
     height: 118
     borderLeft: 0

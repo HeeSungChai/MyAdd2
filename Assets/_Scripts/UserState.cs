@@ -8,9 +8,9 @@ public class UserState : MonoBehaviour
     public eGRADE m_eTitle;
     public eCHARACTER m_eCurCharacter;
     public int m_iLvAdd;
-    public int m_iLvMi;
-    public int m_iLvDoubleRobo;
-    public int m_iLvDividivi;
+    public int m_iLvSub;
+    public int m_iLvMul;
+    public int m_iLvDiv;
     public int MaxSelectableLv;
     //int m_iSelectedStageLv;
 
@@ -33,5 +33,30 @@ public class UserState : MonoBehaviour
         //    case eCHARACTER.ADD:
                 PlayerPrefs.SetInt("Chosen_CharacterLV", m_iLvAdd);
         //}
+    }
+
+    public int GetCurSkillLv()
+    {
+        int CurLevel;
+        switch(m_eCurCharacter)
+        {
+            case eCHARACTER.ADD:
+                CurLevel = m_iLvAdd;
+                break;
+            case eCHARACTER.SUB:
+                CurLevel = m_iLvSub;
+                break;
+            case eCHARACTER.MUL:
+                CurLevel = m_iLvMul;
+                break;
+            case eCHARACTER.DIV:
+                CurLevel = m_iLvDiv;
+                break;
+            default:
+                CurLevel = 1;
+                break;
+        }
+
+        return CurLevel;
     }
 }

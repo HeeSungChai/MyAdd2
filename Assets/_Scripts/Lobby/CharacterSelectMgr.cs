@@ -1,29 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Text;
 
 public class CharacterSelectMgr : MonoBehaviour
 {
     [Header("Gold Info")]
     public UILabel m_labelGoldAmount;
 
-    [Header("Title Info")]
-    private eTABLE_LIST m_eTableTitle;
-    public UILabel m_labelTitle;
-    public UILabel m_labelGrade;
-    eKEY_TABLEDB m_eKeyTitleName;
-    eKEY_TABLEDB m_eKeyGradeName;
+    [Header("Character Btn")]
+    public GameObject m_objSelectAdd;
+    public GameObject m_objSelectSub;
+    public GameObject m_objSelectMul;
+    public GameObject m_objSelectDiv;
 
-    [Header("Character Info")]
+    [Header("Character Profile")]
+    public UILabel m_labelCharName;
+    public UILabel m_labelCharStory;
+    public UILabel m_labelSkillLv;
+    public UILabel m_labelSkillExplanation;
+    public UILabel m_labelSkillLvCur;
+    public UILabel m_labelSkillBonusCur;
+    public UILabel m_labelSkillLvNext;
+    public UILabel m_labelSkillBonusNext;
+    public UILabel m_labelAquiredCoinAmount;
     private eTABLE_LIST m_eTableChatacter;
     private eTABLE_LIST m_eTableCharacterLv;
-    public UILabel m_labelCharName;
-    public UILabel m_labelCharAbility;
     eKEY_TABLEDB m_eKeyCharName;
-    eKEY_TABLEDB m_eKeyCharAbility;
-    eCHARACTER m_eCurCharacter;
-    int m_iCurLevel;
-    //string tempString;
+    eKEY_TABLEDB m_eKeyCharStory;
+    eKEY_TABLEDB m_eKeyCharSkillExplanation;
 
     private void Awake()
     {
@@ -34,7 +39,6 @@ public class CharacterSelectMgr : MonoBehaviour
 
     void Start()
     {
-        m_eTableTitle = eTABLE_LIST.TITLE_MARK;
         m_eTableChatacter = eTABLE_LIST.CHAR_INFO;
 
         OnGoldAmountChanged();
@@ -49,85 +53,125 @@ public class CharacterSelectMgr : MonoBehaviour
 
     void OnLanguageChanged()
     {
-        //언어설정에 따라 다른 키값 사용
         if (MyGlobals.Language == eLANGUAGE.KOREAN)
         {
-            m_eKeyTitleName = eKEY_TABLEDB.s_TITLE_NAME_KR;
-            m_eKeyGradeName = eKEY_TABLEDB.s_GRADE_NAME_KR;
             m_eKeyCharName = eKEY_TABLEDB.s_CHAR_NAME_KR;
-            m_eKeyCharAbility = eKEY_TABLEDB.s_SKILL_KR;
+            m_eKeyCharStory = eKEY_TABLEDB.s_CHAR_STORY_KR;
+            m_eKeyCharSkillExplanation = eKEY_TABLEDB.s_SKILL_KR;
         }
         else
         {
-            m_eKeyTitleName = eKEY_TABLEDB.s_TITLE_NAME_US;
-            m_eKeyGradeName = eKEY_TABLEDB.s_GRADE_NAME_US;
             m_eKeyCharName = eKEY_TABLEDB.s_CHAR_NAME_US;
-            m_eKeyCharAbility = eKEY_TABLEDB.s_SKILL_US;
+            m_eKeyCharStory = eKEY_TABLEDB.s_CHAR_STORY_US;
+            m_eKeyCharSkillExplanation = eKEY_TABLEDB.s_SKILL_US;
         }
     }
 
     void OnCharacterChanged()
     {
-        RefreshGradeInfo();
-
         RefreshCharacterInfo();
-    }
-
-    void RefreshGradeInfo()
-    {
-        m_labelTitle.text = (string)TableDB.Instance.GetData(m_eTableTitle,
-            (int)MyGlobals.UserState.m_eTitle, m_eKeyTitleName);
-
-        string tempStr = (string)TableDB.Instance.GetData(m_eTableTitle,
-            (int)MyGlobals.UserState.m_eTitle, m_eKeyGradeName);
-
-        if (tempStr == null || tempStr == "noText")
-            m_labelGrade.text = "";
-        else
-            m_labelGrade.text = tempStr;
     }
 
     void RefreshCharacterInfo()
     {
-        UpdateCharacterTable();
+        RetargetCharacterSelect();
 
         m_labelCharName.text = (string)TableDB.Instance.GetData(m_eTableChatacter,
             (int)MyGlobals.UserState.m_eCurCharacter, m_eKeyCharName);
 
-        m_labelCharAbility.text = string.Format(
+        m_labelCharStory.text = (string)TableDB.Instance.GetData(m_eTableChatacter,
+            (int)MyGlobals.UserState.m_eCurCharacter, m_eKeyCharStory);
+
+        m_labelSkillLv.text = MyUtility.GetLevelText(MyGlobals.UserState.GetCurSkillLv());
+
+        int iSkillLevelCur = MyGlobals.UserState.GetCurSkillLv();
+        int iSkillLevelNext = iSkillLevelCur + 1;
+
+        m_labelSkillExplanation.text = string.Format(
             (string)TableDB.Instance.GetData(m_eTableChatacter,
-                (int)m_eCurCharacter, m_eKeyCharAbility),
-            TableDB.Instance.GetData(m_eTableCharacterLv,
-                (int)m_iCurLevel, eKEY_TABLEDB.i_SKILL_VALUE));
+                                    (int)MyGlobals.UserState.m_eCurCharacter, m_eKeyCharSkillExplanation),
+                                TableDB.Instance.GetData(m_eTableCharacterLv,
+                                    iSkillLevelCur, eKEY_TABLEDB.i_SKILL_VALUE));
+
+        m_labelSkillLvCur.text = m_labelSkillLv.text;
+        m_labelSkillBonusCur.text = ((int)TableDB.Instance.GetData(m_eTableCharacterLv,
+                                    iSkillLevelCur, eKEY_TABLEDB.i_SKILL_VALUE)).ToString();
+
+        if (iSkillLevelNext <= 10)
+        {
+            m_labelSkillLvNext.text = m_labelSkillLv.text;
+            m_labelSkillBonusNext.text = ((int)TableDB.Instance.GetData(m_eTableCharacterLv,
+                                    iSkillLevelNext, eKEY_TABLEDB.i_SKILL_VALUE)).ToString();
+            m_labelAquiredCoinAmount.text = ((int)TableDB.Instance.GetData(m_eTableCharacterLv,
+                                    iSkillLevelNext, eKEY_TABLEDB.i_AMOUNT)).ToString();
+        }
+        else
+        {
+            m_labelSkillLvNext.text = "";
+            m_labelSkillBonusNext.text = "";
+            m_labelAquiredCoinAmount.text = "";
+        }
 
         //tempString = tempString.Replace("\\n", "\n");
     }
 
-    void UpdateCharacterTable()
+    void RetargetCharacterSelect()
     {
-        m_eCurCharacter = MyGlobals.UserState.m_eCurCharacter;
-        switch (m_eCurCharacter)
+        m_objSelectAdd.SetActive(false);
+        m_objSelectSub.SetActive(false);
+        m_objSelectMul.SetActive(false);
+        m_objSelectDiv.SetActive(false);
+
+        switch (MyGlobals.UserState.m_eCurCharacter)
         {
             case eCHARACTER.ADD:
                 m_eTableCharacterLv = eTABLE_LIST.CHAR_LEVEL_ADD;
-                m_iCurLevel = MyGlobals.UserState.m_iLvAdd;
+                m_objSelectAdd.SetActive(true);
                 break;
             case eCHARACTER.SUB:
                 m_eTableCharacterLv = eTABLE_LIST.CHAR_LEVEL_SUB;
-                m_iCurLevel = MyGlobals.UserState.m_iLvMi;
+                m_objSelectSub.SetActive(true);
                 break;
             case eCHARACTER.MUL:
                 m_eTableCharacterLv = eTABLE_LIST.CHAR_LEVEL_MUL;
-                m_iCurLevel = MyGlobals.UserState.m_iLvDoubleRobo;
+                m_objSelectMul.SetActive(true);
                 break;
             case eCHARACTER.DIV:
                 m_eTableCharacterLv = eTABLE_LIST.CHAR_LEVEL_DIV;
-                m_iCurLevel = MyGlobals.UserState.m_iLvDividivi;
+                m_objSelectDiv.SetActive(true);
                 break;
             default:
                 m_eTableCharacterLv = eTABLE_LIST.CHAR_LEVEL_ADD;
-                m_iCurLevel = MyGlobals.UserState.m_iLvAdd;
+                m_objSelectAdd.SetActive(true);
                 break;
         }
+    }
+
+    public void OnPress_Add()
+    {
+        MyGlobals.UserState.m_eCurCharacter = eCHARACTER.ADD;
+
+        OnCharacterChanged();
+    }
+
+    public void OnPress_Sub()
+    {
+        MyGlobals.UserState.m_eCurCharacter = eCHARACTER.SUB;
+
+        OnCharacterChanged();
+    }
+
+    public void OnPress_Mul()
+    {
+        MyGlobals.UserState.m_eCurCharacter = eCHARACTER.MUL;
+
+        OnCharacterChanged();
+    }
+
+    public void OnPress_Div()
+    {
+        MyGlobals.UserState.m_eCurCharacter = eCHARACTER.DIV;
+
+        OnCharacterChanged();
     }
 }

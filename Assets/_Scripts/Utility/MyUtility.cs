@@ -13,6 +13,22 @@ public class MyUtility
 #endif
     }
 
+    static public string GetLevelText(int iLevel)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.Append("Lv. ");
+        sb.Append(iLevel.ToString());
+        return sb.ToString();
+    }
+
+    static public string GetBonusText(int iLevel)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.Append("Lv. ");
+        sb.Append(iLevel.ToString());
+        return sb.ToString();
+    }
+
     static public string CommaSeparateDigit(int iDigit)
     {
         StringBuilder sb = new StringBuilder();

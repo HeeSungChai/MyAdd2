@@ -43,6 +43,7 @@ public class LobbyMgr : MonoBehaviour
 {
     [Header("Gold Info")]
     public UILabel m_labelGoldAmount;
+    //public UILabel m_labelGoldAmountAtCharacterInfo;
 
     [Header("Title Info")]
     private eTABLE_LIST m_eTableTitle;
@@ -82,6 +83,7 @@ public class LobbyMgr : MonoBehaviour
     void OnGoldAmountChanged()
     {
         m_labelGoldAmount.text = MyUtility.CommaSeparateDigit(MyGlobals.UserState.m_iCoinAmount);
+        //m_labelGoldAmountAtCharacterInfo.text = m_labelGoldAmount.text;
     }
 
     void OnLanguageChanged()
@@ -151,15 +153,15 @@ public class LobbyMgr : MonoBehaviour
                 break;
             case eCHARACTER.SUB:
                 m_eTableCharacterLv = eTABLE_LIST.CHAR_LEVEL_SUB;
-                m_iCurLevel = MyGlobals.UserState.m_iLvMi;
+                m_iCurLevel = MyGlobals.UserState.m_iLvSub;
                 break;
             case eCHARACTER.MUL:
                 m_eTableCharacterLv = eTABLE_LIST.CHAR_LEVEL_MUL;
-                m_iCurLevel = MyGlobals.UserState.m_iLvDoubleRobo;
+                m_iCurLevel = MyGlobals.UserState.m_iLvMul;
                 break;
             case eCHARACTER.DIV:
                 m_eTableCharacterLv = eTABLE_LIST.CHAR_LEVEL_DIV;
-                m_iCurLevel = MyGlobals.UserState.m_iLvDividivi;
+                m_iCurLevel = MyGlobals.UserState.m_iLvDiv;
                 break;
             default:
                 m_eTableCharacterLv = eTABLE_LIST.CHAR_LEVEL_ADD;
