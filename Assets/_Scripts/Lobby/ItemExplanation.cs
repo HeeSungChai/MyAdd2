@@ -33,7 +33,7 @@ public class ItemExplanation : MonoBehaviour
 
     void OnLanguageChanged()
     {
-        if (MyGlobals.Language == eLANGUAGE.KOREAN)
+        if (LanguageMgr.Instance.GetLanguage() == eLANGUAGE.KOREAN)
         {
             m_eKeyItemName = eKEY_TABLEDB.s_ITEM_NAME_KR;
             m_eKeyItemExplanation = eKEY_TABLEDB.s_ITEM_INFO_KR;

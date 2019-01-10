@@ -89,7 +89,7 @@ public class LobbyMgr : MonoBehaviour
     void OnLanguageChanged()
     {
         //언어설정에 따라 다른 키값 사용
-        if (MyGlobals.Language == eLANGUAGE.KOREAN)
+        if (LanguageMgr.Instance.GetLanguage() == eLANGUAGE.KOREAN)
         {
             m_eKeyTitleName = eKEY_TABLEDB.s_TITLE_NAME_KR;
             m_eKeyGradeName = eKEY_TABLEDB.s_GRADE_NAME_KR;

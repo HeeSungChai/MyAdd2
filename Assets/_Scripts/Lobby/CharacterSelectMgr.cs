@@ -19,6 +19,7 @@ public class CharacterSelectMgr : MonoBehaviour
     public UILabel m_labelCharStory;
     public UILabel m_labelSkillLv;
     public UILabel m_labelSkillExplanation;
+    public TypeWriterReset m_scriptTypewriter;
     public UILabel m_labelSkillLvCur;
     public UILabel m_labelSkillBonusCur;
     public UILabel m_labelSkillLvNext;
@@ -53,7 +54,7 @@ public class CharacterSelectMgr : MonoBehaviour
 
     void OnLanguageChanged()
     {
-        if (MyGlobals.Language == eLANGUAGE.KOREAN)
+        if (LanguageMgr.Instance.GetLanguage() == eLANGUAGE.KOREAN)
         {
             m_eKeyCharName = eKEY_TABLEDB.s_CHAR_NAME_KR;
             m_eKeyCharStory = eKEY_TABLEDB.s_CHAR_STORY_KR;
@@ -81,6 +82,7 @@ public class CharacterSelectMgr : MonoBehaviour
 
         m_labelCharStory.text = (string)TableDB.Instance.GetData(m_eTableChatacter,
             (int)MyGlobals.UserState.m_eCurCharacter, m_eKeyCharStory);
+        m_scriptTypewriter.OnManualReset();
 
         m_labelSkillLv.text = MyUtility.GetLevelText(MyGlobals.UserState.GetCurSkillLv());
 
@@ -99,7 +101,7 @@ public class CharacterSelectMgr : MonoBehaviour
 
         if (iSkillLevelNext <= 10)
         {
-            m_labelSkillLvNext.text = m_labelSkillLv.text;
+            m_labelSkillLvNext.text = MyUtility.GetLevelText(iSkillLevelNext);
             m_labelSkillBonusNext.text = ((int)TableDB.Instance.GetData(m_eTableCharacterLv,
                                     iSkillLevelNext, eKEY_TABLEDB.i_SKILL_VALUE)).ToString();
             m_labelAquiredCoinAmount.text = ((int)TableDB.Instance.GetData(m_eTableCharacterLv,

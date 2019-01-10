@@ -1,0 +1,23 @@
+﻿i_STRING_ID	s_LANGUAGE_AT	s_ENUM_VALUE	s_LANGUAGE_KOR	s_LANGUAGE_ENG
+10001	캐릭터 선택 버튼	CHARACTER_SELECT_BUTTON	캐릭터 선택	Character Select
+10002	상점 버튼	SHOP_BUTTON	상점	Shop
+10101	로비 화면 모험시작 버튼	LOBBY_ADVENTURE_START	모험 시작	Adventure
+10102	로비 화면 무한모드 버튼	LOBBY_INFINITE_START	무한도전모드	Infinite Challenge
+10103	캐릭터 선택창 이름	CHARACTER_SELECT_NAME	이름	Name
+10104	캐릭터 선택창 특성	CHARACTER_SELECT_PROPERTY	특성	Property
+10105	캐릭터 선택창 업그레이드 버튼	CHARACTER_SELECT_UPGRADE_BTN	업그레이드	Upgrade
+10201	스테이지 선택 팝업 준비되었나요	STAGE_SELECT_POPUP_AREYOUREADY	준비 되었나요?	Are you ready?
+10202	스테이지 선택 팝업 LEVEL	STAGE_SELECT_POPUP_LEVEL	레벨	LEVEL
+10203	스테이지 선택 팝업 최고 점수	STAGE_SELECT_POPUP_BESTSCORE	최고 점수	Best score
+10204	스테이지 선택 팝업 총 점수	STAGE_SELECT_POPUP_TOTALSCORE	총 점수	Total score
+10205	스테이지 선택 팝업 아이템 추가 버튼	STAGE_SELECT_POPUP_GET_ITEM_BTN	아이템 추가	Get item
+10206	스테이지 선택 팝업 출발 버튼	STAGE_SELECT_POPUP_START_BTN	출발	Start
+10301	옵션 팝업 세팅	OPTION_SETTING	옵션	SETTING
+10302	옵션 팝업 효과음	OPTION_SOUND_EFFECT	효과음	Sound effect
+10303	옵션 팝업 효과음 설명	OPTION_SOUND_EFFECT_EXPLANATION	게임의 효과 볼륨을 조절합니다.	옵션 팝업 효과음 설명(영어)
+10304	옵션 팝업 배경음	OPTION_BGM	배경음	BGM
+10305	옵션 팝업 배경음 설명	OPTION_BGM_EXPLANATION	게임의 배경 음악 볼륨을 조절합니다.	옵션 팝업 배경음 설명(영어)
+10306	옵션 팝업 언어	OPTION_LANGUAGE	언 어	Language
+10307	옵션 팝업 언어 설명	OPTION_LANGUAGE_EXPLANATION	게임 언어를 변경합니다.	옵션 팝업 언어 설명(영어)
+10308	옵션 팝업 언어명	OPTION_LANGUAGE_NAME	한글	English
+10309	옵션 팝업 적용 버튼	OPTION_APPLY_BTN	적용	Apply

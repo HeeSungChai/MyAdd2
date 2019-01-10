@@ -11,6 +11,7 @@ public class LabelFocusCtrl : MonoBehaviour
     public float m_fDuratinoScaleTrans;
     public Color m_colorOrigin;
     public Color m_colorFocused;
+    public Color m_colorDisabled;
 
     private void Awake()
     {
@@ -20,10 +21,18 @@ public class LabelFocusCtrl : MonoBehaviour
 
     public void SetStageNum(int iNum)
     {
-        if(iNum <= 0 || iNum > MyGlobals.UserState.MaxSelectableLv)
+        if (iNum <= 0 || iNum > MyGlobals.UserState.MaxStageLv)
             m_label.text = "";
-        else
+        else if (iNum > MyGlobals.UserState.MaxSelectableLv)
+        {
+            m_label.color = m_colorDisabled;
             m_label.text = iNum.ToString();
+        }
+        else
+        {
+            m_label.color = m_colorOrigin;
+            m_label.text = iNum.ToString();
+        }
     }
 
     public void FocusOn()

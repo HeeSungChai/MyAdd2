@@ -23,6 +23,15 @@ public class TypeWriterReset : MonoBehaviour
         }
     }
 
+    public void OnManualReset()
+    {
+        if (m_typeWriter)
+        {
+            m_typeWriter.gameObject.SetActive(true);
+            m_typeWriter.StartNewWrite();
+        }
+    }
+
     private void OnDisable()
     {
         if (m_typeWriter)

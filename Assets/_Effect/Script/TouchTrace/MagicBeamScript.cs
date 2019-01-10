@@ -46,7 +46,7 @@ public class MagicBeamScript : MonoBehaviour {
 
     void Update()
     {
-#if UNITY_EDITOR || UNITY_STANDALONE_WIN
+//#if UNITY_EDITOR || UNITY_STANDALONE_WIN
         if (Input.GetKeyDown(KeyCode.Escape))
             Application.Quit();
 
@@ -84,22 +84,22 @@ public class MagicBeamScript : MonoBehaviour {
             m_vPosTarget = GetRayHitPos();
             ShootBeamInDir(m_vPosStart, m_vPosTarget);
         }
-#else
-        myTouch = Input.GetTouch(0);
-        if (myTouch.phase == TouchPhase.Ended)
-        {
-            Ray ray = Camera.main.ScreenPointToRay(myTouch.position);
-            RaycastHit hit;
-            if(Physics.Raycast(ray, out hit))
-            {
-                string tagName = hit.collider.tag;
-                if (tagName == "Tile")
-                {
-                    m_UFOTrans.position = hit.transform.position;
-                }                
-            }
-        }	
-#endif
+//#else
+//        myTouch = Input.GetTouch(0);
+//        if (myTouch.phase == TouchPhase.Ended)
+//        {
+//            Ray ray = Camera.main.ScreenPointToRay(myTouch.position);
+//            RaycastHit hit;
+//            if(Physics.Raycast(ray, out hit))
+//            {
+//                string tagName = hit.collider.tag;
+//                if (tagName == "Tile")
+//                {
+//                    m_UFOTrans.position = hit.transform.position;
+//                }                
+//            }
+//        }	
+//#endif
     }
 
     Ray ray;

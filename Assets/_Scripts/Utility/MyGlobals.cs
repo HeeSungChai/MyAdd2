@@ -10,11 +10,11 @@ public enum INGAME_TYPE
     TEST
 }
 
-public enum eLANGUAGE
-{
-    KOREAN,
-    ENGLISH
-}
+//public enum eLANGUAGE
+//{
+//    KOREAN,
+//    ENGLISH
+//}
 //public enum STAGE_NUM
 //{    
 //}
@@ -29,8 +29,11 @@ public class MyGlobals
     public static InputCtrl InputCtrl { get; set; }
     public static ScoreMgr ScoreMgr { get; set; }
     public static UserState UserState { get; set; }
+    public static SoundMgr SoundMgr { get; set; }
+    //public static LanguageMgr LanguageMgr { get; set; }
 
-    public static eLANGUAGE Language { get; set; }
+    //public static eLANGUAGE Language { get; set; }
+    //public static eKEY_TABLEDB LanguageKey { get; set; }
     public static INGAME_TYPE GameType { get; set; }
     public static int StageNum { get; set; }
     public static int MaxSelectableLv { get; set; }
