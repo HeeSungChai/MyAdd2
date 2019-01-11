@@ -144,8 +144,8 @@ MonoBehaviour:
   m_eGameType: 0
   m_iStageNum: 1
   m_eInputType: 0
-  m_eCharacter: 0
-  m_iCharacterLv: 1
+  m_eCharacter: 202
+  m_iCharacterLv: 5
 --- !u!4 &44787326
 Transform:
   m_ObjectHideFlags: 0

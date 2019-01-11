@@ -6,7 +6,7 @@ using System.IO; // for File
 #if UNITY_EDITOR
 public class TableDbEditor : UnityEditor.Editor
 {
-    [UnityEditor.MenuItem("Update Table/Dialogue Table/Update Dialogue DB")]
+    [UnityEditor.MenuItem("Update Table/StageLevel Table/Update Level DB")]
     static public void UpdateDefineIngameDB()
     {
         UnityEngine.Object[] DBdata = Resources.LoadAll(TableDB.m_strAssetPathDialogueTable, typeof(TextAsset));

@@ -117,8 +117,11 @@ public partial class StageMgr : MonoBehaviour
     void SetScoreValue()
     {
         EachCorrectScore = 100;
-        m_eCharacter = eCHARACTER.ADD;
-        m_iCharacterLv = PlayerPrefs.GetInt("Chosen_CharacterLV");
+        if (MyGlobals.EnterIngameFromOutgame)
+        {
+            m_eCharacter = eCHARACTER.ADD;
+            m_iCharacterLv = PlayerPrefs.GetInt("Chosen_CharacterLV");
+        }
 
         eTABLE_LIST eTable;
         switch (m_eCharacter)
