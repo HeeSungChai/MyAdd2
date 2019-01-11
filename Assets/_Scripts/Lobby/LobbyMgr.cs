@@ -62,7 +62,13 @@ public class LobbyMgr : MonoBehaviour
     eCHARACTER m_eCurCharacter;
     int m_iCurLevel;
     //string tempString;
-        
+
+    public UILabel m_labelBtnCharSelect;
+    public UILabel m_labelBtnShop;
+    public UILabel m_labelBtnStartAdventure;
+    public UILabel m_labelBtnStartAdventure2;
+    public UILabel m_labelBtnStartInfinite;
+
     private void Awake()
     {
         EventListener.AddListener("OnGoldAmountChanged", this);
@@ -77,7 +83,7 @@ public class LobbyMgr : MonoBehaviour
        
         OnGoldAmountChanged();
         OnLanguageChanged();
-        OnCharacterChanged();
+        //OnCharacterChanged();
     }
 
     void OnGoldAmountChanged()
@@ -103,6 +109,14 @@ public class LobbyMgr : MonoBehaviour
             m_eKeyCharName = eKEY_TABLEDB.s_CHAR_NAME_US;
             m_eKeyCharAbility = eKEY_TABLEDB.s_SKILL_US;
         }
+
+        m_labelBtnCharSelect.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.CHARACTER_SELECT_BUTTON);
+        m_labelBtnShop.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.SHOP_BUTTON);
+        m_labelBtnStartAdventure.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.LOBBY_ADVENTURE_START);
+        m_labelBtnStartAdventure2.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.LOBBY_ADVENTURE_START);
+        m_labelBtnStartInfinite.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.LOBBY_INFINITE_START);
+
+        OnCharacterChanged();
     }
 
     void OnCharacterChanged()

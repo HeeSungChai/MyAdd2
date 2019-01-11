@@ -10,6 +10,7 @@ public class ItemCoolTimeCtrl : MonoBehaviour
     float m_fFillAmount;
     bool m_bIsCoolTime;
     public TweenScale m_tweenScale;
+    public MyPlaySound m_scriptSound;
 
     private void Start()
     {
@@ -38,6 +39,7 @@ public class ItemCoolTimeCtrl : MonoBehaviour
         if (m_bIsCoolTime)
             return;
 
+        m_scriptSound.PlaySound();
         StopCoroutine("CoroutineCoolTime");
         StartCoroutine("CoroutineCoolTime");
     }

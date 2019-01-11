@@ -34,6 +34,7 @@ public class OptionMgr : MonoBehaviour
         m_labelVolumnBGMValue.text = m_iCurVolumnBGM.ToString();
         //m_eCurLanguage = (eLANGUAGE)PlayerPrefs.GetInt("Language", 0);
         m_eCurLanguage = LanguageMgr.Instance.GetLanguage();
+        OnLanguageChanged();
     }
 	
 	public void OnFxVolumnUp()
@@ -85,7 +86,7 @@ public class OptionMgr : MonoBehaviour
         ++m_eCurLanguage;
         //m_labelLanguageValue.text = m_eCurLanguage.ToString();
         m_labelLanguageValue.text = LanguageMgr.Instance.GetLanguageData(
-                                        eLANGUAGE_ID.OPTION_LANGUAGE_NAME,
+                                        eLANGUAGE_ID.OPTION_LANGUAGE_VALUE,
                                         m_eCurLanguage);
     }
 
@@ -98,7 +99,7 @@ public class OptionMgr : MonoBehaviour
         --m_eCurLanguage;
         //m_labelLanguageValue.text = m_eCurLanguage.ToString();
         m_labelLanguageValue.text = LanguageMgr.Instance.GetLanguageData(
-                                        eLANGUAGE_ID.OPTION_LANGUAGE_NAME,
+                                        eLANGUAGE_ID.OPTION_LANGUAGE_VALUE,
                                         m_eCurLanguage);
     }
 
@@ -116,6 +117,7 @@ public class OptionMgr : MonoBehaviour
         m_labelVolumnFxName.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.OPTION_SOUND_EFFECT);
         m_labelVolumnBGMName.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.OPTION_BGM);
         m_labelLanguageName.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.OPTION_LANGUAGE);
+        m_labelLanguageValue.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.OPTION_LANGUAGE_VALUE);
         m_labelVolumnFxExplanation.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.OPTION_SOUND_EFFECT_EXPLANATION);
         m_labelVolumnBGMExplanation.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.OPTION_BGM_EXPLANATION);
         m_labelLanguageExplanation.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.OPTION_LANGUAGE_EXPLANATION);

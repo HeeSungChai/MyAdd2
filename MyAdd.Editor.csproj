@@ -428,9 +428,12 @@
     <None Include="Assets\Resources\Table\INFINITY_RANDOM.txt" />
     <None Include="Assets\Resources\Table\ITEM_ID.txt" />
     <None Include="Assets\Resources\Table\ITEM_TABLE.txt" />
+    <None Include="Assets\Resources\Table\LANGUAGE_TABLE.txt" />
     <None Include="Assets\Resources\Table\REWARD_TABLE.txt" />
     <None Include="Assets\Resources\Table\SALE_TYPE.txt" />
     <None Include="Assets\Resources\Table\StageLevel\STAGE_LEVEL_1.txt" />
+    <None Include="Assets\Resources\Table\StageLevel\STAGE_LEVEL_2.txt" />
+    <None Include="Assets\Resources\Table\StageLevel\STAGE_LEVEL_3.txt" />
     <None Include="Assets\Resources\Table\TITLE_MARK.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -27,6 +27,8 @@ public class SuperGaugeCtrl : MonoBehaviour
         m_fFillAmountTarget = 0.1f;
         StopCoroutine("CoroutineFillGauge");
         StartCoroutine("CoroutineFillGauge");
+
+        MyGlobals.SoundMgr.OnPlayFx(eSOUND_FX.SUPER_POWER_ACTIVATE);
     }
 
     void OnCorrectAnswer()
@@ -60,7 +62,10 @@ public class SuperGaugeCtrl : MonoBehaviour
         }
         m_sprGauge.fillAmount = m_fFillAmountTarget;
         if (m_sprGauge.fillAmount >= 1.0)
+        {
+            MyGlobals.SoundMgr.OnPlayFx(eSOUND_FX.SUPER_POWER_MAX);
             m_sprButton.gameObject.SetActive(true);
+        }
     }
 
     IEnumerator CoroutinePlayGaugeEffect()  ////show the booster gain effect(휘리릭)

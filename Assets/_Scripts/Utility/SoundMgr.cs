@@ -69,7 +69,7 @@ public class SoundMgr : MonoBehaviour
 
     public void OnSetVolumnFx(float fVolumn)
     {
-        VolumnFx = fVolumn;
+        VolumnFx = fVolumn * 0.1f;
         VolumnFx = Mathf.Clamp01(VolumnFx);
         //m_audioSourceFx.volume = VolumnFx;
         PlayerPrefs.SetFloat("VolumnFx", VolumnFx);

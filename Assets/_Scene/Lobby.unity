@@ -2400,8 +2400,8 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 200
-  mHeight: 200
+  mWidth: 180
+  mHeight: 180
   mDepth: 100
   mMat: {fileID: 0}
   autoResizeBoxCollider: 0
@@ -2412,7 +2412,7 @@ MonoBehaviour:
   mTrueTypeFont: {fileID: 12800000, guid: 7f47410f368bf40f4b4be4929906c9c9, type: 3}
   mFont: {fileID: 0}
   mText: "\uCE90\uB9AD\uD130 \uC120\uD0DD"
-  mFontSize: 60
+  mFontSize: 50
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1
@@ -2709,6 +2709,11 @@ MonoBehaviour:
   m_labelGrade: {fileID: 274066968}
   m_labelCharName: {fileID: 563880512}
   m_labelCharAbility: {fileID: 642253682}
+  m_labelBtnCharSelect: {fileID: 278808400}
+  m_labelBtnShop: {fileID: 1607882021}
+  m_labelBtnStartAdventure: {fileID: 1226011937}
+  m_labelBtnStartAdventure2: {fileID: 1076694358}
+  m_labelBtnStartInfinite: {fileID: 1254387975}
 --- !u!1 &346149040
 GameObject:
   m_ObjectHideFlags: 0
@@ -8499,6 +8504,8 @@ MonoBehaviour:
   m_strScene: Ingame
   m_fDuration: 1
   m_color: {r: 0.34117648, g: 0.8509804, b: 0.89411765, a: 1}
+  m_bEnterIngame: 0
+  m_eGameType: 0
 --- !u!114 &1024912421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12186,6 +12193,8 @@ MonoBehaviour:
   m_strScene: Ingame
   m_fDuration: 1
   m_color: {r: 0.34117648, g: 0.8509804, b: 0.89411765, a: 1}
+  m_bEnterIngame: 0
+  m_eGameType: 0
 --- !u!114 &1454927597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12217,6 +12226,10 @@ MonoBehaviour:
     oneShot: 0
   - mTarget: {fileID: 1454927599}
     mMethodName: PlaySound
+    mParameters: []
+    oneShot: 0
+  - mTarget: {fileID: 1901170911}
+    mMethodName: EnterAdventure
     mParameters: []
     oneShot: 0
 --- !u!65 &1454927598
@@ -12887,16 +12900,19 @@ MonoBehaviour:
   m_objSelectSub: {fileID: 402227714}
   m_objSelectMul: {fileID: 1412266867}
   m_objSelectDiv: {fileID: 2032191174}
+  m_labelName: {fileID: 628439700}
   m_labelCharName: {fileID: 562137874}
   m_labelCharStory: {fileID: 708379574}
   m_labelSkillLv: {fileID: 21380401}
   m_labelSkillExplanation: {fileID: 211829599}
   m_scriptTypewriter: {fileID: 1413605255}
+  m_labelSkill: {fileID: 449216302}
   m_labelSkillLvCur: {fileID: 1568065955}
   m_labelSkillBonusCur: {fileID: 1842091236}
   m_labelSkillLvNext: {fileID: 42713680}
   m_labelSkillBonusNext: {fileID: 1323289266}
   m_labelAquiredCoinAmount: {fileID: 1196517678}
+  m_labelBtnUpgrade: {fileID: 64901986}
 --- !u!1 &1532506062
 GameObject:
   m_ObjectHideFlags: 0
@@ -18248,6 +18264,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2011101849}
   - component: {fileID: 2011101850}
+  - component: {fileID: 2011101851}
   m_Layer: 5
   m_Name: Spr_PopUpBG
   m_TagString: Untagged
@@ -18329,6 +18346,23 @@ MonoBehaviour:
   mAtlas: {fileID: 114619398432037964, guid: dc30a1605f2bd1b4c81f9fbc0bc7aa38, type: 2}
   mSpriteName: SquareRound
   mFillCenter: 1
+--- !u!114 &2011101851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2011101848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8261976074f428a4698fb266ae09d490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_labelReady: {fileID: 1605853239}
+  m_labelLevel: {fileID: 1759307334}
+  m_labelBestScore: {fileID: 905593195}
+  m_labelTotalScore: {fileID: 948244274}
+  m_labelGetItem: {fileID: 1848952113}
+  m_labelStart: {fileID: 1410082896}
 --- !u!1 &2032191174
 GameObject:
   m_ObjectHideFlags: 0

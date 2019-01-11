@@ -70,17 +70,17 @@ public partial class StageMgr : MonoBehaviour
     {
         MyGlobals.StageMgr = this;
 
-        if (MyGlobals.EnterIngameFromOutgame == false)
-        {
-            m_bIsTest = true;
-        }
-        else
+        if (MyGlobals.EnterIngameFromOutgame)
         {
             GameType = MyGlobals.GameType;
             if (GameType == INGAME_TYPE.ADVENTURE)
             {
                 StageNum = MyGlobals.StageNum;
             }
+        }
+        else
+        {
+            m_bIsTest = true;
         }
 
         EventListener.AddListener("OnCountdownDone", this);
@@ -118,7 +118,7 @@ public partial class StageMgr : MonoBehaviour
     {
         EachCorrectScore = 100;
         m_eCharacter = eCHARACTER.ADD;
-        //m_iCharacterLv = 
+        m_iCharacterLv = PlayerPrefs.GetInt("Chosen_CharacterLV");
 
         eTABLE_LIST eTable;
         switch (m_eCharacter)

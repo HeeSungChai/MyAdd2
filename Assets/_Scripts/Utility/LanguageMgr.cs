@@ -11,7 +11,7 @@ public enum eLANGUAGE
 public class LanguageMgr
 {
     public eTABLE_LIST m_LanguageTable = eTABLE_LIST.LANGUAGE_TABLE;
-    public eLANGUAGE Language { get; set; }
+    //public eLANGUAGE Language { get; set; }
     public eKEY_TABLEDB LanguageKey { get; set; }
 
     #region Singleton Pattern Implementation
@@ -44,8 +44,13 @@ public class LanguageMgr
 
     public string GetLanguageData(eLANGUAGE_ID eLangID)
     {
-        if (LanguageKey == (int)0)
+        if ((eLANGUAGE)PlayerPrefs.GetInt("Language", 0) == eLANGUAGE.KOREAN)
             LanguageKey = eKEY_TABLEDB.s_LANGUAGE_KOR;
+        else
+            LanguageKey = eKEY_TABLEDB.s_LANGUAGE_ENG;
+
+        //if (LanguageKey == (int)0)
+        //    LanguageKey = eKEY_TABLEDB.s_LANGUAGE_KOR;
 
         return (string)TableDB.Instance.GetData(m_LanguageTable,
                                                     (int)eLangID, LanguageKey);

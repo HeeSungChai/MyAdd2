@@ -67,8 +67,16 @@ public class DigitSpawner : MonoBehaviour
         m_objPool = new List<GameObject>();
         SetToObjPool();
 
-        //일거리. 현재 레벨 얻어와 반영하기
-        m_eTableStageLevel = eTABLE_LIST.STAGE_LEVEL_1;
+        //if (MyGlobals.EnterIngameFromOutgame)
+        //{
+            m_eTableStageLevel = MyUtility.ParsingStringToEnumType<eTABLE_LIST>("STAGE_LEVEL_" + MyGlobals.StageMgr.StageNum);
+            //m_eTableStageLevel = eTABLE_LIST.STAGE_LEVEL_1;
+        //}
+        //else
+        //{
+        //    //m_eTableStageLevel = eTABLE_LIST.STAGE_LEVEL_1;
+        //    m_eTableStageLevel = MyUtility.ParsingStringToEnumType<eTABLE_LIST>("STAGE_LEVEL_" + MyGlobals.StageMgr.StageNum);
+        //}
         //m_fAppearTime = ((float)TableDB.Instance.GetData(m_eTableStageLevel, m_iLineID, eKEY_TABLEDB.f_APPEARTIME));
         m_fAppearTime = GetNextDigitAppearTime();
         StartCoroutine("CoroutineSpawn");

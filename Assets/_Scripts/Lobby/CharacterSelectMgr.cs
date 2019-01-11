@@ -15,16 +15,19 @@ public class CharacterSelectMgr : MonoBehaviour
     public GameObject m_objSelectDiv;
 
     [Header("Character Profile")]
+    public UILabel m_labelName;
     public UILabel m_labelCharName;
     public UILabel m_labelCharStory;
     public UILabel m_labelSkillLv;
     public UILabel m_labelSkillExplanation;
     public TypeWriterReset m_scriptTypewriter;
+    public UILabel m_labelSkill;
     public UILabel m_labelSkillLvCur;
     public UILabel m_labelSkillBonusCur;
     public UILabel m_labelSkillLvNext;
     public UILabel m_labelSkillBonusNext;
     public UILabel m_labelAquiredCoinAmount;
+    public UILabel m_labelBtnUpgrade;
     private eTABLE_LIST m_eTableChatacter;
     private eTABLE_LIST m_eTableCharacterLv;
     eKEY_TABLEDB m_eKeyCharName;
@@ -44,7 +47,7 @@ public class CharacterSelectMgr : MonoBehaviour
 
         OnGoldAmountChanged();
         OnLanguageChanged();
-        OnCharacterChanged();
+        //OnCharacterChanged();
     }
 
     void OnGoldAmountChanged()
@@ -66,6 +69,12 @@ public class CharacterSelectMgr : MonoBehaviour
             m_eKeyCharStory = eKEY_TABLEDB.s_CHAR_STORY_US;
             m_eKeyCharSkillExplanation = eKEY_TABLEDB.s_SKILL_US;
         }
+
+        m_labelName.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.CHARACTER_SELECT_NAME);
+        m_labelSkill.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.CHARACTER_SELECT_PROPERTY);
+        m_labelBtnUpgrade.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.CHARACTER_SELECT_UPGRADE_BTN);
+
+        RefreshCharacterInfo();
     }
 
     void OnCharacterChanged()

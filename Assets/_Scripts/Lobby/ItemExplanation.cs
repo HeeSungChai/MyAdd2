@@ -14,21 +14,23 @@ public class ItemExplanation : MonoBehaviour
     eKEY_TABLEDB m_eKeyItemName;
     eKEY_TABLEDB m_eKeyItemExplanation;
     public TypewriterEffect m_typeWriter;
+    int m_iSelectedItemIndex;
 
-    void Start ()
+    private void Awake()
     {
         EventListener.AddListener("OnLanguageChanged", this);
+    }
+
+    void OnEnable ()
+    {
         m_eTableItem = eTABLE_LIST.ITEM_TABLE;
 
+        m_iSelectedItemIndex = 305;
         m_objSelectEraser.SetActive(true);
         m_objSelectClock.SetActive(false);
         m_objSelectRecovery.SetActive(false);
 
         OnLanguageChanged();
-
-        if (m_labelItemName)
-            m_labelItemName.text = (string)TableDB.Instance.GetData(m_eTableItem,
-                                        305, m_eKeyItemName);
     }
 
     void OnLanguageChanged()
@@ -43,18 +45,28 @@ public class ItemExplanation : MonoBehaviour
             m_eKeyItemName = eKEY_TABLEDB.s_ITEM_NAME_US;
             m_eKeyItemExplanation = eKEY_TABLEDB.s_ITEM_INFO_US;
         }
+
+        if (m_labelItemName)
+            m_labelItemName.text = (string)TableDB.Instance.GetData(m_eTableItem,
+                                        m_iSelectedItemIndex, m_eKeyItemName);
+        if (m_labelExplanation)
+            m_labelExplanation.text = (string)TableDB.Instance.GetData(m_eTableItem,
+                                        m_iSelectedItemIndex, m_eKeyItemExplanation);
+
+        ResetTypeWriter();
     }
 
 
     public void OnPressed_Eraser ()
     {
-        if(m_labelItemName)
+        m_iSelectedItemIndex = 305;
+        if (m_labelItemName)
             m_labelItemName.text = (string)TableDB.Instance.GetData(m_eTableItem,
-                                        305, m_eKeyItemName);
+                                        m_iSelectedItemIndex, m_eKeyItemName);
 
         if (m_labelExplanation)
             m_labelExplanation.text = (string)TableDB.Instance.GetData(m_eTableItem,
-                                        305, m_eKeyItemExplanation);
+                                        m_iSelectedItemIndex, m_eKeyItemExplanation);
         ResetTypeWriter();
 
         m_objSelectEraser.SetActive(true);
@@ -64,13 +76,15 @@ public class ItemExplanation : MonoBehaviour
 
     public void OnPressed_Clock()
     {
+        m_iSelectedItemIndex = 306;
+
         if (m_labelItemName)
             m_labelItemName.text = (string)TableDB.Instance.GetData(m_eTableItem,
-                                        306, m_eKeyItemName);
+                                        m_iSelectedItemIndex, m_eKeyItemName);
 
         if (m_labelExplanation)
             m_labelExplanation.text = (string)TableDB.Instance.GetData(m_eTableItem,
-                                        306, m_eKeyItemExplanation);
+                                        m_iSelectedItemIndex, m_eKeyItemExplanation);
         ResetTypeWriter();
 
         m_objSelectEraser.SetActive(false);
@@ -80,13 +94,15 @@ public class ItemExplanation : MonoBehaviour
 
     public void OnPressed_Recovery()
     {
+        m_iSelectedItemIndex = 307;
+
         if (m_labelItemName)
             m_labelItemName.text = (string)TableDB.Instance.GetData(m_eTableItem,
-                                        307, m_eKeyItemName);
+                                        m_iSelectedItemIndex, m_eKeyItemName);
 
         if (m_labelExplanation)
             m_labelExplanation.text = (string)TableDB.Instance.GetData(m_eTableItem,
-                                        307, m_eKeyItemExplanation);
+                                        m_iSelectedItemIndex, m_eKeyItemExplanation);
         ResetTypeWriter();
 
         m_objSelectEraser.SetActive(false);

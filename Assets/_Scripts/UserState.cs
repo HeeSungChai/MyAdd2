@@ -20,10 +20,12 @@ public class UserState : MonoBehaviour
         MyGlobals.UserState = this;
     }
 
-    void EnterAdventure()
+    public void EnterAdventure()
     {
+        if (MyGlobals.EnteringIngame)
+            return;
+
         MyGlobals.GameType = INGAME_TYPE.ADVENTURE;
-        MyGlobals.StageNum = 1;
 
         MyGlobals.EnterIngameFromOutgame = true;
         MyGlobals.EnteringIngame = true;
@@ -32,8 +34,10 @@ public class UserState : MonoBehaviour
         //switch(m_eCurCharacter)
         //{
         //    case eCHARACTER.ADD:
-                PlayerPrefs.SetInt("Chosen_CharacterLV", m_iLvAdd);
+                PlayerPrefs.SetInt("Chosen_CharacterLV", GetCurSkillLv());
         //}
+
+        EventListener.Broadcast("OnEnterIngame");
     }
 
     public int GetCurSkillLv()
