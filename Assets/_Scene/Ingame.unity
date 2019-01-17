@@ -23150,6 +23150,7 @@ GameObject:
   - component: {fileID: 2098202382}
   - component: {fileID: 2098202384}
   - component: {fileID: 2098202383}
+  - component: {fileID: 2098202386}
   - component: {fileID: 2098202385}
   - component: {fileID: 2098202387}
   m_Layer: 5
@@ -23268,6 +23269,10 @@ MonoBehaviour:
     mMethodName: PlaySound
     mParameters: []
     oneShot: 0
+  - mTarget: {fileID: 2098202386}
+    mMethodName: PerformTransition
+    mParameters: []
+    oneShot: 0
 --- !u!114 &2098202385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23323,6 +23328,22 @@ MonoBehaviour:
   from: {x: 0, y: 0, z: 0}
   to: {x: 1, y: 1, z: 1}
   updateTable: 0
+--- !u!114 &2098202386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2098202380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f15f92b5bd910ed499e745a33842e768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_strScene: Lobby
+  m_fDuration: 1
+  m_color: {r: 0, g: 0, b: 0, a: 1}
+  m_bEnterIngame: 0
+  m_eGameType: 0
 --- !u!114 &2098202387
 MonoBehaviour:
   m_ObjectHideFlags: 0
