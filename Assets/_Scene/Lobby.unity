@@ -1325,6 +1325,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!1 &148490681
 GameObject:
   m_ObjectHideFlags: 0
@@ -3495,6 +3497,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!65 &404118376
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3701,6 +3705,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!1 &437128849
 GameObject:
   m_ObjectHideFlags: 0
@@ -4167,6 +4173,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!1 &483420570 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1998961106932598, guid: 2a4b8946d0e10c748933927921ecdfb4,
@@ -4449,6 +4457,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!1 &526815890
 GameObject:
   m_ObjectHideFlags: 0
@@ -5216,6 +5226,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!1 &617246238
 GameObject:
   m_ObjectHideFlags: 0
@@ -5458,6 +5470,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!1 &628439698
 GameObject:
   m_ObjectHideFlags: 0
@@ -5605,9 +5619,113 @@ Prefab:
       propertyPath: m_fVolumnBGM
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114452851060551768, guid: 251969b40f7d68c4385eda12beac1f53,
+        type: 2}
+      propertyPath: m_audioSourceBGM
+      value: 
+      objectReference: {fileID: 640490949}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 251969b40f7d68c4385eda12beac1f53, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &640490947 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1415321374880756, guid: 251969b40f7d68c4385eda12beac1f53,
+    type: 2}
+  m_PrefabInternal: {fileID: 640490946}
+--- !u!114 &640490948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 640490947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5916bdd10bd7aaf4fbbeff73152ccc46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_eSoundFx: 0
+  m_bPlayBGM: 1
+  m_audioSource: {fileID: 640490949}
+--- !u!82 &640490949
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 640490947}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 78e824499e7805444a20fcd4356f5fa2, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1 &642253680
 GameObject:
   m_ObjectHideFlags: 0
@@ -5980,6 +6098,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!1 &708379569
 GameObject:
   m_ObjectHideFlags: 0
@@ -6364,6 +6484,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!1 &718868169
 GameObject:
   m_ObjectHideFlags: 0
@@ -6508,6 +6630,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!1 &725374582
 GameObject:
   m_ObjectHideFlags: 0
@@ -6735,6 +6859,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!1001 &771207808
 Prefab:
   m_ObjectHideFlags: 0
@@ -9917,6 +10043,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!1 &821670559
 GameObject:
   m_ObjectHideFlags: 0
@@ -10609,6 +10737,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!65 &896885534
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10975,6 +11105,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!1 &920126188
 GameObject:
   m_ObjectHideFlags: 0
@@ -11546,6 +11678,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!1 &998329001
 GameObject:
   m_ObjectHideFlags: 0
@@ -11792,6 +11926,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!1 &1067834547
 GameObject:
   m_ObjectHideFlags: 0
@@ -12150,6 +12286,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!1 &1099449535
 GameObject:
   m_ObjectHideFlags: 0
@@ -13547,6 +13685,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!1 &1340800847
 GameObject:
   m_ObjectHideFlags: 0
@@ -15090,6 +15230,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!1 &1429108614
 GameObject:
   m_ObjectHideFlags: 0
@@ -15573,6 +15715,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!1 &1455967218
 GameObject:
   m_ObjectHideFlags: 0
@@ -15901,6 +16045,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!1 &1473816957
 GameObject:
   m_ObjectHideFlags: 0
@@ -16376,6 +16522,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!1 &1540343872
 GameObject:
   m_ObjectHideFlags: 0
@@ -17145,6 +17293,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!1 &1605853237
 GameObject:
   m_ObjectHideFlags: 0
@@ -18375,6 +18525,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!1 &1756733824
 GameObject:
   m_ObjectHideFlags: 0
@@ -19560,6 +19712,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!1 &1842091234
 GameObject:
   m_ObjectHideFlags: 0
@@ -19820,6 +19974,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!1 &1848952111
 GameObject:
   m_ObjectHideFlags: 0
@@ -20381,6 +20537,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!65 &1899988986
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20590,6 +20748,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!1 &1912467959 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1998961106932598, guid: 2a4b8946d0e10c748933927921ecdfb4,
@@ -20758,6 +20918,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!1 &1919820145
 GameObject:
   m_ObjectHideFlags: 0
@@ -21735,6 +21897,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!1 &2011101848
 GameObject:
   m_ObjectHideFlags: 0
@@ -22242,6 +22406,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eSoundFx: 0
+  m_bPlayBGM: 0
+  m_audioSource: {fileID: 0}
 --- !u!65 &2070815018
 BoxCollider:
   m_ObjectHideFlags: 0

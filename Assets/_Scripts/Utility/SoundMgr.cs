@@ -103,11 +103,12 @@ public class SoundMgr : MonoBehaviour
 
     public void OnSetVolumnBGM(float fVolumn)
     {
-        VolumnBGM = fVolumn;
+        VolumnBGM = fVolumn * 0.1f;
         VolumnBGM = Mathf.Clamp01(VolumnBGM);
         //m_audioSourceBGM.volume = VolumnFx;
         //PlayerPrefs.SetFloat("VolumnBGM", VolumnBGM);
         PrefsMgr.Instance.SetFloat(PrefsMgr.strVolumnBGM, VolumnBGM);
+        m_audioSourceBGM.volume = VolumnBGM;
     }
 
     public void OnBGMVolumnUp()
@@ -141,5 +142,12 @@ public class SoundMgr : MonoBehaviour
     public void OnPlayFx(eSOUND_FX eSound, float fVolumn)
     {
         NGUITools.PlaySound(m_arrAudioClipFx[(int)eSound], fVolumn, 1f);
+    }
+
+    public void OnPlayBGM(eSOUND_BGM eSound)
+    {
+        //m_audioSourceFx.clip = m_arrAudioClipFx[(int)eSound];
+        //m_audioSourceFx.Play();
+        NGUITools.PlaySound(m_arrAudioClipBGM[(int)eSound], VolumnBGM, 1f);
     }
 }
