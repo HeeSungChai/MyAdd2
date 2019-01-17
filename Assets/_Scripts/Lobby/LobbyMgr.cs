@@ -59,8 +59,12 @@ public class LobbyMgr : MonoBehaviour
     public UILabel m_labelCharAbility;
     eKEY_TABLEDB m_eKeyCharName;
     eKEY_TABLEDB m_eKeyCharAbility;
-    eCHARACTER m_eCurCharacter;
+    //eCHARACTER m_eCurCharacter;
     int m_iCurLevel;
+    public GameObject m_objAdd;
+    public GameObject m_objMi;
+    public GameObject m_objDouble;
+    public GameObject m_objDividivi;
     //string tempString;
 
     public UILabel m_labelBtnCharSelect;
@@ -149,7 +153,7 @@ public class LobbyMgr : MonoBehaviour
 
         m_labelCharAbility.text = string.Format(
             (string)TableDB.Instance.GetData(m_eTableChatacter,
-                (int)m_eCurCharacter, m_eKeyCharAbility),
+                (int)MyGlobals.UserState.m_eCurCharacter, m_eKeyCharAbility),
             TableDB.Instance.GetData(m_eTableCharacterLv,
                 (int)m_iCurLevel, eKEY_TABLEDB.i_SKILL_VALUE));
 
@@ -158,8 +162,8 @@ public class LobbyMgr : MonoBehaviour
 
     void UpdateCharacterTable()
     {
-        m_eCurCharacter = MyGlobals.UserState.m_eCurCharacter;
-        switch (m_eCurCharacter)
+        //m_eCurCharacter = MyGlobals.UserState.m_eCurCharacter;
+        switch (MyGlobals.UserState.m_eCurCharacter)
         {
             case eCHARACTER.ADD:
                 m_eTableCharacterLv = eTABLE_LIST.CHAR_LEVEL_ADD;
@@ -189,24 +193,58 @@ public class LobbyMgr : MonoBehaviour
 
     }
 
-    public void OnPress_Option()
-    {
-
-    }
-
     public void OnPress_Character()
     {
 
     }
 
+    void ShowCharacter()
+    {
+        switch (MyGlobals.UserState.m_eCurCharacter)
+        {
+            case eCHARACTER.ADD:
+                m_objAdd.SetActive(true);
+                m_objMi.SetActive(false);
+                break;
+            case eCHARACTER.SUB:
+                m_objAdd.SetActive(false);
+                m_objMi.SetActive(true);
+                break;
+            default:
+                break;
+        }
+    }
+
     public void OnPress_CharacterLeft()
     {
-
+        switch (MyGlobals.UserState.m_eCurCharacter)
+        {
+            case eCHARACTER.ADD:
+                MyGlobals.UserState.m_eCurCharacter = eCHARACTER.SUB;
+                break;
+            case eCHARACTER.SUB:
+                MyGlobals.UserState.m_eCurCharacter = eCHARACTER.ADD;
+                break;
+            default:
+                break;
+        }
+        ShowCharacter();
     }
 
     public void OnPress_CharacterRight()
     {
-
+        switch(MyGlobals.UserState.m_eCurCharacter)
+        {
+            case eCHARACTER.ADD:
+                MyGlobals.UserState.m_eCurCharacter = eCHARACTER.SUB;
+                break;
+            case eCHARACTER.SUB:
+                MyGlobals.UserState.m_eCurCharacter = eCHARACTER.ADD;
+                break;
+            default:
+                break;
+        }
+        ShowCharacter();
     }
 
     public void OnPress_CharacterChoice()

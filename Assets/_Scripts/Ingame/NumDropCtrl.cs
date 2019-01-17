@@ -18,16 +18,21 @@ public class NumDropCtrl : MonoBehaviour
     public GameObject m_objCorrectStar;
     public GameObject m_objFailStar;
     public GameObject[] m_objEvaluation;
+    public GameObject m_objLockOn;
+    public GameObject m_objFire;
     Vector3 m_vStartPos;
     Vector3 m_vTargetPos;
     float m_fFallDuration;
     bool m_bReachToBottom;
     bool m_bCorrect;
+    public int LineID { get; set; }
+    bool m_bCorrectOrFailed = false;
 
     private void Awake()
     {
         m_colorDefault = m_label.color;
-        EventListener.AddListener("OnActivateSuperSkill", this);
+        //EventListener.AddListener("OnActivateSuperSkill", this);
+        EventListener.AddListener("OnDeactivateSuperSkill", this);
     }
 
     private void OnEnable()
@@ -38,7 +43,7 @@ public class NumDropCtrl : MonoBehaviour
         StartCoroutine("CoroutineFall");
     }
 
-    public void Init (Vector3 vSpawnPos, int num, float fFallDuration)
+    public void Init (Vector3 vSpawnPos, int num, float fFallDuration, int iLineID = 0)
     {
         //m_label.gameObject.SetActive(true);
         if (m_label == null)
@@ -46,6 +51,7 @@ public class NumDropCtrl : MonoBehaviour
         if (m_transform == null)
             m_transform = m_label.gameObject.transform;
 
+        m_bCorrectOrFailed = false;
         m_bCorrect = false;
         m_bReachToBottom = false;
         m_vStartPos = vSpawnPos;
@@ -54,6 +60,8 @@ public class NumDropCtrl : MonoBehaviour
         m_transform.localPosition = m_vStartPos;
         m_label.text = num.ToString();
         m_fFallDuration = fFallDuration;
+        LineID = iLineID;
+        m_objFire.SetActive(true);
     }
 
     IEnumerator CoroutineFall()
@@ -94,6 +102,11 @@ public class NumDropCtrl : MonoBehaviour
         return m_bCorrect;
     }
 
+    public int GetLineID()
+    {
+        return LineID;
+    }
+
     public float GetHeight()
     {
         return m_transform.localPosition.y;
@@ -114,13 +127,28 @@ public class NumDropCtrl : MonoBehaviour
         m_label.color = m_colorDefault;
     }
 
+    public void LockOn()
+    {
+        m_objLockOn.SetActive(true);
+    }
+
     public void Correct(eEVALUATION eEvaluation)
     {
+        if (m_bCorrectOrFailed)
+            return;
+
+        m_bCorrectOrFailed = true;
         //정답인 경우 레이블 비활성화, Great여부 판정,
         m_bCorrect = true;
         m_label.gameObject.SetActive(false);
+        m_objLockOn.SetActive(false);
+        m_objFire.SetActive(false);
         ActivateCorrectEffect(eEvaluation);
         Invoke("DisableObj", 1.0f);
+        --MyGlobals.DigitSpawner.DigitsCount;
+        ++MyGlobals.DigitSpawner.TargetID;
+
+        EventListener.Broadcast("OnChangeTarget");
     }
 
     void ActivateCorrectEffect(eEVALUATION eEvaluation)
@@ -134,12 +162,23 @@ public class NumDropCtrl : MonoBehaviour
 
     void Failed()
     {
-        m_bCorrect = true;
+        if (m_bCorrectOrFailed)
+            return;
+
+        m_bCorrectOrFailed = true;
+        m_bCorrect = false;
         m_label.gameObject.SetActive(false);
+        m_objLockOn.SetActive(false);
+        m_objFire.SetActive(false);
         ActivateFailEffect();
         Invoke("DisableObj", 1.0f);
         EventListener.Broadcast("OnFailed");
         --MyGlobals.DigitSpawner.DigitsCount;
+        ++MyGlobals.DigitSpawner.TargetID;
+
+        //가장 낮은놈이 타겟일때는 그놈이 fail되면 숫자입력부 갱신해야되지만 
+        //기획 바뀌어 LineID 기반으로 타깃을 정하므로 ChargeTarget해줄필요 없어짐
+        //EventListener.Broadcast("OnChangeTarget");
     }
 
     void ActivateFailEffect()
@@ -153,7 +192,7 @@ public class NumDropCtrl : MonoBehaviour
 
     float fCurHeight;
     eEVALUATION eEvaluation;
-    void OnActivateSuperSkill()
+    void OnDeactivateSuperSkill()
     {
         fCurHeight = GetHeight();
 

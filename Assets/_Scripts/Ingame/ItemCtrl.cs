@@ -28,7 +28,7 @@ public class ItemCtrl : MonoBehaviour
             return;
 
         m_scriptCoolTime[(int)eITEM_TYPE.ERASER].OnActivate();
-        EventListener.Broadcast("OnCorrectAnswer");
+        EventListener.Broadcast("OnCorrectAnswer", true);
     }
 
     public void OnPress_Clock()

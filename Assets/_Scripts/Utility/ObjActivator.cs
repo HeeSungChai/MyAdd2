@@ -5,9 +5,10 @@ using UnityEngine;
 public class ObjActivator : MonoBehaviour
 {
     public GameObject m_obj;
+    public bool m_bUseAsDeactivator = false;
     public float m_fDelay;
     public bool m_bAutoActivation;
-    public bool m_bAutoDeactivation;
+    //public bool m_bAutoDeactivation;
     public bool m_bTimeSkipByTouch;
     public float m_fSkipTime = 1f;
     bool m_bTouched = false;
@@ -19,7 +20,12 @@ public class ObjActivator : MonoBehaviour
 
     virtual public void OnEnable()
     {
-        if(m_bAutoActivation)
+        if(m_bUseAsDeactivator)
+        {
+            StopCoroutine("CoroutineDelayedDeactivator");
+            StartCoroutine("CoroutineDelayedDeactivator");
+        }
+        else if(m_bAutoActivation)
         {
             StopCoroutine("CoroutineDelayedActivator");
             StartCoroutine("CoroutineDelayedActivator");
@@ -73,14 +79,21 @@ public class ObjActivator : MonoBehaviour
         m_bTouched = true;
     }
 
+    virtual public IEnumerator CoroutineDelayedDeactivator()
+    {
+        yield return new WaitForSeconds(m_fDelay);
+
+        m_obj.SetActive(false);
+    }
+
     virtual public void OnDeactivate()
     {
         m_obj.SetActive(false);
     }
 
-    private void OnDisable()
-    {
-        if (m_bAutoDeactivation)
-            OnDeactivate();
-    }
+    //private void OnDisable()
+    //{
+    //    if (m_bAutoDeactivation)
+    //        OnDeactivate();
+    //}
 }

@@ -28,9 +28,11 @@ public class OptionMgr : MonoBehaviour
 
     void OnEnable()
     {
-        m_iCurVolumnFx = Mathf.RoundToInt(PlayerPrefs.GetFloat("VolumnFx", 1f) * 10f);
+        //m_iCurVolumnFx = Mathf.RoundToInt(PlayerPrefs.GetFloat("VolumnFx", 1f) * 10f);
+        m_iCurVolumnFx = Mathf.RoundToInt(PrefsMgr.Instance.GetFloat(PrefsMgr.strVolumnFX, 1f) * 10f);
         m_labelVolumnFxValue.text = m_iCurVolumnFx.ToString();
-        m_iCurVolumnBGM = Mathf.RoundToInt(PlayerPrefs.GetFloat("VolumnBGM", 1f) * 10f);
+        //m_iCurVolumnBGM = Mathf.RoundToInt(PlayerPrefs.GetFloat("VolumnBGM", 1f) * 10f);
+        m_iCurVolumnBGM = Mathf.RoundToInt(PrefsMgr.Instance.GetFloat(PrefsMgr.strVolumnBGM, 1f) * 10f);
         m_labelVolumnBGMValue.text = m_iCurVolumnBGM.ToString();
         //m_eCurLanguage = (eLANGUAGE)PlayerPrefs.GetInt("Language", 0);
         m_eCurLanguage = LanguageMgr.Instance.GetLanguage();
@@ -44,7 +46,7 @@ public class OptionMgr : MonoBehaviour
 
         ++m_iCurVolumnFx;
         m_labelVolumnFxValue.text = m_iCurVolumnFx.ToString();
-        MyGlobals.SoundMgr.OnFxVolumnUp();
+        //MyGlobals.SoundMgr.OnFxVolumnUp();
 	}
 
     public void OnFxVolumnDown()
@@ -54,7 +56,7 @@ public class OptionMgr : MonoBehaviour
 
         --m_iCurVolumnFx;
         m_labelVolumnFxValue.text = m_iCurVolumnFx.ToString();
-        MyGlobals.SoundMgr.OnFxVolumnDown();
+        //MyGlobals.SoundMgr.OnFxVolumnDown();
     }
 
     public void OnBGMVolumnUp()
@@ -64,7 +66,7 @@ public class OptionMgr : MonoBehaviour
 
         ++m_iCurVolumnBGM;
         m_labelVolumnBGMValue.text = m_iCurVolumnBGM.ToString();
-        MyGlobals.SoundMgr.OnBGMVolumnUp();
+        //MyGlobals.SoundMgr.OnBGMVolumnUp();
     }
 
     public void OnBGMVolumnDown()
@@ -74,7 +76,7 @@ public class OptionMgr : MonoBehaviour
 
         --m_iCurVolumnBGM;
         m_labelVolumnBGMValue.text = m_iCurVolumnBGM.ToString();
-        MyGlobals.SoundMgr.OnBGMVolumnDown();
+        //MyGlobals.SoundMgr.OnBGMVolumnDown();
     }
 
     public void OnLanguageUp()

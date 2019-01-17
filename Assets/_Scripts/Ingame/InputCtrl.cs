@@ -50,7 +50,7 @@ public class InputCtrl : MonoBehaviour
         m_listCandidates = new List<int>();
 
         MyGlobals.InputCtrl = this;
-        EventListener.AddListener("OnLowestChanged", this);
+        EventListener.AddListener("OnTargetChanged", this);
     }
 
     void Start ()
@@ -85,7 +85,7 @@ public class InputCtrl : MonoBehaviour
         //일거리. 연산기호에 해당하는 캐릭터를 획득한 경우에만 해당 오퍼레이터 활성화
     }
 	
-    public void OnLowestChanged()
+    public void OnTargetChanged()
     {
         ResetDigits();
     }
@@ -375,7 +375,7 @@ public class InputCtrl : MonoBehaviour
         //해당 숫자 지우고 
         //점수 올리고 
         //필살기 게이지 채우고
-        EventListener.Broadcast("OnCorrectAnswer");
+        EventListener.Broadcast("OnCorrectAnswer", false);
 
         //일거리. 인피닛 모드면 콤보 수 누적
 
@@ -416,22 +416,34 @@ public class InputCtrl : MonoBehaviour
         if (!m_bInputAllowed)
             return;
 
+        //아무것도 선택되지 않은 경우
         if (m_iIndexSelectedLeft == -1)
         {
             m_arrScriptInputButtonLeft[iIndex].Select();
+            m_bSelected_Left = true;
+            m_iSelectedDigitLeft = m_listLeftDigits[iIndex];
+            m_iIndexSelectedLeft = iIndex;
+            CheckIsCorrectAnswer();
+            return;
         }
 
-        if (m_iIndexSelectedLeft != -1 && m_iIndexSelectedLeft != iIndex)
+        //기존 선택과 다른걸 선택한 경우
+        if (m_iIndexSelectedLeft != iIndex)
         {
             m_arrScriptInputButtonLeft[iIndex].Select();
             m_arrScriptInputButtonLeft[m_iIndexSelectedLeft].Deselect();
+            m_bSelected_Left = true;
+            m_iSelectedDigitLeft = m_listLeftDigits[iIndex];
+            m_iIndexSelectedLeft = iIndex;
+            CheckIsCorrectAnswer();
         }
-
-        m_bSelected_Left = true;
-        m_iSelectedDigitLeft = m_listLeftDigits[iIndex];
-        m_iIndexSelectedLeft = iIndex;
-
-        CheckIsCorrectAnswer();
+        else    //선택된 숫자를 한번 더 누른 경우에는 선택 해제
+        {
+            m_arrScriptInputButtonLeft[m_iIndexSelectedLeft].Deselect();
+            m_bSelected_Left = false;
+            m_iSelectedDigitLeft = 0;
+            m_iIndexSelectedLeft = -1;
+        }
     }
 
     void SelectRight(int iIndex)
@@ -442,18 +454,29 @@ public class InputCtrl : MonoBehaviour
         if (m_iIndexSelectedRight == -1)
         {
             m_arrScriptInputButtonRight[iIndex].Select();
+            m_bSelected_Right = true;
+            m_iSelectedDigitRight = m_listRightDigits[iIndex];
+            m_iIndexSelectedRight = iIndex;
+            CheckIsCorrectAnswer();
+            return;
         }
 
-        if (m_iIndexSelectedRight != -1 && m_iIndexSelectedRight != iIndex)
+        if (m_iIndexSelectedRight != iIndex)
         {
             m_arrScriptInputButtonRight[iIndex].Select();
             m_arrScriptInputButtonRight[m_iIndexSelectedRight].Deselect();
+            m_bSelected_Right = true;
+            m_iSelectedDigitRight = m_listRightDigits[iIndex];
+            m_iIndexSelectedRight = iIndex;
+            CheckIsCorrectAnswer();
         }
-        m_bSelected_Right = true;
-        m_iSelectedDigitRight = m_listRightDigits[iIndex];
-        m_iIndexSelectedRight = iIndex;
-
-        CheckIsCorrectAnswer();
+        else
+        {
+            m_arrScriptInputButtonRight[m_iIndexSelectedRight].Deselect();
+            m_bSelected_Right = false;
+            m_iSelectedDigitRight = 0;
+            m_iIndexSelectedRight = -1;
+        }
     }
 
     void SelectOperator(eOPERATOR eOperator)
@@ -464,17 +487,25 @@ public class InputCtrl : MonoBehaviour
         if (m_bSelected_Operator == false)
         {
             m_arrScriptInputButtonOperator[(int)eOperator].Select();
+            m_bSelected_Operator = true;
+            m_eSelected_Operator = eOperator;
+            CheckIsCorrectAnswer();
+            return;
         }
 
-        if (m_bSelected_Operator && m_eSelected_Operator != eOperator)
+        if (m_eSelected_Operator != eOperator)
         {
             m_arrScriptInputButtonOperator[(int)eOperator].Select();
             m_arrScriptInputButtonOperator[(int)m_eSelected_Operator].Deselect();
+            m_bSelected_Operator = true;
+            m_eSelected_Operator = eOperator;
+            CheckIsCorrectAnswer();
         }
-        
-        m_bSelected_Operator = true;
-        m_eSelected_Operator = eOperator;
-        CheckIsCorrectAnswer();
+        else
+        {
+            m_arrScriptInputButtonOperator[(int)m_eSelected_Operator].Deselect();
+            m_bSelected_Operator = false;
+        }
     }
 
     public void OnSelect_Left_1()

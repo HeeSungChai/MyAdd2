@@ -6,6 +6,7 @@ public class SuperGaugeCtrl : MonoBehaviour
 {
     public UISprite m_sprGauge;
     public UISprite m_sprButton;
+    public float m_fFillAmountDefault = 0.1f;
     public float m_fFillAmountGreat;
     public float m_fFillAmountCool;
     public float m_fFillAmountNice;
@@ -15,7 +16,7 @@ public class SuperGaugeCtrl : MonoBehaviour
     void Start ()
     {
         EventListener.AddListener("OnCorrectAnswer", this);
-        m_sprGauge.fillAmount = 0.1f;
+        m_sprGauge.fillAmount = m_fFillAmountDefault;
         m_sprButton.gameObject.SetActive(false);
     }
 	
@@ -24,15 +25,21 @@ public class SuperGaugeCtrl : MonoBehaviour
         m_sprButton.gameObject.SetActive(false);
         EventListener.Broadcast("OnActivateSuperSkill");
 
-        m_fFillAmountTarget = 0.1f;
+        m_fFillAmountTarget = m_fFillAmountDefault;
         StopCoroutine("CoroutineFillGauge");
         StartCoroutine("CoroutineFillGauge");
 
         MyGlobals.SoundMgr.OnPlayFx(eSOUND_FX.SUPER_POWER_ACTIVATE);
     }
 
-    void OnCorrectAnswer()
+    void OnCorrectAnswer(bool bByItem)
     {
+        if (bByItem)
+            return;
+
+        if (m_sprGauge.fillAmount >= 1f)
+            return;
+
         if (MyGlobals.DigitSpawner.m_eEvaluation == eEVALUATION.GREAT)
             m_fFillAmountTarget += m_fFillAmountGreat;
         else if (MyGlobals.DigitSpawner.m_eEvaluation == eEVALUATION.COOL)

@@ -1,0 +1,66 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public enum eREWARD_ID
+{
+    COIN = 400,
+    ERASER = 401,
+    CLOCK = 402,
+    RECOVERY = 403
+
+}
+public class RewardMgr : MonoBehaviour
+{
+    eTABLE_LIST m_eTableName = eTABLE_LIST.REWARD_TABLE;
+    public RewardCtrl[] m_scriptRewardCtrl;
+
+    int iIndex = 0;
+    int m_iReward1;
+    int m_iReward1_Value;
+    int m_iReward2;
+    int m_iReward2_Value;
+    int m_iReward3;
+    int m_iReward3_Value;
+    int m_iUnlockID;
+
+    void OnEnable()
+    {
+        GetRewardData();
+    }
+
+    void GetRewardData()
+    {
+        m_iReward1 = (int)TableDB.Instance.GetData(m_eTableName, MyGlobals.StageMgr.StageNum, eKEY_TABLEDB.i_REWARD_1);
+        if (m_iReward1 != -1)
+        {
+            m_iReward1_Value = (int)TableDB.Instance.GetData(m_eTableName, MyGlobals.StageMgr.StageNum, eKEY_TABLEDB.i_REWARD_1_VALUE);
+            ShowReward(iIndex, m_iReward1, m_iReward1_Value);
+            ++iIndex;
+        }
+
+        m_iReward2 = (int)TableDB.Instance.GetData(m_eTableName, MyGlobals.StageMgr.StageNum, eKEY_TABLEDB.i_REWARD_2);
+        if (m_iReward2 != -1)
+        {
+            m_iReward2_Value = (int)TableDB.Instance.GetData(m_eTableName, MyGlobals.StageMgr.StageNum, eKEY_TABLEDB.i_REWARD_2_VALUE);
+            ShowReward(iIndex, m_iReward2, m_iReward2_Value);
+            ++iIndex;
+        }
+
+        m_iReward3 = (int)TableDB.Instance.GetData(m_eTableName, MyGlobals.StageMgr.StageNum, eKEY_TABLEDB.i_REWARD_3);
+        if (m_iReward3 != -1)
+        {
+            m_iReward3_Value = (int)TableDB.Instance.GetData(m_eTableName, MyGlobals.StageMgr.StageNum, eKEY_TABLEDB.i_REWARD_3_VALUE);
+            ShowReward(iIndex, m_iReward3, m_iReward2_Value);
+            ++iIndex;
+        }
+
+        m_iUnlockID = (int)TableDB.Instance.GetData(m_eTableName, MyGlobals.StageMgr.StageNum, eKEY_TABLEDB.i_UNLOCK_ID);
+    }
+
+    void ShowReward(int iIndex, int iRewardID, int iValue)
+    {
+        m_scriptRewardCtrl[iIndex].gameObject.SetActive(true);
+        m_scriptRewardCtrl[iIndex].Init((eREWARD_ID)m_iReward1, m_iReward1_Value);
+    }
+}

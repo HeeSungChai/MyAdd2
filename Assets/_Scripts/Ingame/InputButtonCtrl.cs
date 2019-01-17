@@ -7,24 +7,25 @@ public class InputButtonCtrl : MonoBehaviour
     UIWidget[] arrWidget;
     int[] m_arrDepthOrigin;
     int m_iDepthSelected = 200;
-    TweenScale m_tweenScale;
+    public TweenScale m_tweenScale;
 
     private void Awake()
     {
-        EventListener.AddListener("OnLowestChanged", this);
+        EventListener.AddListener("OnTargetChanged", this);
         EventListener.AddListener("OnDeselectAll", this);
         arrWidget = GetComponentsInChildren<UIWidget>();
 
         m_arrDepthOrigin = new int[arrWidget.Length];
-        for(int i = 0; i < arrWidget.Length; ++i)
+        for (int i = 0; i < arrWidget.Length; ++i)
         {
             m_arrDepthOrigin[i] = arrWidget[i].depth;
         }
 
-        m_tweenScale = GetComponent<TweenScale>();
+        if (m_tweenScale == null)
+            m_tweenScale = GetComponent<TweenScale>();
     }
 
-    public void Select ()
+    public void Select()
     {
         for (int i = 0; i < arrWidget.Length; ++i)
         {
@@ -35,7 +36,7 @@ public class InputButtonCtrl : MonoBehaviour
         //m_tweenScale.ResetToBeginning();
     }
 
-    public void Deselect ()
+    public void Deselect()
     {
         for (int i = 0; i < arrWidget.Length; ++i)
         {
@@ -51,7 +52,7 @@ public class InputButtonCtrl : MonoBehaviour
         Deselect();
     }
 
-    void OnLowestChanged()
+    void OnTargetChanged()
     {
         Deselect();
     }

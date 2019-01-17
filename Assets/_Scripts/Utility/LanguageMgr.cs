@@ -30,12 +30,14 @@ public class LanguageMgr
 
     public eLANGUAGE GetLanguage()
     {
-        return (eLANGUAGE)PlayerPrefs.GetInt("Language", 0);
+        //return (eLANGUAGE)PlayerPrefs.GetInt("Language", 0);
+        return (eLANGUAGE)PrefsMgr.Instance.GetInt(PrefsMgr.strLanguage, 0);
     }
 
     public void SetLanguage(eLANGUAGE eLanguage)
     {
-        PlayerPrefs.SetInt("Language", (int)eLanguage);
+        //PlayerPrefs.SetInt("Language", (int)eLanguage);
+        PrefsMgr.Instance.SetInt(PrefsMgr.strLanguage, (int)eLanguage);
         if (eLanguage == eLANGUAGE.KOREAN)
             LanguageKey = eKEY_TABLEDB.s_LANGUAGE_KOR;
         else
@@ -44,7 +46,8 @@ public class LanguageMgr
 
     public string GetLanguageData(eLANGUAGE_ID eLangID)
     {
-        if ((eLANGUAGE)PlayerPrefs.GetInt("Language", 0) == eLANGUAGE.KOREAN)
+        //if ((eLANGUAGE)PlayerPrefs.GetInt("Language", 0) == eLANGUAGE.KOREAN)
+        if ((eLANGUAGE)PrefsMgr.Instance.GetInt(PrefsMgr.strLanguage, 0) == eLANGUAGE.KOREAN)
             LanguageKey = eKEY_TABLEDB.s_LANGUAGE_KOR;
         else
             LanguageKey = eKEY_TABLEDB.s_LANGUAGE_ENG;

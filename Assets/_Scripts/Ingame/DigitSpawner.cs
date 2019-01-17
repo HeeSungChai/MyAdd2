@@ -29,15 +29,16 @@ public class DigitSpawner : MonoBehaviour
     float m_fAppearTime;
     bool m_bSpawnedAll;
     public Color m_colorLowest;
-    NumDropCtrl m_scriptLowest;
+    public int TargetID { get; set; }
+    NumDropCtrl m_scriptTarget;
     private int m_iLowestDigit;
     public int LowestDigit {
         get
         {
-            //if (m_scriptLowest == null)
+            //if (m_scriptTarget == null)
             //    return 0;
             //else
-            //    return m_scriptLowest.GetDigit();
+            //    return m_scriptTarget.GetDigit();
             return m_iLowestDigit;
         }
         set
@@ -50,14 +51,16 @@ public class DigitSpawner : MonoBehaviour
                 m_iLowestDigit = value;
         }
     }
-    public int DigitsCount;
+    public int DigitsCount { get; set; }
+
+    public UILabel m_labelNext;
 
     private void Awake()
     {
         MyGlobals.DigitSpawner = this;
 
         EventListener.AddListener("OnCorrectAnswer", this);
-        //EventListener.AddListener("OnActivated_Eraser", this);
+        EventListener.AddListener("OnChangeTarget", this);
     }
 
     void Start()
@@ -79,8 +82,9 @@ public class DigitSpawner : MonoBehaviour
         //}
         //m_fAppearTime = ((float)TableDB.Instance.GetData(m_eTableStageLevel, m_iLineID, eKEY_TABLEDB.f_APPEARTIME));
         m_fAppearTime = GetNextDigitAppearTime();
+        TargetID = 1;
         StartCoroutine("CoroutineSpawn");
-        StartCoroutine("CoroutineCheckLowestDigit");
+        //StartCoroutine("CoroutineCheckLowestDigit");
     }
 
     public void SetObjPoolCapacity(int iCapacity)
@@ -108,7 +112,7 @@ public class DigitSpawner : MonoBehaviour
     public IEnumerator CoroutineSpawn()
     {
         m_iTotalCount = (int)TableDB.Instance.GetRowCount(m_eTableStageLevel);
-        int iSpawedCount = 0;
+        //int iSpawedCount = 0;
         while (MyGlobals.StageMgr.StageState < STAGE_STATE.GAMECLEAR && m_bSpawnedAll == false)
         {
             if(MyGlobals.StageMgr.PlayTime < m_fAppearTime)
@@ -118,10 +122,13 @@ public class DigitSpawner : MonoBehaviour
             }
 
             //Appeartime 이 되면 다음 숫자 소환
-            if (iSpawedCount < m_iTotalCount)
+            if (m_iLineID <= m_iTotalCount)
             {
-                ++iSpawedCount;
+                //++iSpawedCount;
                 SpawnOne();
+
+                if (m_iLineID == 2)
+                    OnChangeTarget();
             }
             else
             {
@@ -131,9 +138,21 @@ public class DigitSpawner : MonoBehaviour
 
             yield return null;
         }
+
+        while(DigitsCount > 0)
+        {
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(1.0f);
+
+        EventListener.Broadcast("OnGameClear");
     }
 
-    NumDropCtrl m_scriptLowestPrev;
+    /// <summary>
+    /// 가장 밑에 있는 숫자가 타깃이 되는 버전
+    /// </summary>
+    NumDropCtrl m_scriptTargetPrev;
     NumDropCtrl m_scriptCurDigit;
     public IEnumerator CoroutineCheckLowestDigit()
     {
@@ -149,8 +168,8 @@ public class DigitSpawner : MonoBehaviour
             }
 
             //lowest였던 애가 바닥에 닿으면 다른애가 lowest가 될 수 있도록
-            //if (fHeightOfLowestObj <= 0f || (m_scriptLowest && m_scriptLowest.IsCorrect()))
-                fHeightOfLowestObj = 10000f;
+            //if (fHeightOfLowestObj <= 0f || (m_scriptTarget && m_scriptTarget.IsCorrect()))
+            fHeightOfLowestObj = 10000f;
 
             //활성화된 모든 숫자를 루프 돌면서 가장 높이가 낮은놈을 찾음
             for (int i = 0; i < m_objPool.Count; ++i)
@@ -160,7 +179,7 @@ public class DigitSpawner : MonoBehaviour
 
                 m_scriptCurDigit = m_objPool[i].GetComponent<NumDropCtrl>();
 
-                //if (m_scriptLowest && (m_scriptCurDigit == m_scriptLowest))
+                //if (m_scriptTarget && (m_scriptCurDigit == m_scriptTarget))
                 //    continue;
 
                 if (m_scriptCurDigit.IsReachToBottom() || m_scriptCurDigit.IsCorrect())
@@ -170,14 +189,14 @@ public class DigitSpawner : MonoBehaviour
                 if (fHeightOfLowestObj > fHeightOfThisObj)
                 {
                     fHeightOfLowestObj = fHeightOfThisObj;
-                    m_scriptLowest = m_scriptCurDigit;
+                    m_scriptTarget = m_scriptCurDigit;
                 }
             }
 
             //그놈이 이전프레임이 가장 낮았던 놈이 아니면 숫자 입력부 갱신
-            if(m_scriptLowestPrev == null || 
-                m_scriptLowest != m_scriptLowestPrev || 
-                m_scriptLowest.GetDigit() != LowestDigit)
+            if (m_scriptTargetPrev == null ||
+                m_scriptTarget != m_scriptTargetPrev ||
+                m_scriptTarget.GetDigit() != LowestDigit)
             {
                 LowestChanged();
             }
@@ -188,21 +207,80 @@ public class DigitSpawner : MonoBehaviour
 
     void LowestChanged()
     {
-        if (m_scriptLowest == null)
+        if (m_scriptTarget == null)
             return;
-        //m_scriptLowest = m_scriptNewLowest;
-        LowestDigit = m_scriptLowest.GetDigit();
+        //m_scriptTarget = m_scriptNewLowest;
+        LowestDigit = m_scriptTarget.GetDigit();
 
-        if(m_scriptLowestPrev)
-            m_scriptLowestPrev.SetTextColorDefault();
+        if (m_scriptTargetPrev)
+            m_scriptTargetPrev.SetTextColorDefault();
 
-        m_scriptLowest.SetTextColor(m_colorLowest);
-        m_scriptLowestPrev = m_scriptLowest;
-        EventListener.Broadcast("OnLowestChanged");
+        m_scriptTarget.SetTextColor(m_colorLowest);
+        m_scriptTargetPrev = m_scriptTarget;
+        EventListener.Broadcast("OnTargetChanged");
     }
 
+    /// <summary>
+    /// 높이에 상관없이 LineID 순서로 타깃이 바뀌는 버전
+    /// </summary>
+    public void OnChangeTarget()
+    {
+        if (TargetID > m_iTotalCount)
+            return;
+
+        //소환된 숫자가 하나도 없으면 바로 하나 소환
+        if (DigitsCount <= 0)
+            SpawnOne();
+
+        for (int i = 0; i < m_objPool.Count; ++i)
+        {
+            if (m_objPool[i].gameObject.activeSelf == false)
+                continue;
+
+            m_scriptCurDigit = m_objPool[i].GetComponent<NumDropCtrl>();
+            if (TargetID == m_scriptCurDigit.LineID)
+            {
+                m_scriptTarget = m_scriptCurDigit;
+                m_scriptTarget.LockOn();
+            }
+        }
+
+        if (m_scriptTarget)
+            LowestDigit = m_scriptTarget.GetDigit();
+
+        EventListener.Broadcast("OnTargetChanged");
+    }
+
+    ////라인ID에 따라 타겟을 지정하는 버전
+    //public IEnumerator CoroutineCheckLowestDigitByID()
+    //{
+    //    while (MyGlobals.StageMgr.StageState < STAGE_STATE.GAMECLEAR)
+    //    {
+    //        //해당 숫자를 맞추거나
+    //        for (int i = 0; i < m_objPool.Count; ++i)
+    //        {
+    //            if (m_objPool[i].gameObject.activeSelf == false)
+    //                continue;
+
+    //            m_scriptCurDigit = m_objPool[i].GetComponent<NumDropCtrl>();
+    //            m_scriptTarget = m_scriptCurDigit;
+    //        }
+
+    //        //그놈이 이전프레임이 가장 낮았던 놈이 아니면 숫자 입력부 갱신
+    //        if (m_scriptTargetPrev == null ||
+    //            m_scriptTarget != m_scriptTargetPrev ||
+    //            m_scriptTarget.GetDigit() != LowestDigit)
+    //        {
+    //            LowestChanged();
+    //        }
+
+    //        yield return null;
+    //    }
+    //}
+
     int iIndexSpawnPos;
-    int iNextNum;
+    int iCurNum;
+    int iNextNum = -1;
     float fDuration;
     void SpawnOne()
     {
@@ -213,10 +291,13 @@ public class DigitSpawner : MonoBehaviour
             //라인 1~5 에 랜덤하게 소환.
             iIndexSpawnPos = Random.Range(0, 5);
 
-            iNextNum = GetNextNum();            
+            if (iNextNum == -1)
+                iCurNum = GetNextNum();
+            else
+                iCurNum = iNextNum;
 
             fDuration = ((float)TableDB.Instance.GetData(m_eTableStageLevel, m_iLineID, eKEY_TABLEDB.f_SPEED_VALUE));
-            m_objPool[iObjIndex].GetComponent<NumDropCtrl>().Init(m_arrSpawnPos[iIndexSpawnPos], iNextNum, fDuration);
+            m_objPool[iObjIndex].GetComponent<NumDropCtrl>().Init(m_arrSpawnPos[iIndexSpawnPos], iCurNum, fDuration, m_iLineID);
             m_objPool[iObjIndex].SetActive(true);
             ++m_iLineID;
             //m_fAppearTime = ((float)TableDB.Instance.GetData(m_eTableStageLevel, m_iLineID, eKEY_TABLEDB.f_APPEARTIME));
@@ -224,11 +305,28 @@ public class DigitSpawner : MonoBehaviour
             if(m_iLineID <= m_iTotalCount)
                 m_fAppearTime = GetNextDigitAppearTime();
             ++DigitsCount;
+
+            iNextNum = GetNextNum();
+
+            SetNextDigit();
         }
         else
         {
             if (CheckUsableExist())
                 this.SpawnOne();
+        }
+    }
+
+    void SetNextDigit()
+    {
+        if (m_iLineID <= m_iTotalCount)
+        {
+            m_labelNext.gameObject.SetActive(true);
+            m_labelNext.text = iNextNum.ToString();
+        }
+        else
+        {
+            m_labelNext.gameObject.SetActive(false);
         }
     }
 
@@ -323,9 +421,9 @@ public class DigitSpawner : MonoBehaviour
 
     public eEVALUATION m_eEvaluation;
     float fCurHeight;
-    void OnCorrectAnswer()
+    void OnCorrectAnswer(bool bByItem)
     {
-        fCurHeight = m_scriptLowest.GetHeight();
+        fCurHeight = m_scriptTarget.GetHeight();
 
         if (fCurHeight >= m_fHeightGreat)
             m_eEvaluation = eEVALUATION.GREAT;
@@ -334,8 +432,13 @@ public class DigitSpawner : MonoBehaviour
         else
             m_eEvaluation = eEVALUATION.NICE;
 
-        m_scriptLowest.Correct(m_eEvaluation);
-        --DigitsCount;
+        m_scriptTarget.Correct(m_eEvaluation);
+
+        if(!bByItem)
+            MyGlobals.StageMgr.UpdateScore(m_eEvaluation);
+        //--DigitsCount;
+
+        //OnChangeTarget();
     }
     
     private void OnDestroy()

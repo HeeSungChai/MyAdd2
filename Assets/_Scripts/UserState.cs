@@ -30,11 +30,13 @@ public class UserState : MonoBehaviour
         MyGlobals.EnterIngameFromOutgame = true;
         MyGlobals.EnteringIngame = true;
 
-        PlayerPrefs.SetInt("Chosen_Character", (int)m_eCurCharacter);
+        //PlayerPrefs.SetInt("Chosen_Character", (int)m_eCurCharacter);
+        PrefsMgr.Instance.SetInt(PrefsMgr.strChoosenChar, (int)m_eCurCharacter);
         //switch(m_eCurCharacter)
         //{
         //    case eCHARACTER.ADD:
-                PlayerPrefs.SetInt("Chosen_CharacterLV", GetCurSkillLv());
+                //PlayerPrefs.SetInt("Chosen_CharacterLV", GetCurSkillLv());
+        PrefsMgr.Instance.SetInt(PrefsMgr.strChoosenCharLv, GetCurSkillLv());
         //}
 
         EventListener.Broadcast("OnEnterIngame");

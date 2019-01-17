@@ -54,14 +54,18 @@ public class ItemCoolTimeCtrl : MonoBehaviour
             fElased += Time.deltaTime;
             m_fFillAmount = fElased / m_fCoolTime;
 
-            m_sprBtn.fillAmount = m_fFillAmount;
-            m_sprIcon.fillAmount = m_fFillAmount;
+            if(m_sprBtn)
+                m_sprBtn.fillAmount = m_fFillAmount;
+            if(m_sprIcon)
+                m_sprIcon.fillAmount = m_fFillAmount;
 
             yield return null;
         }
 
-        m_sprBtn.fillAmount = 1.0f;
-        m_sprIcon.fillAmount = 1.0f;
+        if (m_sprBtn)
+            m_sprBtn.fillAmount = 1.0f;
+        if (m_sprIcon)
+            m_sprIcon.fillAmount = 1.0f;
         m_bIsCoolTime = false;
 
         if (m_tweenScale)

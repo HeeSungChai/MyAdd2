@@ -58,13 +58,19 @@ public partial class StageMgr : MonoBehaviour
     public eCHARACTER m_eCharacter;
     public int m_iCharacterLv = 1;
 
-    int TotalScore { get; set; }
-    int EachCorrectScore { get; set; }
-    int TotalBasicScore { get; set; }
-    int EachCharBonusScore { get; set; }
-    int TotalCharBonusScore { get; set; }
-    int EachComboBonusScore { get; set; }
-    int TotalComboBonusScore { get; set; }
+    public int TotalScore { get; set; }
+    public int EachGreatScore = 300;
+    public int EachCoolScore = 120;
+    public int EachNiceScore = 50;
+    public int TotalBasicScore { get; set; }
+    int EachCharBonusScore;
+    public int TotalCharBonusScore { get; set; }
+    int EachComboBonusScore;
+    public int TotalComboBonusScore { get; set; }
+
+    [Header("Result")]
+    public GameObject m_objGameClear;
+    public GameObject m_objGameOver;
 
     private void Awake()
     {
@@ -81,6 +87,7 @@ public partial class StageMgr : MonoBehaviour
         else
         {
             m_bIsTest = true;
+            MyGlobals.StageNum = StageNum;
         }
 
         EventListener.AddListener("OnCountdownDone", this);
@@ -90,6 +97,8 @@ public partial class StageMgr : MonoBehaviour
         EventListener.AddListener("OnGameOver", this);
         EventListener.AddListener("OnTimePaused", this);
         EventListener.AddListener("OnCorrectAnswer", this);
+        EventListener.AddListener("OnActivateSuperSkill", this);
+        EventListener.AddListener("OnDeactivateSuperSkill", this);
 
 #if UNITY_ANDROID || UNITY_IPHONE
         //Application.targetFrameRate = 60;
@@ -116,11 +125,11 @@ public partial class StageMgr : MonoBehaviour
 
     void SetScoreValue()
     {
-        EachCorrectScore = 100;
         if (MyGlobals.EnterIngameFromOutgame)
         {
             m_eCharacter = eCHARACTER.ADD;
-            m_iCharacterLv = PlayerPrefs.GetInt("Chosen_CharacterLV");
+            //m_iCharacterLv = PlayerPrefs.GetInt("Chosen_CharacterLV");
+            m_iCharacterLv = PrefsMgr.Instance.GetInt(PrefsMgr.strChoosenCharLv);
         }
 
         eTABLE_LIST eTable;
@@ -149,6 +158,7 @@ public partial class StageMgr : MonoBehaviour
     {
         StageState = STAGE_STATE.GAMECLEAR;
         IsPauseDrop = true;
+        m_objGameClear.SetActive(true);
     }
 
     public void OnGameOver(bool bContinuePossible = true)
@@ -156,8 +166,9 @@ public partial class StageMgr : MonoBehaviour
         StageState = STAGE_STATE.GAMEOVER;
         IsPauseDrop = true;
 
-        if(bContinuePossible)
-            Invoke("TimeScaleZero", 3.0f);
+        m_objGameOver.SetActive(false);
+        //if(bContinuePossible)
+        //    Invoke("TimeScaleZero", 3.0f);
     }
 
     void OnCountdownDone()
@@ -252,10 +263,34 @@ public partial class StageMgr : MonoBehaviour
         IsPauseDrop = false;
     }
 
-    void OnCorrectAnswer()
+    public void OnActivateSuperSkill()
+    {
+        IsPauseDrop = true;
+    }
+
+    public void OnDeactivateSuperSkill()
+    {
+        IsPauseDrop = false;
+    }
+
+    public void UpdateScore(eEVALUATION eEvaluation)
     {
         //기본점수
-        TotalBasicScore += EachCorrectScore;
+        switch(eEvaluation)
+        {
+            case eEVALUATION.GREAT:
+                TotalBasicScore += EachGreatScore;
+                break;
+            case eEVALUATION.COOL:
+                TotalBasicScore += EachCoolScore;
+                break;
+            case eEVALUATION.NICE:
+                TotalBasicScore += EachNiceScore;
+                break;
+            default:
+                TotalBasicScore += EachNiceScore;
+                break;
+        }
 
         //캐릭터 보너스 점수
         switch (MyGlobals.InputCtrl.m_eSelected_Operator)
@@ -290,10 +325,16 @@ public partial class StageMgr : MonoBehaviour
 
         //콤보 점수
 
+
         //총 획득 점수
         TotalScore = TotalBasicScore + TotalCharBonusScore + TotalComboBonusScore;
 
         MyGlobals.ScoreMgr.UpdateScore(TotalScore);
+    }
+
+    public void OnGoToNextStage()
+    {
+        ++MyGlobals.StageNum;
     }
 
     private void OnDestroy()
