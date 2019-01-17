@@ -802,7 +802,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_eStageState: 0
   m_eGameType: 0
-  m_iStageNum: 10
+  m_iStageNum: 20
   m_eInputType: 0
   m_eCharacter: 201
   m_iCharacterLv: 5
@@ -6009,7 +6009,6 @@ GameObject:
   - component: {fileID: 405105654}
   - component: {fileID: 405105656}
   - component: {fileID: 405105655}
-  - component: {fileID: 405105658}
   - component: {fileID: 405105657}
   - component: {fileID: 405105659}
   m_Layer: 5
@@ -6030,8 +6029,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1440381213}
-  m_Father: {fileID: 1972989741}
-  m_RootOrder: 3
+  m_Father: {fileID: 1136990401}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &405105654
 MonoBehaviour:
@@ -6183,23 +6182,6 @@ MonoBehaviour:
   from: {x: 0, y: 0, z: 0}
   to: {x: 1, y: 1, z: 1}
   updateTable: 0
---- !u!114 &405105658
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 405105652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 783c3dafcc2be4948863cb502b265547, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_obj: {fileID: 405105652}
-  m_bUseAsDeactivator: 0
-  m_fDelay: 1.2
-  m_bAutoActivation: 1
-  m_bTimeSkipByTouch: 1
-  m_fSkipTime: 1
 --- !u!114 &405105659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9130,7 +9112,6 @@ GameObject:
   - component: {fileID: 759217131}
   - component: {fileID: 759217133}
   - component: {fileID: 759217132}
-  - component: {fileID: 759217135}
   - component: {fileID: 759217134}
   - component: {fileID: 759217136}
   - component: {fileID: 759217137}
@@ -9313,23 +9294,6 @@ MonoBehaviour:
   from: {x: 0, y: 0, z: 0}
   to: {x: 1, y: 1, z: 1}
   updateTable: 0
---- !u!114 &759217135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 759217129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 783c3dafcc2be4948863cb502b265547, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_obj: {fileID: 0}
-  m_bUseAsDeactivator: 0
-  m_fDelay: 0.2
-  m_bAutoActivation: 0
-  m_bTimeSkipByTouch: 0
-  m_fSkipTime: 1
 --- !u!114 &759217136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10478,6 +10442,53 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+--- !u!1 &872609548
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 872609549}
+  - component: {fileID: 872609550}
+  m_Layer: 5
+  m_Name: Buttons
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &872609549
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 872609548}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1136990401}
+  m_Father: {fileID: 1972989741}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &872609550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 872609548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 783c3dafcc2be4948863cb502b265547, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_obj: {fileID: 1136990400}
+  m_bUseAsDeactivator: 0
+  m_fDelay: 1
+  m_bAutoActivation: 1
+  m_bTimeSkipByTouch: 0
+  m_fSkipTime: 1
 --- !u!1 &874831671
 GameObject:
   m_ObjectHideFlags: 0
@@ -12249,6 +12260,36 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+--- !u!1 &1136990400
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1136990401}
+  m_Layer: 5
+  m_Name: Buttons
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1136990401
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1136990400}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2098202381}
+  - {fileID: 405105653}
+  m_Father: {fileID: 872609549}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1142492627
 GameObject:
   m_ObjectHideFlags: 0
@@ -18467,7 +18508,6 @@ GameObject:
   - component: {fileID: 1725420558}
   - component: {fileID: 1725420560}
   - component: {fileID: 1725420559}
-  - component: {fileID: 1725420563}
   - component: {fileID: 1725420561}
   - component: {fileID: 1725420562}
   - component: {fileID: 1725420564}
@@ -18662,23 +18702,6 @@ MonoBehaviour:
   from: {x: 0, y: 0, z: 0}
   to: {x: 1, y: 1, z: 1}
   updateTable: 0
---- !u!114 &1725420563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1725420556}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 783c3dafcc2be4948863cb502b265547, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_obj: {fileID: 0}
-  m_bUseAsDeactivator: 0
-  m_fDelay: 0
-  m_bAutoActivation: 0
-  m_bTimeSkipByTouch: 0
-  m_fSkipTime: 1
 --- !u!114 &1725420564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21516,8 +21539,7 @@ Transform:
   m_Children:
   - {fileID: 1221406053}
   - {fileID: 2072285996}
-  - {fileID: 2098202381}
-  - {fileID: 405105653}
+  - {fileID: 872609549}
   m_Father: {fileID: 147599093}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -23128,7 +23150,6 @@ GameObject:
   - component: {fileID: 2098202382}
   - component: {fileID: 2098202384}
   - component: {fileID: 2098202383}
-  - component: {fileID: 2098202386}
   - component: {fileID: 2098202385}
   - component: {fileID: 2098202387}
   m_Layer: 5
@@ -23149,8 +23170,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1757067892}
-  m_Father: {fileID: 1972989741}
-  m_RootOrder: 2
+  m_Father: {fileID: 1136990401}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2098202382
 MonoBehaviour:
@@ -23302,23 +23323,6 @@ MonoBehaviour:
   from: {x: 0, y: 0, z: 0}
   to: {x: 1, y: 1, z: 1}
   updateTable: 0
---- !u!114 &2098202386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2098202380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 783c3dafcc2be4948863cb502b265547, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_obj: {fileID: 2098202380}
-  m_bUseAsDeactivator: 0
-  m_fDelay: 1
-  m_bAutoActivation: 1
-  m_bTimeSkipByTouch: 1
-  m_fSkipTime: 1
 --- !u!114 &2098202387
 MonoBehaviour:
   m_ObjectHideFlags: 0

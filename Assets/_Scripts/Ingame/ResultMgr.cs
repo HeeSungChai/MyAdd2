@@ -32,6 +32,8 @@ public class ResultMgr : MonoBehaviour
             m_scriptCounterScore.Init(0, MyGlobals.StageMgr.TotalBasicScore, 1.0f);
             m_scriptCounterBonus.Init(0, MyGlobals.StageMgr.TotalCharBonusScore, 1.0f);
             m_scriptCounterTotalScore.Init(0, MyGlobals.StageMgr.TotalScore, 1.0f);
+
+            PrefsMgr.Instance.SetInt(PrefsMgr.strStageScore + MyGlobals.StageMgr.StageNum, MyGlobals.StageMgr.TotalScore);
         }
         else
         {

@@ -166,7 +166,7 @@ public partial class StageMgr : MonoBehaviour
         StageState = STAGE_STATE.GAMEOVER;
         IsPauseDrop = true;
 
-        m_objGameOver.SetActive(false);
+        m_objGameOver.SetActive(true);
         //if(bContinuePossible)
         //    Invoke("TimeScaleZero", 3.0f);
     }

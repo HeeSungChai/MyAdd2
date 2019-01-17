@@ -7,7 +7,9 @@ public class StageSelectMgr : MonoBehaviour
     public UILabel m_labelReady;
     public UILabel m_labelLevel;
     public UILabel m_labelBestScore;
+    //public UILabel m_labelBestScoreValue;
     public UILabel m_labelTotalScore;
+    //public UILabel m_labelTotalScoreValue;
     public UILabel m_labelGetItem;
     public UILabel m_labelStart;
 

@@ -69,7 +69,7 @@ public class HpBarMgr : MonoBehaviour
 
     void GameOver()
     {
-
+        EventListener.Broadcast("OnGameOver", false);
     }
 
     private void OnDestroy()

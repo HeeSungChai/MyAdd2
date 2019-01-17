@@ -17697,6 +17697,8 @@ MonoBehaviour:
   - {fileID: 1362220419}
   - {fileID: 1919820148}
   m_fEachRotDuration: 0.2
+  m_labelBestScoreValue: {fileID: 1150339838}
+  m_labelTotalScoreValue: {fileID: 781967393}
 --- !u!1 &1702365199
 GameObject:
   m_ObjectHideFlags: 0

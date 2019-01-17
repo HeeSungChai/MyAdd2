@@ -146,7 +146,8 @@ public class DigitSpawner : MonoBehaviour
 
         yield return new WaitForSeconds(1.0f);
 
-        EventListener.Broadcast("OnGameClear");
+        if(MyGlobals.StageMgr.StageState != STAGE_STATE.GAMEOVER)
+            EventListener.Broadcast("OnGameClear");
     }
 
     /// <summary>

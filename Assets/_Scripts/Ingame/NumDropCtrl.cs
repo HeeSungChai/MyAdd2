@@ -168,7 +168,6 @@ public class NumDropCtrl : MonoBehaviour
         m_bCorrectOrFailed = true;
         m_bCorrect = false;
         m_label.gameObject.SetActive(false);
-        m_objLockOn.SetActive(false);
         m_objFire.SetActive(false);
         ActivateFailEffect();
         Invoke("DisableObj", 1.0f);
@@ -178,7 +177,11 @@ public class NumDropCtrl : MonoBehaviour
 
         //가장 낮은놈이 타겟일때는 그놈이 fail되면 숫자입력부 갱신해야되지만 
         //기획 바뀌어 LineID 기반으로 타깃을 정하므로 ChargeTarget해줄필요 없어짐
-        //EventListener.Broadcast("OnChangeTarget");
+        //그랬더니 타깃인애가 땅에 닿아도 타깃이 안바뀌어 현재 타깃이면 changeTarget하도록 함
+        if(m_objLockOn.activeSelf == true)
+            EventListener.Broadcast("OnChangeTarget");
+
+        m_objLockOn.SetActive(false);
     }
 
     void ActivateFailEffect()
