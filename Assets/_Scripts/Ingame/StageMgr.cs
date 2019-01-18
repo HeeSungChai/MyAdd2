@@ -273,7 +273,7 @@ public partial class StageMgr : MonoBehaviour
         IsPauseDrop = false;
     }
 
-    public void UpdateScore(eEVALUATION eEvaluation)
+    public void UpdateScore(eEVALUATION eEvaluation, bool bByItem)
     {
         //기본점수
         switch(eEvaluation)
@@ -292,35 +292,38 @@ public partial class StageMgr : MonoBehaviour
                 break;
         }
 
-        //캐릭터 보너스 점수
-        switch (MyGlobals.InputCtrl.m_eSelected_Operator)
+        if (!bByItem)
         {
-            case eOPERATOR.ADDITION:
-                {
-                    if (m_eCharacter == eCHARACTER.ADD)
-                        TotalCharBonusScore += EachCharBonusScore;
-                }
-                break;
-            case eOPERATOR.SUBTRACTION:
-                {
-                    if (m_eCharacter == eCHARACTER.SUB)
-                        TotalCharBonusScore += EachCharBonusScore;
-                }
-                break;
-            case eOPERATOR.MULTIPLICATION:
-                {
-                    if (m_eCharacter == eCHARACTER.MUL)
-                        TotalCharBonusScore += EachCharBonusScore;
-                }
-                break;
-            case eOPERATOR.DIVISION:
-                {
-                    if (m_eCharacter == eCHARACTER.DIV)
-                        TotalCharBonusScore += EachCharBonusScore;
-                }
-                break;
-            default:
-                break;
+            //캐릭터 보너스 점수
+            switch (MyGlobals.InputCtrl.m_eSelected_Operator)
+            {
+                case eOPERATOR.ADDITION:
+                    {
+                        if (m_eCharacter == eCHARACTER.ADD)
+                            TotalCharBonusScore += EachCharBonusScore;
+                    }
+                    break;
+                case eOPERATOR.SUBTRACTION:
+                    {
+                        if (m_eCharacter == eCHARACTER.SUB)
+                            TotalCharBonusScore += EachCharBonusScore;
+                    }
+                    break;
+                case eOPERATOR.MULTIPLICATION:
+                    {
+                        if (m_eCharacter == eCHARACTER.MUL)
+                            TotalCharBonusScore += EachCharBonusScore;
+                    }
+                    break;
+                case eOPERATOR.DIVISION:
+                    {
+                        if (m_eCharacter == eCHARACTER.DIV)
+                            TotalCharBonusScore += EachCharBonusScore;
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
 
         //콤보 점수
