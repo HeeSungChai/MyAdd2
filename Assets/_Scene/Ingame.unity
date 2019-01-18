@@ -3592,7 +3592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f15f92b5bd910ed499e745a33842e768, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_strScene: Lobby
+  m_strScene: Title
   m_fDuration: 1
   m_color: {r: 0, g: 0, b: 0, a: 1}
   m_bEnterIngame: 0
