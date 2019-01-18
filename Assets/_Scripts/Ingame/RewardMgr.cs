@@ -15,7 +15,7 @@ public class RewardMgr : MonoBehaviour
     eTABLE_LIST m_eTableName = eTABLE_LIST.REWARD_TABLE;
     public RewardCtrl[] m_scriptRewardCtrl;
 
-    int iIndex = 0;
+    int iIndex;
     int m_iReward1;
     int m_iReward1_Value;
     int m_iReward2;
@@ -26,6 +26,12 @@ public class RewardMgr : MonoBehaviour
 
     void OnEnable()
     {
+        iIndex = 0;
+        for (int i = 0; i < m_scriptRewardCtrl.Length; ++i)
+        {
+            m_scriptRewardCtrl[i].gameObject.SetActive(false);
+        }
+
         GetRewardData();
     }
 
@@ -61,6 +67,6 @@ public class RewardMgr : MonoBehaviour
     void ShowReward(int iIndex, int iRewardID, int iValue)
     {
         m_scriptRewardCtrl[iIndex].gameObject.SetActive(true);
-        m_scriptRewardCtrl[iIndex].Init((eREWARD_ID)m_iReward1, m_iReward1_Value);
+        m_scriptRewardCtrl[iIndex].Init((eREWARD_ID)iRewardID, m_iReward1_Value);
     }
 }

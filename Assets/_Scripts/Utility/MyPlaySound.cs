@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MyPlaySound : MonoBehaviour {
-
+public class MyPlaySound : MonoBehaviour
+{
+    public bool m_bPlayFxOnAwakef = false;
     public eSOUND_FX m_eSoundFx;
     public bool m_bPlayBGM;
     //public eSOUND_BGM m_eSoundBGM;
@@ -11,6 +12,11 @@ public class MyPlaySound : MonoBehaviour {
 
     private void OnEnable()
     {
+        if(m_bPlayFxOnAwakef)
+        {
+            PlaySound();
+        }
+
         if (m_bPlayBGM)
         {
             if (m_audioSource == null)

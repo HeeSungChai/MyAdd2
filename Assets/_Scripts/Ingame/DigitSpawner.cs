@@ -227,7 +227,10 @@ public class DigitSpawner : MonoBehaviour
     public void OnChangeTarget()
     {
         if (TargetID > m_iTotalCount)
+        {
+            m_bSpawnedAll = true;
             return;
+        }
 
         //소환된 숫자가 하나도 없으면 바로 하나 소환
         if (DigitsCount <= 0)

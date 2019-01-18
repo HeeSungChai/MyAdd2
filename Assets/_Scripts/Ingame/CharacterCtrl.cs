@@ -23,17 +23,19 @@ public class CharacterCtrl : MonoBehaviour
     public GameObject[] m_arrDiv;
     public AnimationClip m_ClipSkill_Div;
     public float m_fSkillDuration_Div;
-    eCHARACTER m_eCurCharacter;
+    public eCHARACTER m_eCurCharacter;
     float m_fSkillDuration;
 
     private void Awake()
     {
         EventListener.AddListener("OnActivateSuperSkill", this);
+        //1차 발표버전에서는 캐릭터 애드/마이 중 하나 랜덤 등장
+        m_eCurCharacter = Random.Range(0, 2) == 0 ? eCHARACTER.ADD : eCHARACTER.SUB;
     }
 
     void Start ()
     {
-        m_eCurCharacter = (eCHARACTER)PrefsMgr.Instance.GetInt(PrefsMgr.strChoosenChar, (int)eCHARACTER.ADD);
+        //m_eCurCharacter = (eCHARACTER)PrefsMgr.Instance.GetInt(PrefsMgr.strChoosenChar, (int)eCHARACTER.ADD);
 
         for (int i = 0; i < m_arrAdd.Length; ++i)
         {

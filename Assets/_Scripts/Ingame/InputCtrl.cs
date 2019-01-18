@@ -17,7 +17,7 @@ public class InputCtrl : MonoBehaviour
     public GameObject[] m_arrObjRightDigits;
     public GameObject[] m_arrObjOperators;
     public float m_fInputDeactivateDuration;
-    bool m_bInputAllowed = true;
+    bool m_bInputAllowed;
     RePositioner[] m_arrScriptPositionerLeft;
     RePositioner[] m_arrScriptPositionerRight;
     InputButtonCtrl[] m_arrScriptInputButtonLeft;
@@ -55,6 +55,8 @@ public class InputCtrl : MonoBehaviour
 
     void Start ()
     {
+        m_bInputAllowed = false;
+
         m_arrScriptPositionerLeft = new RePositioner[m_arrObjLeftDigits.Length];
         m_arrScriptInputButtonLeft = new InputButtonCtrl[m_arrObjLeftDigits.Length];
         for (int i = 0; i < m_arrObjLeftDigits.Length; ++i)
@@ -77,7 +79,12 @@ public class InputCtrl : MonoBehaviour
             m_arrScriptInputButtonOperator[i] = m_arrObjOperators[i].GetComponentInChildren<InputButtonCtrl>();
         }
 
-        ResetSelection();
+        m_iIndexSelectedLeft = -1;
+        m_iIndexSelectedRight = -1;
+        m_bSelected_Left = false;
+        m_bSelected_Right = false;
+        m_bSelected_Operator = false;
+        EventListener.Broadcast("OnDeselectAll");
     }
 
     public void SetOperatorCondition()

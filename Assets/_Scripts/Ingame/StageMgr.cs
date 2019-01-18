@@ -55,6 +55,7 @@ public partial class StageMgr : MonoBehaviour
     public bool IsPauseDrop { get { return m_bPauseDrop; } set { m_bPauseDrop = value; } }
 
     [Header("Character Info")]
+    public CharacterCtrl m_scriptCharacterCtrl;
     public eCHARACTER m_eCharacter;
     public int m_iCharacterLv = 1;
 
@@ -81,6 +82,8 @@ public partial class StageMgr : MonoBehaviour
             GameType = MyGlobals.GameType;
             if (GameType == INGAME_TYPE.ADVENTURE)
             {
+                if (MyGlobals.StageNum == 0)
+                    MyGlobals.StageNum = 1;
                 StageNum = MyGlobals.StageNum;
             }
         }
@@ -127,7 +130,8 @@ public partial class StageMgr : MonoBehaviour
     {
         if (MyGlobals.EnterIngameFromOutgame)
         {
-            m_eCharacter = eCHARACTER.ADD;
+            //m_eCharacter = eCHARACTER.ADD;
+            m_eCharacter = m_scriptCharacterCtrl.m_eCurCharacter;
             //m_iCharacterLv = PlayerPrefs.GetInt("Chosen_CharacterLV");
             m_iCharacterLv = PrefsMgr.Instance.GetInt(PrefsMgr.strChoosenCharLv);
         }

@@ -18,7 +18,7 @@ public class RewardCtrl : MonoBehaviour
         switch(eRewardID)
         {
             case eREWARD_ID.COIN:
-                m_spriteRewardIcon.spriteName = "Item_Clock";
+                m_spriteRewardIcon.spriteName = "Item_Coin";
                 break;
             case eREWARD_ID.ERASER:
                 m_spriteRewardIcon.spriteName = "Item_Eraser";

@@ -21,6 +21,8 @@ public enum eSOUND_BGM
     LOBBY,
     STAGE_NORMAL,
     STAGE_BOSS,
+    GAME_CLEAR,
+    GAME_OVER,
 }
 
 public class SoundMgr : MonoBehaviour
@@ -149,5 +151,19 @@ public class SoundMgr : MonoBehaviour
         //m_audioSourceFx.clip = m_arrAudioClipFx[(int)eSound];
         //m_audioSourceFx.Play();
         NGUITools.PlaySound(m_arrAudioClipBGM[(int)eSound], VolumnBGM, 1f);
+    }
+
+    public void OnPlayGameClear()
+    {
+        m_audioSourceBGM.clip = m_arrAudioClipBGM[(int)eSOUND_BGM.GAME_CLEAR];
+        m_audioSourceBGM.volume = VolumnBGM;
+        m_audioSourceBGM.Play();
+    }
+
+    public void OnPlayGameOver()
+    {
+        m_audioSourceBGM.clip = m_arrAudioClipBGM[(int)eSOUND_BGM.GAME_OVER];
+        m_audioSourceBGM.volume = VolumnBGM;
+        m_audioSourceBGM.Play();
     }
 }
