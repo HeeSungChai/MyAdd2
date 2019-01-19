@@ -12,7 +12,6 @@ public enum eOPERATOR
 
 public class InputCtrl : MonoBehaviour
 {
-    //public eINPUT_TYPE m_eInputType;
     public GameObject[] m_arrObjLeftDigits;
     public GameObject[] m_arrObjRightDigits;
     public GameObject[] m_arrObjOperators;
@@ -168,7 +167,6 @@ public class InputCtrl : MonoBehaviour
         }
 
         ShowAnswer();
-
     }
 
     void SetFormulaForAnswer2()//1~9의 숫자만 사용하는 버전
@@ -371,17 +369,12 @@ public class InputCtrl : MonoBehaviour
                 IsWrongAnswer();
                 Invoke("ResetSelection", 0.2f);
             }
-
-            //ResetSelection();
-            //Invoke("ResetSelection", 0.2f);
         }
     }
 
     void IsCorrectAnswer()
     {
-        //해당 숫자 지우고 
-        //점수 올리고 
-        //필살기 게이지 채우고
+        //해당 숫자 지우고, 점수 올리고, 필살기 게이지 채우고
         EventListener.Broadcast("OnCorrectAnswer", false);
 
         //일거리. 인피닛 모드면 콤보 수 누적
@@ -391,7 +384,6 @@ public class InputCtrl : MonoBehaviour
 
     void IsWrongAnswer()
     {
-        ////오답인 경우 숫자 입력부 선택 해제
         ResetSelection();
 
         MyUtility.DebugLog("IsWrong");

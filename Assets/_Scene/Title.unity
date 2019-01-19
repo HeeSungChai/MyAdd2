@@ -1229,7 +1229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f15f92b5bd910ed499e745a33842e768, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_strScene: Ingame
+  m_strScene: Lobby
   m_fDuration: 2
   m_color: {r: 0.34117648, g: 0.8509804, b: 0.89411765, a: 1}
   m_bEnterIngame: 1
@@ -1245,6 +1245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5916bdd10bd7aaf4fbbeff73152ccc46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_bPlayFxOnAwakef: 0
   m_eSoundFx: 0
   m_bPlayBGM: 0
   m_audioSource: {fileID: 0}
@@ -2440,6 +2441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5916bdd10bd7aaf4fbbeff73152ccc46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_bPlayFxOnAwakef: 0
   m_eSoundFx: 0
   m_bPlayBGM: 1
   m_audioSource: {fileID: 2123325553}

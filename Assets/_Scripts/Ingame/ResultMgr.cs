@@ -29,18 +29,18 @@ public class ResultMgr : MonoBehaviour
     {
         if (MyGlobals.StageMgr.GameType == INGAME_TYPE.ADVENTURE)
         {
-            m_scriptCounterScore.Init(0, MyGlobals.StageMgr.TotalBasicScore, 1.0f);
-            m_scriptCounterBonus.Init(0, MyGlobals.StageMgr.TotalCharBonusScore, 1.0f);
-            m_scriptCounterTotalScore.Init(0, MyGlobals.StageMgr.TotalScore, 1.0f);
+            m_scriptCounterScore.Init(0, MyGlobals.ScoreMgr.TotalBasicScore, 1.0f);
+            m_scriptCounterBonus.Init(0, MyGlobals.ScoreMgr.TotalCharBonusScore, 1.0f);
+            m_scriptCounterTotalScore.Init(0, MyGlobals.ScoreMgr.TotalScore, 1.0f);
 
-            PrefsMgr.Instance.SetInt(PrefsMgr.strStageScore + MyGlobals.StageMgr.StageNum, MyGlobals.StageMgr.TotalScore);
+            PrefsMgr.Instance.SetInt(PrefsMgr.strStageScore + MyGlobals.StageMgr.StageNum, MyGlobals.ScoreMgr.TotalScore);
         }
         else
         {
-            m_scriptCounter_ScoreInfinite.Init(0, MyGlobals.StageMgr.TotalBasicScore, 1.0f);
-            m_scriptCounter_BonusInfinite.Init(0, MyGlobals.StageMgr.TotalCharBonusScore, 1.0f);
-            m_scriptCounter_ComboInfinite.Init(0, MyGlobals.StageMgr.TotalComboBonusScore, 1.0f);
-            m_scriptCounter_TotalScoreInfinite.Init(0, MyGlobals.StageMgr.TotalScore, 1.0f);
+            m_scriptCounter_ScoreInfinite.Init(0, MyGlobals.ScoreMgr.TotalBasicScore, 1.0f);
+            m_scriptCounter_BonusInfinite.Init(0, MyGlobals.ScoreMgr.TotalCharBonusScore, 1.0f);
+            m_scriptCounter_ComboInfinite.Init(0, MyGlobals.ScoreMgr.TotalComboBonusScore, 1.0f);
+            m_scriptCounter_TotalScoreInfinite.Init(0, MyGlobals.ScoreMgr.TotalScore, 1.0f);
         }
     }
 

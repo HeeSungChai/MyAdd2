@@ -30,6 +30,7 @@ public class MyGlobals
     public static ScoreMgr ScoreMgr { get; set; }
     public static UserState UserState { get; set; }
     public static SoundMgr SoundMgr { get; set; }
+    public static CharacterMgr CharacterMgr { get; set; }
     //public static LanguageMgr LanguageMgr { get; set; }
 
     //public static eLANGUAGE Language { get; set; }

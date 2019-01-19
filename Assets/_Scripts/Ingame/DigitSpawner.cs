@@ -439,7 +439,7 @@ public class DigitSpawner : MonoBehaviour
         m_scriptTarget.Correct(m_eEvaluation);
 
         //if(!bByItem)
-            MyGlobals.StageMgr.UpdateScore(m_eEvaluation, bByItem);
+            MyGlobals.ScoreMgr.UpdateScore(m_eEvaluation, bByItem);
         //--DigitsCount;
 
         //OnChangeTarget();

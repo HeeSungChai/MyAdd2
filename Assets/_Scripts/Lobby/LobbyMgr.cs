@@ -43,7 +43,6 @@ public class LobbyMgr : MonoBehaviour
 {
     [Header("Gold Info")]
     public UILabel m_labelGoldAmount;
-    //public UILabel m_labelGoldAmountAtCharacterInfo;
 
     [Header("Title Info")]
     private eTABLE_LIST m_eTableTitle;
@@ -59,13 +58,11 @@ public class LobbyMgr : MonoBehaviour
     public UILabel m_labelCharAbility;
     eKEY_TABLEDB m_eKeyCharName;
     eKEY_TABLEDB m_eKeyCharAbility;
-    //eCHARACTER m_eCurCharacter;
     int m_iCurLevel;
     public GameObject m_objAdd;
     public GameObject m_objMi;
     public GameObject m_objDouble;
     public GameObject m_objDividivi;
-    //string tempString;
 
     public UILabel m_labelBtnCharSelect;
     public UILabel m_labelBtnShop;
@@ -87,13 +84,11 @@ public class LobbyMgr : MonoBehaviour
        
         OnGoldAmountChanged();
         OnLanguageChanged();
-        //OnCharacterChanged();
     }
 
     void OnGoldAmountChanged()
     {
         m_labelGoldAmount.text = MyUtility.CommaSeparateDigit(MyGlobals.UserState.m_iCoinAmount);
-        //m_labelGoldAmountAtCharacterInfo.text = m_labelGoldAmount.text;
     }
 
     void OnLanguageChanged()
@@ -156,13 +151,10 @@ public class LobbyMgr : MonoBehaviour
                 (int)MyGlobals.UserState.m_eCurCharacter, m_eKeyCharAbility),
             TableDB.Instance.GetData(m_eTableCharacterLv,
                 (int)m_iCurLevel, eKEY_TABLEDB.i_SKILL_VALUE));
-
-        //tempString = tempString.Replace("\\n", "\n");
     }
 
     void UpdateCharacterTable()
     {
-        //m_eCurCharacter = MyGlobals.UserState.m_eCurCharacter;
         switch (MyGlobals.UserState.m_eCurCharacter)
         {
             case eCHARACTER.ADD:

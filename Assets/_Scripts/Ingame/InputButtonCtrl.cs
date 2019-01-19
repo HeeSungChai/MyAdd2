@@ -31,9 +31,7 @@ public class InputButtonCtrl : MonoBehaviour
         {
             arrWidget[i].depth += m_iDepthSelected;
         }
-        m_tweenScale.enabled = true;
         m_tweenScale.PlayForward();
-        //m_tweenScale.ResetToBeginning();
     }
 
     public void Deselect()
@@ -42,9 +40,7 @@ public class InputButtonCtrl : MonoBehaviour
         {
             arrWidget[i].depth = m_arrDepthOrigin[i];
         }
-        m_tweenScale.enabled = true;
         m_tweenScale.PlayReverse();
-        //m_tweenScale.ResetToBeginning();
     }
 
     void OnDeselectAll()

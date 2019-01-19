@@ -12,15 +12,6 @@ public class HpCtrl : MonoBehaviour
             m_tweenScale = GetComponentInChildren<TweenScale>();
     }
 
-    //void OnEnable()
-    //{
-    //    if (!m_tweenScale)
-    //        return;
-
-    //    m_tweenScale.ResetToBeginning();
-    //    m_tweenScale.enabled = true;
-    //}
-
     public void ActivateHP()
     {
         StopCoroutine("CoroutineDisableHP");
@@ -28,8 +19,6 @@ public class HpCtrl : MonoBehaviour
         if (!m_tweenScale)
             return;
 
-        //m_tweenScale.ResetToBeginning();
-        //m_tweenScale.enabled = true;
         m_tweenScale.PlayForward();
     }
 
@@ -38,7 +27,6 @@ public class HpCtrl : MonoBehaviour
         if (!m_tweenScale)
             return;
 
-        //m_tweenScale.enabled = true;
         m_tweenScale.PlayReverse();
 
         StopCoroutine("CoroutineDisableHP");

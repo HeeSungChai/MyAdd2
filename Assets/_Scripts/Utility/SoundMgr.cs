@@ -44,27 +44,8 @@ public class SoundMgr : MonoBehaviour
     public float VolumnBGM { get { return m_fVolumnBGM; } set { m_fVolumnBGM = value; } }
     public float VolumnBGMTemp;
 
-    //eSOUND_FX m_eSoundFx;
-    //eSOUND_BGM m_eSoundBGM;
-
-    //#region Singleton Pattern Implementation
-    //private static SoundMgr instance;
-
-    //public static SoundMgr Instance
-    //{
-    //    get
-    //    {
-    //        if (instance == null)
-    //            instance = new SoundMgr();
-    //        return instance;
-    //    }
-    //}
-    //#endregion
-
     private void Awake()
     {
-        //VolumnFx = PlayerPrefs.GetFloat("VolumnFx", 1f);
-        //VolumnBGM = PlayerPrefs.GetFloat("VolumnBGM", 1f);
         VolumnFx = PrefsMgr.Instance.GetFloat(PrefsMgr.strVolumnFX, 1f);
         VolumnBGM = PrefsMgr.Instance.GetFloat(PrefsMgr.strVolumnBGM, 1f);
         VolumnFxTemp = VolumnFx;
@@ -80,8 +61,6 @@ public class SoundMgr : MonoBehaviour
     {
         VolumnFx = fVolumn * 0.1f;
         VolumnFx = Mathf.Clamp01(VolumnFx);
-        //m_audioSourceFx.volume = VolumnFx;
-        //PlayerPrefs.SetFloat("VolumnFx", VolumnFx);
         PrefsMgr.Instance.SetFloat(PrefsMgr.strVolumnFX, VolumnFx);
     }
 	
@@ -89,8 +68,6 @@ public class SoundMgr : MonoBehaviour
     {
         VolumnFxTemp += 0.1f;
         VolumnFxTemp = Mathf.Clamp01(VolumnFx);
-        //m_audioSourceFx.volume = VolumnFx;
-        //PlayerPrefs.SetFloat("VolumnFx", VolumnFx);
         //PrefsMgr.Instance.SetFloat(PrefsMgr.strVolumnFX, VolumnFx);
     }
 
@@ -98,8 +75,6 @@ public class SoundMgr : MonoBehaviour
     {
         VolumnFxTemp -= 0.1f;
         VolumnFxTemp = Mathf.Clamp01(VolumnFx);
-        //m_audioSourceFx.volume = VolumnFx;
-        //PlayerPrefs.SetFloat("VolumnFx", VolumnFx);
         //PrefsMgr.Instance.SetFloat(PrefsMgr.strVolumnFX, VolumnFx);
     }
 
@@ -107,8 +82,6 @@ public class SoundMgr : MonoBehaviour
     {
         VolumnBGM = fVolumn * 0.1f;
         VolumnBGM = Mathf.Clamp01(VolumnBGM);
-        //m_audioSourceBGM.volume = VolumnFx;
-        //PlayerPrefs.SetFloat("VolumnBGM", VolumnBGM);
         PrefsMgr.Instance.SetFloat(PrefsMgr.strVolumnBGM, VolumnBGM);
         m_audioSourceBGM.volume = VolumnBGM;
     }
@@ -117,22 +90,16 @@ public class SoundMgr : MonoBehaviour
     {
         VolumnBGM += 0.1f;
         VolumnBGM = Mathf.Clamp01(VolumnBGM);
-        //m_audioSourceBGM.volume = VolumnBGM;
-        //PrefsMgr.Instance.SetFloat(PrefsMgr.strVolumnBGM, VolumnBGM);
     }
 
     public void OnBGMVolumnDown()
     {
         VolumnBGM -= 0.1f;
         VolumnBGM = Mathf.Clamp01(VolumnBGM);
-        //m_audioSourceBGM.volume = VolumnBGM;
-        //PrefsMgr.Instance.SetFloat(PrefsMgr.strVolumnBGM, VolumnBGM);
     }
 
     public void OnPlayFx(eSOUND_FX eSound)
     {
-        //m_audioSourceFx.clip = m_arrAudioClipFx[(int)eSound];
-        //m_audioSourceFx.Play();
         NGUITools.PlaySound(m_arrAudioClipFx[(int)eSound], VolumnFx, 1f);
     }
 

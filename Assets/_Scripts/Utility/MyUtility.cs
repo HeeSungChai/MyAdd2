@@ -13,6 +13,14 @@ public class MyUtility
 #endif
     }
 
+    static public void ActivateAll(GameObject[] arrObj, bool bActivate = true)
+    {
+        for (int i = 0; i < arrObj.Length; ++i)
+        {
+            arrObj[i].SetActive(bActivate);
+        }
+    }
+
     static public string GetLevelText(int iLevel)
     {
         StringBuilder sb = new StringBuilder();

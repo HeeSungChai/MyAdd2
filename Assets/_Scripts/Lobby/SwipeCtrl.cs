@@ -5,7 +5,6 @@ using UnityEngine;
 public class SwipeCtrl : MonoBehaviour
 {
     float m_fDelta;
-    //public UICamera m_camera;
     public LevelRouletteCtrl m_scriptRoulette;
 
     public void OnReleased ()

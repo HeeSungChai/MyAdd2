@@ -7,7 +7,6 @@ public class MyPlaySound : MonoBehaviour
     public bool m_bPlayFxOnAwakef = false;
     public eSOUND_FX m_eSoundFx;
     public bool m_bPlayBGM;
-    //public eSOUND_BGM m_eSoundBGM;
     public AudioSource m_audioSource;
 
     private void OnEnable()
