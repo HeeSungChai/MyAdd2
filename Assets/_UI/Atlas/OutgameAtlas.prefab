@@ -9,30 +9,30 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1625007141290660}
+  m_RootGameObject: {fileID: 1814977528412056}
   m_IsPrefabParent: 1
---- !u!1 &1625007141290660
+--- !u!1 &1814977528412056
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4006398637034080}
-  - component: {fileID: 114709062413366994}
+  - component: {fileID: 4479599789675552}
+  - component: {fileID: 114287650723724702}
   m_Layer: 0
-  m_Name: LobbyAtlasNew
+  m_Name: OutgameAtlas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4006398637034080
+--- !u!4 &4479599789675552
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1625007141290660}
+  m_GameObject: {fileID: 1814977528412056}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,128 +40,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114709062413366994
+--- !u!114 &114287650723724702
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1625007141290660}
+  m_GameObject: {fileID: 1814977528412056}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d0c51bb0b6e93049af5e88f93826e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: 05c2c5253d00f6a4981c6d73f1477238, type: 2}
+  material: {fileID: 2100000, guid: 663707a439527b34eb209d02dd8876e7, type: 2}
   mSprites:
-  - name: Btn_Left
-    x: 835
-    y: 44
-    width: 107
-    height: 128
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: Btn_Left_Shadow
-    x: 892
-    y: 896
-    width: 96
-    height: 128
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 16
-    paddingTop: 0
-    paddingBottom: 0
-  - name: Btn_Option
-    x: 706
-    y: 81
-    width: 128
-    height: 112
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: Btn_Right
-    x: 892
-    y: 767
-    width: 91
-    height: 128
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: Btn_Right_Shadow
-    x: 892
-    y: 638
-    width: 91
-    height: 128
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: Btn_Shadow
-    x: 834
-    y: 286
-    width: 128
-    height: 112
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: Btn_Shop
-    x: 835
-    y: 173
-    width: 128
-    height: 112
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: CharacterInfo
-    x: 834
-    y: 399
-    width: 128
-    height: 112
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: CharInfoBG
-    x: 577
-    y: 372
+  - name: Btn_Apply
+    x: 1411
+    y: 921
     width: 256
-    height: 139
+    height: 103
     borderLeft: 0
     borderRight: 0
     borderTop: 0
@@ -170,10 +66,10 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: CharName_Add
-    x: 706
-    y: 24
-    width: 128
+  - name: Btn_Exit
+    x: 1445
+    y: 736
+    width: 64
     height: 56
     borderLeft: 0
     borderRight: 0
@@ -183,11 +79,11 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: CharWindowBG
-    x: 577
-    y: 512
-    width: 314
-    height: 512
+  - name: Btn_Left
+    x: 1283
+    y: 803
+    width: 94
+    height: 109
     borderLeft: 0
     borderRight: 0
     borderTop: 0
@@ -196,11 +92,76 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: GoldBG
-    x: 577
-    y: 194
+  - name: Btn_Left_Shadow
+    x: 1301
+    y: 686
+    width: 55
+    height: 64
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Btn_Right
+    x: 1154
+    y: 694
+    width: 81
+    height: 114
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Btn_Right_Shadow
+    x: 1154
+    y: 629
+    width: 45
+    height: 64
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Btn_Shadow_Square
+    x: 1236
+    y: 694
+    width: 64
+    height: 56
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Btn_Shadow_Width
+    x: 1236
+    y: 751
+    width: 128
+    height: 51
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Btn_Start
+    x: 1154
+    y: 913
     width: 256
-    height: 73
+    height: 111
     borderLeft: 0
     borderRight: 0
     borderTop: 0
@@ -209,8 +170,73 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: LobbyBG_AllInOne5
-    x: 0
+  - name: CircleWhite
+    x: 1668
+    y: 902
+    width: 122
+    height: 122
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 3
+  - name: Item_Clock
+    x: 1411
+    y: 793
+    width: 128
+    height: 127
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Item_Eraser
+    x: 1154
+    y: 809
+    width: 128
+    height: 103
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Item_numBG
+    x: 1365
+    y: 714
+    width: 79
+    height: 78
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Item_Recovery
+    x: 1540
+    y: 792
+    width: 113
+    height: 128
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: SettingBG_AllInOne
+    x: 577
     y: 0
     width: 576
     height: 1024
@@ -222,50 +248,11 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: StartBtn_Adventure
-    x: 577
-    y: 268
-    width: 256
-    height: 103
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: StartBtn_Adventure_Shadow
-    x: 577
-    y: 26
-    width: 128
-    height: 51
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: Title_Beginner
-    x: 835
-    y: 2
-    width: 128
-    height: 41
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: TitleBadge_Beginner
-    x: 577
-    y: 78
-    width: 128
-    height: 115
+  - name: StageSelectBG_AllInOne
+    x: 0
+    y: 0
+    width: 576
+    height: 1024
     borderLeft: 0
     borderRight: 0
     borderTop: 0

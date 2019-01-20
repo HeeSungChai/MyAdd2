@@ -15,8 +15,8 @@ public class LevelRouletteCtrl : MonoBehaviour
     float m_fRotDegreeTarget;
     int m_iSelectedStageLv;
     int m_iMaxSelectableLv;
-    public UILabel m_labelBestScoreValue;
-    public UILabel m_labelTotalScoreValue;
+    //public UILabel m_labelBestScoreValue;
+    //public UILabel m_labelTotalScoreValue;
 
     private void Awake()
     {
@@ -29,14 +29,14 @@ public class LevelRouletteCtrl : MonoBehaviour
 
     private void OnEnable()
     {
-        m_labelBestScoreValue.text = PrefsMgr.Instance.GetInt(PrefsMgr.strStageScore + MyGlobals.StageNum, 0).ToString();
+        //m_labelBestScoreValue.text = PrefsMgr.Instance.GetInt(PrefsMgr.strStageScore + MyGlobals.StageNum, 0).ToString();
 
-        int iTotalPoint = 0;
-        for (int i = 1; i <= 50; ++i)
-        {
-            iTotalPoint += PrefsMgr.Instance.GetInt(PrefsMgr.strStageScore + i.ToString(), 0);
-        }
-        m_labelTotalScoreValue.text = iTotalPoint.ToString();
+        //int iTotalPoint = 0;
+        //for (int i = 1; i <= 50; ++i)
+        //{
+        //    iTotalPoint += PrefsMgr.Instance.GetInt(PrefsMgr.strStageScore + i.ToString(), 0);
+        //}
+        //m_labelTotalScoreValue.text = iTotalPoint.ToString();
     }
 
     private void Start()
@@ -70,7 +70,8 @@ public class LevelRouletteCtrl : MonoBehaviour
 
         ++MyGlobals.StageNum;
 
-        m_labelBestScoreValue.text = PrefsMgr.Instance.GetInt(PrefsMgr.strStageScore + MyGlobals.StageNum, 0).ToString();
+        //m_labelBestScoreValue.text = PrefsMgr.Instance.GetInt(PrefsMgr.strStageScore + MyGlobals.StageNum, 0).ToString();
+        EventListener.Broadcast("OnStageChanged");
 
         m_arrLabelStageNum[m_iIndexFocusedLabel].FocusOff();
 
@@ -94,7 +95,8 @@ public class LevelRouletteCtrl : MonoBehaviour
 
         --MyGlobals.StageNum;
 
-        m_labelBestScoreValue.text = PrefsMgr.Instance.GetInt(PrefsMgr.strStageScore + MyGlobals.StageNum, 0).ToString();
+        //m_labelBestScoreValue.text = PrefsMgr.Instance.GetInt(PrefsMgr.strStageScore + MyGlobals.StageNum, 0).ToString();
+        EventListener.Broadcast("OnStageChanged");
 
         m_arrLabelStageNum[m_iIndexFocusedLabel].FocusOff();
 
@@ -223,7 +225,8 @@ public class LevelRouletteCtrl : MonoBehaviour
             iDeltaLevel = MyGlobals.UserState.MaxSelectableLv - MyGlobals.StageNum;
 
         MyGlobals.StageNum = Mathf.Clamp(MyGlobals.StageNum + iDeltaLevel, 1, MyGlobals.UserState.MaxSelectableLv);
-        m_labelBestScoreValue.text = PrefsMgr.Instance.GetInt(PrefsMgr.strStageScore + MyGlobals.StageNum, 0).ToString();
+        //m_labelBestScoreValue.text = PrefsMgr.Instance.GetInt(PrefsMgr.strStageScore + MyGlobals.StageNum, 0).ToString();
+        EventListener.Broadcast("OnStageChanged");
 
         m_fRotDegreeTarget = 30f * (MyGlobals.StageNum - 1);
 

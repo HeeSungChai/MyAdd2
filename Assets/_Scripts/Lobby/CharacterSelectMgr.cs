@@ -8,11 +8,11 @@ public class CharacterSelectMgr : MonoBehaviour
     [Header("Gold Info")]
     public UILabel m_labelGoldAmount;
 
-    [Header("Character Btn")]
-    public GameObject m_objSelectAdd;
-    public GameObject m_objSelectSub;
-    public GameObject m_objSelectMul;
-    public GameObject m_objSelectDiv;
+    //[Header("Character Btn")]
+    //public GameObject m_objSelectAdd;
+    //public GameObject m_objSelectSub;
+    //public GameObject m_objSelectMul;
+    //public GameObject m_objSelectDiv;
 
     [Header("Character Profile")]
     public UILabel m_labelName;
@@ -128,32 +128,32 @@ public class CharacterSelectMgr : MonoBehaviour
 
     void RetargetCharacterSelect()
     {
-        m_objSelectAdd.SetActive(false);
-        m_objSelectSub.SetActive(false);
-        m_objSelectMul.SetActive(false);
-        m_objSelectDiv.SetActive(false);
+        //m_objSelectAdd.SetActive(false);
+        //m_objSelectSub.SetActive(false);
+        //m_objSelectMul.SetActive(false);
+        //m_objSelectDiv.SetActive(false);
 
         switch (MyGlobals.UserState.m_eCurCharacter)
         {
             case eCHARACTER.ADD:
                 m_eTableCharacterLv = eTABLE_LIST.CHAR_LEVEL_ADD;
-                m_objSelectAdd.SetActive(true);
+                //m_objSelectAdd.SetActive(true);
                 break;
             case eCHARACTER.SUB:
                 m_eTableCharacterLv = eTABLE_LIST.CHAR_LEVEL_SUB;
-                m_objSelectSub.SetActive(true);
+                //m_objSelectSub.SetActive(true);
                 break;
             case eCHARACTER.MUL:
                 m_eTableCharacterLv = eTABLE_LIST.CHAR_LEVEL_MUL;
-                m_objSelectMul.SetActive(true);
+                //m_objSelectMul.SetActive(true);
                 break;
             case eCHARACTER.DIV:
                 m_eTableCharacterLv = eTABLE_LIST.CHAR_LEVEL_DIV;
-                m_objSelectDiv.SetActive(true);
+                //m_objSelectDiv.SetActive(true);
                 break;
             default:
                 m_eTableCharacterLv = eTABLE_LIST.CHAR_LEVEL_ADD;
-                m_objSelectAdd.SetActive(true);
+                //m_objSelectAdd.SetActive(true);
                 break;
         }
     }

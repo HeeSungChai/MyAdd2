@@ -10,6 +10,10 @@ public class ItemExplanation : MonoBehaviour
     public GameObject m_objSelectRecovery;
     public UILabel m_labelItemName;
     public UILabel m_labelExplanation;
+    public UISprite m_sprSelectedItem;
+    public string m_strIconNameRecovery = "Item_Recovery";
+    public string m_strIconNameClock = "Item_Clock";
+    public string m_strIconNameEraser = "Item_Eraser";
     private eTABLE_LIST m_eTableItem;
     eKEY_TABLEDB m_eKeyItemName;
     eKEY_TABLEDB m_eKeyItemExplanation;
@@ -26,9 +30,12 @@ public class ItemExplanation : MonoBehaviour
         m_eTableItem = eTABLE_LIST.ITEM_TABLE;
 
         m_iSelectedItemIndex = 305;
-        m_objSelectEraser.SetActive(true);
-        m_objSelectClock.SetActive(false);
-        m_objSelectRecovery.SetActive(false);
+        if(m_objSelectEraser)
+            m_objSelectEraser.SetActive(true);
+        if(m_objSelectClock)
+            m_objSelectClock.SetActive(false);
+        if(m_objSelectRecovery)
+            m_objSelectRecovery.SetActive(false);
 
         OnLanguageChanged();
     }
@@ -46,14 +53,14 @@ public class ItemExplanation : MonoBehaviour
             m_eKeyItemExplanation = eKEY_TABLEDB.s_ITEM_INFO_US;
         }
 
+        ResetTypeWriter();
+
         if (m_labelItemName)
             m_labelItemName.text = (string)TableDB.Instance.GetData(m_eTableItem,
                                         m_iSelectedItemIndex, m_eKeyItemName);
         if (m_labelExplanation)
             m_labelExplanation.text = (string)TableDB.Instance.GetData(m_eTableItem,
                                         m_iSelectedItemIndex, m_eKeyItemExplanation);
-
-        ResetTypeWriter();
     }
 
 
@@ -69,9 +76,14 @@ public class ItemExplanation : MonoBehaviour
                                         m_iSelectedItemIndex, m_eKeyItemExplanation);
         ResetTypeWriter();
 
-        m_objSelectEraser.SetActive(true);
-        m_objSelectClock.SetActive(false);
-        m_objSelectRecovery.SetActive(false);
+        m_sprSelectedItem.spriteName = m_strIconNameEraser;
+
+        if (m_objSelectEraser)
+            m_objSelectEraser.SetActive(true);
+        if (m_objSelectClock)
+            m_objSelectClock.SetActive(false);
+        if (m_objSelectRecovery)
+            m_objSelectRecovery.SetActive(false);
     }
 
     public void OnPressed_Clock()
@@ -87,9 +99,15 @@ public class ItemExplanation : MonoBehaviour
                                         m_iSelectedItemIndex, m_eKeyItemExplanation);
         ResetTypeWriter();
 
-        m_objSelectEraser.SetActive(false);
-        m_objSelectClock.SetActive(true);
-        m_objSelectRecovery.SetActive(false);
+        m_sprSelectedItem.spriteName = m_strIconNameClock;
+
+        if (m_objSelectEraser)
+            m_objSelectEraser.SetActive(false);
+        if (m_objSelectClock)
+            m_objSelectClock.SetActive(true);
+        if (m_objSelectRecovery)
+            m_objSelectRecovery.SetActive(false);
+
     }
 
     public void OnPressed_Recovery()
@@ -105,9 +123,14 @@ public class ItemExplanation : MonoBehaviour
                                         m_iSelectedItemIndex, m_eKeyItemExplanation);
         ResetTypeWriter();
 
-        m_objSelectEraser.SetActive(false);
-        m_objSelectClock.SetActive(false);
-        m_objSelectRecovery.SetActive(true);
+        m_sprSelectedItem.spriteName = m_strIconNameRecovery;
+
+        if (m_objSelectEraser)
+            m_objSelectEraser.SetActive(false);
+        if (m_objSelectClock)
+            m_objSelectClock.SetActive(false);
+        if (m_objSelectRecovery)
+            m_objSelectRecovery.SetActive(true);
     }
 
     void ResetTypeWriter()
@@ -115,7 +138,13 @@ public class ItemExplanation : MonoBehaviour
         if (m_typeWriter)
         {
             m_typeWriter.gameObject.SetActive(true);
-            m_typeWriter.StartNewWrite();
+            //m_typeWriter.StartNewWrite();
+            m_typeWriter.ResetToBeginning();
         }
+    }
+
+    public void OnSelectGetItem()
+    {
+
     }
 }

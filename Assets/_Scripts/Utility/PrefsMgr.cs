@@ -55,4 +55,19 @@ public class PrefsMgr{
     {
         return PlayerPrefs.GetFloat(key, fDefault);
     }
+
+    public int GetTotalPoint()
+    {
+        int iTotalPoint = 0;
+        for (int i = 1; i <= 50; ++i)
+        {
+            iTotalPoint += GetInt(strStageScore + i.ToString(), 0);
+        }
+        return iTotalPoint;
+    }
+
+    public int GetStageScore(int iStageNum)
+    {
+        return GetInt(strStageScore + iStageNum, 0);
+    }
 }
