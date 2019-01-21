@@ -70,9 +70,12 @@ public class CharacterSelectMgr : MonoBehaviour
             m_eKeyCharSkillExplanation = eKEY_TABLEDB.s_SKILL_US;
         }
 
-        m_labelName.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.CHARACTER_SELECT_NAME);
-        m_labelSkill.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.CHARACTER_SELECT_PROPERTY);
-        m_labelBtnUpgrade.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.CHARACTER_SELECT_UPGRADE_BTN);
+        if(m_labelName)
+            m_labelName.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.CHARACTER_SELECT_NAME);
+        if(m_labelSkill)
+            m_labelSkill.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.CHARACTER_SELECT_PROPERTY);
+        if(m_labelBtnUpgrade)
+            m_labelBtnUpgrade.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.CHARACTER_SELECT_UPGRADE_BTN);
 
         RefreshCharacterInfo();
     }

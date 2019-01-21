@@ -7,26 +7,26 @@ public class RewardCtrl : MonoBehaviour
     public UISprite m_spriteRewardIcon;
     public UILabel m_labelRewardCount;
 
-    public void Init(eREWARD_ID eRewardID, int iCount)
+    public void Init(eITEM_ID eRewardID, int iCount)
     {
         SetIcon(eRewardID);
         SetRewardCount(iCount);
     }
 
-    void SetIcon(eREWARD_ID eRewardID)
+    void SetIcon(eITEM_ID eRewardID)
     {
         switch(eRewardID)
         {
-            case eREWARD_ID.COIN:
+            case eITEM_ID.COIN:
                 m_spriteRewardIcon.spriteName = "Item_Coin";
                 break;
-            case eREWARD_ID.ERASER:
+            case eITEM_ID.ERASER:
                 m_spriteRewardIcon.spriteName = "Item_Eraser";
                 break;
-            case eREWARD_ID.CLOCK:
+            case eITEM_ID.CLOCK:
                 m_spriteRewardIcon.spriteName = "Item_Clock";
                 break;
-            case eREWARD_ID.RECOVERY:
+            case eITEM_ID.RECOVERY:
                 m_spriteRewardIcon.spriteName = "Item_Recovery";
                 break;
             default:

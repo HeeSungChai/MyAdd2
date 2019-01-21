@@ -67,6 +67,8 @@ public enum eTABLE_LIST
 
 public enum eKEY_TABLEDB
 {
+	f_ACTIVATE_DURARION,
+	f_COOLDOWN_DURATION,
 	f_ITEM_PRICE_US,
 	f_SPEED_VALUE,
 	i_AMOUNT,
@@ -83,7 +85,7 @@ public enum eKEY_TABLEDB
 	i_ITEM_LIMIT,
 	i_ITEM_PRICE_TYPE,
 	i_ITEM_SET_VALUE,
-	i_LIFT_VALUE,
+	i_LIFE_VALUE,
 	i_LINE_ID,
 	i_LV,
 	i_NEED_ITEM,
@@ -149,7 +151,7 @@ public enum CHAR_LEVEL_ADD
 	i_TYPE,
 	i_SKILL_VALUE,
 	i_TYPE_VALUE,
-	i_LIFT_VALUE,
+	i_LIFE_VALUE,
 	END
 }
 
@@ -161,7 +163,7 @@ public enum CHAR_LEVEL_DIV
 	i_TYPE,
 	i_SKILL_VALUE,
 	i_TYPE_VALUE,
-	i_LIFT_VALUE,
+	i_LIFE_VALUE,
 	END
 }
 
@@ -173,7 +175,7 @@ public enum CHAR_LEVEL_MUL
 	i_TYPE,
 	i_SKILL_VALUE,
 	i_TYPE_VALUE,
-	i_LIFT_VALUE,
+	i_LIFE_VALUE,
 	END
 }
 
@@ -185,7 +187,7 @@ public enum CHAR_LEVEL_SUB
 	i_TYPE,
 	i_SKILL_VALUE,
 	i_TYPE_VALUE,
-	i_LIFT_VALUE,
+	i_LIFE_VALUE,
 	END
 }
 
@@ -201,6 +203,8 @@ public enum ITEM_ID
 	i_ID,
 	s_ITEM_NAME_KR,
 	s_ITEM_NAME_US,
+	f_ACTIVATE_DURARION,
+	f_COOLDOWN_DURATION,
 	END
 }
 

@@ -53,6 +53,7 @@ public partial class StageMgr : MonoBehaviour
     public float PlayTime { get; set; }
     private bool m_bPauseDrop = false;
     public bool IsPauseDrop { get { return m_bPauseDrop; } set { m_bPauseDrop = value; } }
+    public bool IsDeactiveSkill = false;
 
     [Header("Character Info")]
     public eCHARACTER m_eCharacter;
@@ -201,13 +202,18 @@ public partial class StageMgr : MonoBehaviour
         StartCoroutine("CoroutineTimePause");
     }
 
+    bool bClockItemUsing = false;
     IEnumerator CoroutineTimePause()
     {
         IsPauseDrop = true;
+        float fDuration = (float)TableDB.Instance.GetData(eTABLE_LIST.ITEM_ID,
+                                        (int)eITEM_ID.CLOCK, eKEY_TABLEDB.f_ACTIVATE_DURARION);
 
-        yield return new WaitForSeconds(3.0f);
+        bClockItemUsing = true;
+        yield return new WaitForSeconds(fDuration);
+        bClockItemUsing = false;
 
-        if(bSuperSkillActivating == false)
+        if (bSuperSkillActivating == false)
             IsPauseDrop = false;
     }
 
@@ -221,7 +227,8 @@ public partial class StageMgr : MonoBehaviour
     public void OnDeactivateSuperSkill()
     {
         bSuperSkillActivating = false;
-        IsPauseDrop = false;
+        if(bClockItemUsing == false)
+            IsPauseDrop = false;
     }
 
     public void OnGoToNextStage()

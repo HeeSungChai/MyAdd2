@@ -863,6 +863,7 @@ MonoBehaviour:
   m_eGameType: 0
   m_iStageNum: 6
   m_eInputType: 0
+  IsDeactiveSkill: 0
   m_eCharacter: 201
   m_iCharacterLv: 5
   m_objGameClear: {fileID: 1382629195}
@@ -7765,6 +7766,7 @@ GameObject:
   - component: {fileID: 650857081}
   - component: {fileID: 650857085}
   - component: {fileID: 650857084}
+  - component: {fileID: 650857088}
   - component: {fileID: 650857082}
   - component: {fileID: 650857083}
   m_Layer: 5
@@ -7786,11 +7788,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfff21e90a3fa324fbd532acfcd2608d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_sprBtn: {fileID: 0}
+  m_sprBtn: {fileID: 650857086}
   m_sprIcon: {fileID: 1818714007}
+  m_colorDiable: {r: 0.44705883, g: 0.44705883, b: 0.44705883, a: 1}
+  m_fActivateTime: 0
   m_fCoolTime: 3
   m_tweenScale: {fileID: 0}
   m_scriptSound: {fileID: 650857082}
+  m_eItemType: 1
 --- !u!114 &650857082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7864,7 +7869,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 650857080}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1fdca5042b1d12a4890ec1bd4f04290d, type: 3}
   m_Name: 
@@ -7972,6 +7977,34 @@ Transform:
   m_Father: {fileID: 115265568}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &650857088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 650857080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e862f287df53bb64db191162f851a296, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onHoverOver: []
+  onHoverOut: []
+  onPress:
+  - mTarget: {fileID: 115265569}
+    mMethodName: OnPress_Clock
+    mParameters: []
+    oneShot: 0
+  onRelease: []
+  onSelect: []
+  onDeselect: []
+  onClick: []
+  onDoubleClick: []
+  onDragStart: []
+  onDragEnd: []
+  onDragOver: []
+  onDragOut: []
+  onDrag: []
 --- !u!1 &667191389 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1998961106932598, guid: 2a4b8946d0e10c748933927921ecdfb4,
@@ -8643,6 +8676,7 @@ GameObject:
   m_Component:
   - component: {fileID: 812008365}
   - component: {fileID: 812008366}
+  - component: {fileID: 812008367}
   m_Layer: 5
   m_Name: ActivateButtonBG
   m_TagString: Untagged
@@ -8720,6 +8754,55 @@ MonoBehaviour:
   mAtlas: {fileID: 114478661266674040, guid: 631128cddb3e6724a83723bd40c468bb, type: 2}
   mSpriteName: ItemBG
   mFillCenter: 1
+--- !u!114 &812008367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 812008364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75e7459110b9666449485c40f25362a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  method: 0
+  style: 0
+  animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.49543905
+      value: 1.0998304
+      inSlope: 0.027642144
+      outSlope: 0.027642144
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  ignoreTimeScale: 1
+  delay: 0
+  duration: 0.5
+  steeperCurves: 0
+  tweenGroup: 0
+  useFixedUpdate: 0
+  onFinished: []
+  eventReceiver: {fileID: 0}
+  callWhenFinished: 
+  from: {x: 0, y: 0, z: 0}
+  to: {x: 1, y: 1, z: 1}
+  updateTable: 0
 --- !u!1 &813949713
 GameObject:
   m_ObjectHideFlags: 0
@@ -10611,7 +10694,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_sprGauge: {fileID: 979617566}
-  m_sprButton: {fileID: 1475376912}
+  m_sprBtn: {fileID: 812008366}
+  m_sprIcon: {fileID: 1475376912}
+  m_colorDiable: {r: 0.4392157, g: 0.4392157, b: 0.4392157, a: 1}
+  m_fActivateTime: 0
+  m_fCoolTime: 0
+  m_tweenScale: {fileID: 812008367}
   m_fFillAmountDefault: 0
   m_fFillAmountGreat: 0.3
   m_fFillAmountCool: 0.2
@@ -10701,6 +10789,7 @@ GameObject:
   - component: {fileID: 1095607893}
   - component: {fileID: 1095607897}
   - component: {fileID: 1095607896}
+  - component: {fileID: 1095607900}
   - component: {fileID: 1095607894}
   - component: {fileID: 1095607895}
   m_Layer: 5
@@ -10722,11 +10811,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfff21e90a3fa324fbd532acfcd2608d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_sprBtn: {fileID: 0}
+  m_sprBtn: {fileID: 1095607898}
   m_sprIcon: {fileID: 1030768816}
+  m_colorDiable: {r: 0.44705883, g: 0.44705883, b: 0.44705883, a: 1}
+  m_fActivateTime: 0
   m_fCoolTime: 3
   m_tweenScale: {fileID: 0}
   m_scriptSound: {fileID: 1095607894}
+  m_eItemType: 0
 --- !u!114 &1095607894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10800,7 +10892,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1095607892}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1fdca5042b1d12a4890ec1bd4f04290d, type: 3}
   m_Name: 
@@ -10908,6 +11000,34 @@ Transform:
   m_Father: {fileID: 115265568}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1095607900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1095607892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e862f287df53bb64db191162f851a296, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onHoverOver: []
+  onHoverOut: []
+  onPress:
+  - mTarget: {fileID: 115265569}
+    mMethodName: OnPress_Eraser
+    mParameters: []
+    oneShot: 0
+  onRelease: []
+  onSelect: []
+  onDeselect: []
+  onClick: []
+  onDoubleClick: []
+  onDragStart: []
+  onDragEnd: []
+  onDragOver: []
+  onDragOut: []
+  onDrag: []
 --- !u!1 &1127713959
 GameObject:
   m_ObjectHideFlags: 0
@@ -12108,6 +12228,7 @@ GameObject:
   - component: {fileID: 1313227011}
   - component: {fileID: 1313227010}
   - component: {fileID: 1313227009}
+  - component: {fileID: 1313227013}
   - component: {fileID: 1313227008}
   - component: {fileID: 1313227007}
   m_Layer: 5
@@ -12207,7 +12328,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1313227005}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1fdca5042b1d12a4890ec1bd4f04290d, type: 3}
   m_Name: 
@@ -12255,11 +12376,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfff21e90a3fa324fbd532acfcd2608d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_sprBtn: {fileID: 0}
+  m_sprBtn: {fileID: 1313227012}
   m_sprIcon: {fileID: 1586663054}
+  m_colorDiable: {r: 0.44705883, g: 0.44705883, b: 0.44705883, a: 1}
+  m_fActivateTime: 0
   m_fCoolTime: 3
   m_tweenScale: {fileID: 0}
   m_scriptSound: {fileID: 1313227008}
+  m_eItemType: 2
 --- !u!114 &1313227012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12315,6 +12439,34 @@ MonoBehaviour:
   mAtlas: {fileID: 114478661266674040, guid: 631128cddb3e6724a83723bd40c468bb, type: 2}
   mSpriteName: ItemBG
   mFillCenter: 1
+--- !u!114 &1313227013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1313227005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e862f287df53bb64db191162f851a296, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onHoverOver: []
+  onHoverOut: []
+  onPress:
+  - mTarget: {fileID: 115265569}
+    mMethodName: OnPress_Heart
+    mParameters: []
+    oneShot: 0
+  onRelease: []
+  onSelect: []
+  onDeselect: []
+  onClick: []
+  onDoubleClick: []
+  onDragStart: []
+  onDragEnd: []
+  onDragOver: []
+  onDragOut: []
+  onDrag: []
 --- !u!1 &1325124112
 GameObject:
   m_ObjectHideFlags: 0
@@ -13964,11 +14116,12 @@ GameObject:
   - component: {fileID: 1475376907}
   - component: {fileID: 1475376912}
   - component: {fileID: 1475376911}
+  - component: {fileID: 1475376913}
   - component: {fileID: 1475376910}
   - component: {fileID: 1475376909}
   - component: {fileID: 1475376908}
   m_Layer: 5
-  m_Name: ActivateButton
+  m_Name: ActivateIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14077,7 +14230,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1475376906}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1fdca5042b1d12a4890ec1bd4f04290d, type: 3}
   m_Name: 
@@ -14155,6 +14308,34 @@ MonoBehaviour:
   mAtlas: {fileID: 114478661266674040, guid: 631128cddb3e6724a83723bd40c468bb, type: 2}
   mSpriteName: SuperIcon
   mFillCenter: 1
+--- !u!114 &1475376913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1475376906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e862f287df53bb64db191162f851a296, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onHoverOver: []
+  onHoverOut: []
+  onPress:
+  - mTarget: {fileID: 1074086434}
+    mMethodName: OnActivateSuperSkill
+    mParameters: []
+    oneShot: 0
+  onRelease: []
+  onSelect: []
+  onDeselect: []
+  onClick: []
+  onDoubleClick: []
+  onDragStart: []
+  onDragEnd: []
+  onDragOver: []
+  onDragOut: []
+  onDrag: []
 --- !u!4 &1484249527
 Transform:
   m_ObjectHideFlags: 0

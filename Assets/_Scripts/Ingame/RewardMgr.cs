@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum eREWARD_ID
+public enum eITEM_ID
 {
     COIN = 400,
     ERASER = 401,
     CLOCK = 402,
     RECOVERY = 403
-
 }
+
 public class RewardMgr : MonoBehaviour
 {
     eTABLE_LIST m_eTableName = eTABLE_LIST.REWARD_TABLE;
@@ -67,6 +67,6 @@ public class RewardMgr : MonoBehaviour
     void ShowReward(int iIndex, int iRewardID, int iValue)
     {
         m_scriptRewardCtrl[iIndex].gameObject.SetActive(true);
-        m_scriptRewardCtrl[iIndex].Init((eREWARD_ID)iRewardID, m_iReward1_Value);
+        m_scriptRewardCtrl[iIndex].Init((eITEM_ID)iRewardID, m_iReward1_Value);
     }
 }
