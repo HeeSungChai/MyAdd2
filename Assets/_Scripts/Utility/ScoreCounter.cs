@@ -5,9 +5,9 @@ using UnityEngine;
 public class ScoreCounter : MonoBehaviour
 {
     public UILabel m_label;
-    public int m_iStartDigit;
-    public int m_iTargetDigit;
-    public float m_fDuration;
+    private int m_iStartDigit;
+    private int m_iTargetDigit;
+    private float m_fDuration;
 
     public void Init(int iStart, int iTarget, float fDuration)
     {

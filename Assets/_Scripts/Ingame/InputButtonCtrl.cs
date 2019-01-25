@@ -7,7 +7,10 @@ public class InputButtonCtrl : MonoBehaviour
     UIWidget[] arrWidget;
     int[] m_arrDepthOrigin;
     int m_iDepthSelected = 200;
+    public UISprite m_spriteButton;
+    public Color m_colorDisable = Color.gray;
     public TweenScale m_tweenScale;
+    public BoxCollider m_collider;
 
     private void Awake()
     {
@@ -41,6 +44,12 @@ public class InputButtonCtrl : MonoBehaviour
             arrWidget[i].depth = m_arrDepthOrigin[i];
         }
         m_tweenScale.PlayReverse();
+    }
+
+    public void DisableButton()
+    {
+        m_spriteButton.color = m_colorDisable;
+        m_collider.enabled = false;
     }
 
     void OnDeselectAll()

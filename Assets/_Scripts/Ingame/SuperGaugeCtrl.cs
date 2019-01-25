@@ -20,11 +20,14 @@ public class SuperGaugeCtrl : MonoBehaviour
     public float m_fFillAmountNice;
     public float m_fTimeToFill;
     public Animation m_AnimGaugeGain;
+    public float m_fBonusPointForFullGauge = 800f;
+    //public float m_fEachCharacterBonusScore;
 
     void Start ()
     {
         EventListener.AddListener("OnCorrectAnswer", this);
         EventListener.AddListener("OnDisableSkill", this);
+        EventListener.AddListener("OnBonusAchieved", this);
         m_sprGauge.fillAmount = m_fFillAmountDefault;
         m_sprIcon.gameObject.SetActive(false);
 
@@ -32,6 +35,8 @@ public class SuperGaugeCtrl : MonoBehaviour
                                         405, eKEY_TABLEDB.f_ACTIVATE_DURARION);
         m_fCoolTime = (float)TableDB.Instance.GetData(eTABLE_LIST.ITEM_ID,
                                 405, eKEY_TABLEDB.f_COOLDOWN_DURATION);
+
+        m_fBonusPointForFullGauge = MyGlobals.StageMgr.m_fBonusPointForFullGauge;
     }
 	
     public void OnActivateSuperSkill()
@@ -71,20 +76,35 @@ public class SuperGaugeCtrl : MonoBehaviour
         }
     }
 
-    void OnCorrectAnswer(bool bByItem)
+    //정답 판정에 따라 게이지 채우는 버전
+    //void OnCorrectAnswer(bool bByItem)
+    //{
+    //    if (bByItem)
+    //        return;
+
+    //    if (m_sprGauge.fillAmount >= 1f)
+    //        return;
+
+    //    if (MyGlobals.DigitSpawner.m_eEvaluation == eEVALUATION.GREAT)
+    //        m_fFillAmountTarget += m_fFillAmountGreat;
+    //    else if (MyGlobals.DigitSpawner.m_eEvaluation == eEVALUATION.COOL)
+    //        m_fFillAmountTarget += m_fFillAmountCool;
+    //    else
+    //        m_fFillAmountTarget += m_fFillAmountNice;
+
+    //    StopCoroutine("CoroutineFillGauge");
+    //    StartCoroutine("CoroutineFillGauge");
+    //}
+
+    void OnBonusAchieved()//float fBonusPoint)//보너스 점수 획득시 게이지 채우는 버전
     {
-        if (bByItem)
-            return;
+        //if (bByItem)
+        //    return;
 
         if (m_sprGauge.fillAmount >= 1f)
             return;
 
-        if (MyGlobals.DigitSpawner.m_eEvaluation == eEVALUATION.GREAT)
-            m_fFillAmountTarget += m_fFillAmountGreat;
-        else if (MyGlobals.DigitSpawner.m_eEvaluation == eEVALUATION.COOL)
-            m_fFillAmountTarget += m_fFillAmountCool;
-        else
-            m_fFillAmountTarget += m_fFillAmountNice;
+        m_fFillAmountTarget += (float)MyGlobals.ScoreMgr.EachCharBonusScore / m_fBonusPointForFullGauge;
 
         StopCoroutine("CoroutineFillGauge");
         StartCoroutine("CoroutineFillGauge");

@@ -13,6 +13,11 @@ public enum eSOUND_FX
     ITEM_ERASER,
     ITEM_TIME,
     ITEM_RECOVERY,
+    INPUT_TOUCH_FIRST,
+    INPUT_TOUCH_SECOND,
+    WRONG_ANSWER,
+    CORRECT_ANSWER,
+    FAILED,
 }
 
 public enum eSOUND_BGM

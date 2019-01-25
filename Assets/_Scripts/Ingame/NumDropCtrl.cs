@@ -26,7 +26,10 @@ public class NumDropCtrl : MonoBehaviour
     bool m_bReachToBottom;
     bool m_bCorrect;
     public int LineID { get; set; }
+    public int LineID_Infinite { get; set; }
     bool m_bCorrectOrFailed = false;
+    public int m_iDepthOrigin = 100;
+    public int m_iDepthFocus = 500;
 
     private void Awake()
     {
@@ -37,13 +40,35 @@ public class NumDropCtrl : MonoBehaviour
 
     private void OnEnable()
     {
+        m_label.depth = m_iDepthOrigin;
         m_label.gameObject.SetActive(true);
 
         StopCoroutine("CoroutineFall");
         StartCoroutine("CoroutineFall");
     }
 
-    public void Init (Vector3 vSpawnPos, int num, float fFallDuration, int iLineID = 0)
+    //public void Init (Vector3 vSpawnPos, int num, float fFallDuration, int iLineID = 0)
+    //{
+    //    //m_label.gameObject.SetActive(true);
+    //    if (m_label == null)
+    //        m_label = GetComponentInChildren<UILabel>();
+    //    if (m_transform == null)
+    //        m_transform = m_label.gameObject.transform;
+
+    //    m_bCorrectOrFailed = false;
+    //    m_bCorrect = false;
+    //    m_bReachToBottom = false;
+    //    m_vStartPos = vSpawnPos;
+    //    m_vTargetPos = m_vStartPos;
+    //    m_vTargetPos.y = MyGlobals.DigitSpawner.m_fHeightFail;
+    //    m_transform.localPosition = m_vStartPos;
+    //    m_label.text = num.ToString();
+    //    m_fFallDuration = fFallDuration;
+    //    LineID = iLineID;
+    //    m_objFire.SetActive(true);
+    //}
+
+    public void Init(Vector3 vSpawnPos, int num, float fFallDuration, int iLineID = 0, int iLineIDForInfinite = 0)
     {
         //m_label.gameObject.SetActive(true);
         if (m_label == null)
@@ -51,6 +76,7 @@ public class NumDropCtrl : MonoBehaviour
         if (m_transform == null)
             m_transform = m_label.gameObject.transform;
 
+        m_label.depth = m_iDepthOrigin;
         m_bCorrectOrFailed = false;
         m_bCorrect = false;
         m_bReachToBottom = false;
@@ -61,7 +87,9 @@ public class NumDropCtrl : MonoBehaviour
         m_label.text = num.ToString();
         m_fFallDuration = fFallDuration;
         LineID = iLineID;
+        LineID_Infinite = iLineIDForInfinite;
         m_objFire.SetActive(true);
+        m_objLockOn.SetActive(false);
     }
 
     IEnumerator CoroutineFall()
@@ -104,12 +132,20 @@ public class NumDropCtrl : MonoBehaviour
 
     public int GetLineID()
     {
-        return LineID;
+        if (MyGlobals.StageMgr.IsAdventure())
+            return LineID;
+        else
+            return LineID_Infinite;
     }
 
     public float GetHeight()
     {
         return m_transform.localPosition.y;
+    }
+
+    public void SetDigitByForce(int iForcedDigit)
+    {
+        m_label.text = iForcedDigit.ToString();
     }
 
     public int GetDigit()
@@ -129,7 +165,16 @@ public class NumDropCtrl : MonoBehaviour
 
     public void LockOn()
     {
+        m_label.depth = m_iDepthFocus;
         m_objLockOn.SetActive(true);
+    }
+
+    public bool IsLockedOn()
+    {
+        if (m_objLockOn.activeSelf)
+            return true;
+        else
+            return false;
     }
 
     public void Correct(eEVALUATION eEvaluation)
@@ -147,6 +192,15 @@ public class NumDropCtrl : MonoBehaviour
         Invoke("DisableObj", 1.0f);
         --MyGlobals.DigitSpawner.DigitsCount;
         ++MyGlobals.DigitSpawner.TargetID;
+
+        MyGlobals.SoundMgr.OnPlayFx(eSOUND_FX.CORRECT_ANSWER);
+
+        if (!MyGlobals.StageMgr.IsAdventure())
+        {
+            ++MyGlobals.StageMgr.ComboCount;
+            if (MyGlobals.StageMgr.ComboCount > 0)//두번째 성공부터 콤보로 침
+                ++MyGlobals.StageMgr.TotalComboCount;
+        }
 
         EventListener.Broadcast("OnChangeTarget");
     }
@@ -175,13 +229,25 @@ public class NumDropCtrl : MonoBehaviour
         --MyGlobals.DigitSpawner.DigitsCount;
         ++MyGlobals.DigitSpawner.TargetID;
 
+        MyGlobals.SoundMgr.OnPlayFx(eSOUND_FX.FAILED);
+
         //가장 낮은놈이 타겟일때는 그놈이 fail되면 숫자입력부 갱신해야되지만 
         //기획 바뀌어 LineID 기반으로 타깃을 정하므로 ChargeTarget해줄필요 없어짐
         //그랬더니 타깃인애가 땅에 닿아도 타깃이 안바뀌어 현재 타깃이면 changeTarget하도록 함
-        if(m_objLockOn.activeSelf == true)
+        if (m_objLockOn.activeSelf == true)
             EventListener.Broadcast("OnChangeTarget");
 
         m_objLockOn.SetActive(false);
+
+        if (!MyGlobals.StageMgr.IsAdventure())
+        {
+            MyGlobals.StageMgr.ComboCount = -1;
+
+            MyGlobals.DigitSpawner.m_fSpawnDelay += 0.1f;
+            MyGlobals.DigitSpawner.m_fSpawnDelay = Mathf.Clamp(MyGlobals.DigitSpawner.m_fSpawnDelay, 
+                                                                MyGlobals.StageMgr.m_fSpawnDelayMin, 
+                                                                MyGlobals.StageMgr.m_fSpawnDelayMax);
+        }
     }
 
     void ActivateFailEffect()
@@ -207,6 +273,8 @@ public class NumDropCtrl : MonoBehaviour
             eEvaluation = eEVALUATION.NICE;
 
         Correct(eEvaluation);
+
+        MyGlobals.ScoreMgr.UpdateScore(eEvaluation, false, true);
     }
 
     void DisableObj()

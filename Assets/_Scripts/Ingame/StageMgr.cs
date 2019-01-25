@@ -21,10 +21,10 @@ public enum eINPUT_TYPE
 
 public partial class StageMgr : MonoBehaviour
 {
-    private bool m_bIsTest = false;
+    [HideInInspector]
+    public bool m_bIsTest = false;
 
     ////stage state
-    [SerializeField]
     private STAGE_STATE m_eStageState;
     public STAGE_STATE StageState
     {
@@ -53,15 +53,33 @@ public partial class StageMgr : MonoBehaviour
     public float PlayTime { get; set; }
     private bool m_bPauseDrop = false;
     public bool IsPauseDrop { get { return m_bPauseDrop; } set { m_bPauseDrop = value; } }
+    [HideInInspector]
     public bool IsDeactiveSkill = false;
 
     [Header("Character Info")]
     public eCHARACTER m_eCharacter;
     public int m_iCharacterLv = 1;
 
+    [Header("Super Skill")]
+    public float m_fBonusPointForFullGauge = 800;
+
+    [Header("Operator condition")]
+    [Tooltip("Adventure일때만 적용, Infinite일때는 무조건 나누기까지 다 개방")]
+    public eOPERATOR m_eMaxOperator;
+
     [Header("Result")]
     public GameObject m_objGameClear;
     public GameObject m_objGameOver;
+
+    [Header("Infinite Mode")]
+    public float m_fSpawnDelayMin = 0.8f;
+    public float m_fSpawnDelayMax = 3f;
+    [HideInInspector]
+    public float RemainTime { get; set; }
+    [HideInInspector]
+    public int ComboCount = -1;
+    [HideInInspector]
+    public int TotalComboCount;
 
     private void Awake()
     {
@@ -70,17 +88,27 @@ public partial class StageMgr : MonoBehaviour
         if (MyGlobals.EnterIngameFromOutgame)
         {
             GameType = MyGlobals.GameType;
-            if (GameType == INGAME_TYPE.ADVENTURE)
+            if (IsAdventure())
             {
                 if (MyGlobals.StageNum == 0)
                     MyGlobals.StageNum = 1;
                 StageNum = MyGlobals.StageNum;
             }
+            m_eCharacter = PrefsMgr.Instance.GetChoosenCharacter();
+            m_iCharacterLv = PrefsMgr.Instance.GetCharacterLevel(m_eCharacter);
+            m_bIsTest = false;
+            m_eMaxOperator = GetMaxOperator();
         }
         else
         {
             m_bIsTest = true;
-            MyGlobals.StageNum = StageNum;
+            if(MyGlobals.EnterIngameFromTestMode)
+                StageNum = MyGlobals.StageNum;
+            else
+                MyGlobals.StageNum = StageNum;
+
+            if (!IsAdventure())
+                m_eMaxOperator = GetMaxOperator();
         }
 
         EventListener.AddListener("OnCountdownDone", this);
@@ -98,17 +126,44 @@ public partial class StageMgr : MonoBehaviour
 #endif
     }
 
-    void Start ()
+    eOPERATOR GetMaxOperator()
     {
-        MyGlobals.EnteringIngame = false;
-
-        if (GameType == INGAME_TYPE.ADVENTURE)
+        if(IsAdventure())
         {
-            StartCoroutine("CoroutineCheckPlayTime");
+            if (PrefsMgr.Instance.GetCharacterOpen(eCHARACTER.DIV))
+                return eOPERATOR.DIVISION;
+            else if (PrefsMgr.Instance.GetCharacterOpen(eCHARACTER.MUL))
+                return eOPERATOR.MULTIPLICATION;
+            else if (PrefsMgr.Instance.GetCharacterOpen(eCHARACTER.SUB))
+                return eOPERATOR.SUBTRACTION;
+            else
+                return eOPERATOR.ADDITION;
         }
         else
         {
+            return eOPERATOR.DIVISION;
         }
+    }
+
+    void Start ()
+    {
+        MyGlobals.EnteringIngame = false;
+        RemainTime = 999;
+        //if (GameType == INGAME_TYPE.ADVENTURE)
+        //{
+            StartCoroutine("CoroutineCheckPlayTime");
+        //}
+        //else
+        //{
+        //}
+    }
+
+    public bool IsAdventure()
+    {
+        if (GameType == INGAME_TYPE.ADVENTURE)
+            return true;
+        else
+            return false;
     }
 
     public void OnGameClear()
@@ -191,6 +246,7 @@ public partial class StageMgr : MonoBehaviour
             }
 
             PlayTime += Time.deltaTime;
+            RemainTime -= Time.deltaTime;
 
             yield return null;
         }
@@ -233,6 +289,8 @@ public partial class StageMgr : MonoBehaviour
 
     public void OnGoToNextStage()
     {
+        if (m_bIsTest)
+            MyGlobals.EnterIngameFromTestMode = true;
         ++MyGlobals.StageNum;
     }
 

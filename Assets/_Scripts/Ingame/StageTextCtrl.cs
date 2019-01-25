@@ -8,7 +8,10 @@ public class StageTextCtrl : MonoBehaviour
 
 	void Start ()
     {
-        EventListener.AddListener("OnTargetChanged", this);
+        if (MyGlobals.StageMgr.IsAdventure())
+            EventListener.AddListener("OnTargetChanged", this);
+        else
+            m_objStageText.SetActive(false);
     }
 
     void OnTargetChanged()

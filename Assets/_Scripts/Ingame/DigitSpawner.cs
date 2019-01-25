@@ -11,7 +11,7 @@ using UnityEngine;
 //    RIGHT_FAR
 //}
 
-public class DigitSpawner : MonoBehaviour
+public partial class DigitSpawner : MonoBehaviour
 {
     Transform m_transform;
     public List<GameObject> m_listOriginPref;
@@ -20,7 +20,7 @@ public class DigitSpawner : MonoBehaviour
     //private List<GameObject> m_listSpawnedObj;
     //public int m_iMaxSpawnCount = 20;
     eTABLE_LIST m_eTableStageLevel;
-    int m_iLineID = 1;
+    int m_iLineID;
     public Vector3[] m_arrSpawnPos;
     public float m_fHeightSpawn;
     public float m_fHeightGreat;
@@ -30,7 +30,8 @@ public class DigitSpawner : MonoBehaviour
     bool m_bSpawnedAll;
     public Color m_colorLowest;
     public int TargetID { get; set; }
-    NumDropCtrl m_scriptTarget;
+    public int TargetIDMax { get; set; }
+    public NumDropCtrl m_scriptTarget;
     private int m_iLowestDigit;
     public int LowestDigit {
         get
@@ -61,6 +62,7 @@ public class DigitSpawner : MonoBehaviour
 
         EventListener.AddListener("OnCorrectAnswer", this);
         EventListener.AddListener("OnChangeTarget", this);
+        //EventListener.AddListener("OnActivateSuperSkill", this);
     }
 
     void Start()
@@ -70,21 +72,48 @@ public class DigitSpawner : MonoBehaviour
         m_objPool = new List<GameObject>();
         SetToObjPool();
 
-        //if (MyGlobals.EnterIngameFromOutgame)
-        //{
-            m_eTableStageLevel = MyUtility.ParsingStringToEnumType<eTABLE_LIST>("STAGE_LEVEL_" + MyGlobals.StageMgr.StageNum);
-            //m_eTableStageLevel = eTABLE_LIST.STAGE_LEVEL_1;
-        //}
-        //else
-        //{
-        //    //m_eTableStageLevel = eTABLE_LIST.STAGE_LEVEL_1;
-        //    m_eTableStageLevel = MyUtility.ParsingStringToEnumType<eTABLE_LIST>("STAGE_LEVEL_" + MyGlobals.StageMgr.StageNum);
-        //}
-        //m_fAppearTime = ((float)TableDB.Instance.GetData(m_eTableStageLevel, m_iLineID, eKEY_TABLEDB.f_APPEARTIME));
-        m_fAppearTime = GetNextDigitAppearTime();
-        TargetID = 1;
-        StartCoroutine("CoroutineSpawn");
+        GetStageLevelTable();
+        if(MyGlobals.StageMgr.GameType == INGAME_TYPE.ADVENTURE)
+            StartCoroutine("CoroutineSpawn");
+        else
+            StartCoroutine("CoroutineSpawn_Infinite");
         //StartCoroutine("CoroutineCheckLowestDigit");
+    }
+
+    bool bIsFirstTableSetting = true;
+    int m_iStageTableNumCur;
+    int m_iStageTableNumNext;
+    void GetStageLevelTable()
+    {
+        if (MyGlobals.StageMgr.IsAdventure())
+        {
+            m_eTableStageLevel = MyUtility.ParsingStringToEnumType<eTABLE_LIST>("STAGE_LEVEL_" + MyGlobals.StageMgr.StageNum);
+            m_iLineID = 1;
+            TargetID = 1;
+            m_fAppearTime = GetNextDigitAppearTime();
+        }
+        else
+        {
+            if (bIsFirstTableSetting)
+            {
+                m_iStageTableNumCur = Random.Range(1, 51);
+                m_iStageTableNumNext = Random.Range(1, 51);
+                bIsFirstTableSetting = false;
+                m_eTableStageLevel = MyUtility.ParsingStringToEnumType<eTABLE_LIST>("STAGE_LEVEL_" + m_iStageTableNumCur.ToString());
+                m_eTableStageLevelNext = MyUtility.ParsingStringToEnumType<eTABLE_LIST>("STAGE_LEVEL_" + m_iStageTableNumNext.ToString());
+                TargetID = 1;
+            }
+            else
+            {
+                m_eTableStageLevel = m_eTableStageLevelNext;
+                m_iStageTableNumCur = m_iStageTableNumNext;
+                m_iStageTableNumNext = Random.Range(1, 51);
+                m_eTableStageLevelNext = MyUtility.ParsingStringToEnumType<eTABLE_LIST>("STAGE_LEVEL_" + m_iStageTableNumNext.ToString());
+            }
+            m_iTotalCountOfCurTable = (int)TableDB.Instance.GetRowCount(m_eTableStageLevel);
+            m_iLineID = 1;
+            MyUtility.DebugLog(string.Format("{0}, {1}", m_iStageTableNumCur, m_iTotalCountOfCurTable));
+        }
     }
 
     public void SetObjPoolCapacity(int iCapacity)
@@ -109,13 +138,17 @@ public class DigitSpawner : MonoBehaviour
     }
 
     int m_iTotalCount;
+    bool m_bSpawnedOneRecently;
     public IEnumerator CoroutineSpawn()
     {
         m_iTotalCount = (int)TableDB.Instance.GetRowCount(m_eTableStageLevel);
         //int iSpawedCount = 0;
         while (MyGlobals.StageMgr.StageState < STAGE_STATE.GAMECLEAR && m_bSpawnedAll == false)
         {
-            if(MyGlobals.StageMgr.PlayTime < m_fAppearTime)
+            //if (DigitsCount > 0)
+            //    IfNotLockOnFindTargetAgain();
+
+            if (MyGlobals.StageMgr.PlayTime < m_fAppearTime)
             {
                 yield return null;
                 continue;
@@ -226,16 +259,53 @@ public class DigitSpawner : MonoBehaviour
     /// </summary>
     public void OnChangeTarget()
     {
+        if (MyGlobals.StageMgr.GameType != INGAME_TYPE.ADVENTURE)
+        {
+            OnChangeTarget_Infinite();
+            return;
+        }
+
         if (TargetID > m_iTotalCount)
         {
             m_bSpawnedAll = true;
             return;
         }
 
-        //소환된 숫자가 하나도 없으면 바로 하나 소환
+        //소환된 숫자가 하나도 없으면 0.3초 후 하나 소환
         if (DigitsCount <= 0)
-            SpawnOne();
+        {
+            StopCoroutine("CoroutineSpawnOneAfterDelay");
+            StartCoroutine("CoroutineSpawnOneAfterDelay");
+            return;
+        }
 
+        FindTarget();
+    }
+
+    void IfNotLockOnFindTargetAgain()
+    {
+        bool bLockedOnAlready = false;
+        for (int i = 0; i < m_objPool.Count; ++i)
+        {
+            if (m_objPool[i].gameObject.activeSelf == false)
+                continue;
+
+            if (m_objPool[i].GetComponent<NumDropCtrl>().IsLockedOn())
+                bLockedOnAlready = true;
+        }
+
+        if (bLockedOnAlready == false)
+        {
+            MyUtility.DebugLog("LockOnNeeded");
+            if(MyGlobals.StageMgr.IsAdventure())
+                FindTarget();
+            else
+                FindTarget_Infinite();
+        }
+    }
+
+    void FindTarget()
+    {
         for (int i = 0; i < m_objPool.Count; ++i)
         {
             if (m_objPool[i].gameObject.activeSelf == false)
@@ -253,6 +323,30 @@ public class DigitSpawner : MonoBehaviour
             LowestDigit = m_scriptTarget.GetDigit();
 
         EventListener.Broadcast("OnTargetChanged");
+    }
+
+    IEnumerator CoroutineSpawnOneAfterDelay()
+    {
+        m_bSpawnedOneRecently = false;
+        float fElased = 0f;
+        while(fElased < 0.3f)
+        {
+            if(MyGlobals.StageMgr.IsPauseDrop)
+            {
+                yield return null;
+                continue;
+            }
+
+            if (m_bSpawnedOneRecently)
+                yield break;
+
+            fElased += Time.deltaTime;
+
+            yield return null;
+        }
+
+        SpawnOne();
+        FindTarget();
     }
 
     ////라인ID에 따라 타겟을 지정하는 버전
@@ -313,6 +407,7 @@ public class DigitSpawner : MonoBehaviour
             iNextNum = GetNextNum();
 
             SetNextDigit();
+            m_bSpawnedOneRecently = true;
         }
         else
         {
@@ -438,12 +533,41 @@ public class DigitSpawner : MonoBehaviour
 
         m_scriptTarget.Correct(m_eEvaluation);
 
-        //if(!bByItem)
-            MyGlobals.ScoreMgr.UpdateScore(m_eEvaluation, bByItem);
-        //--DigitsCount;
+        if (!MyGlobals.StageMgr.IsAdventure())
+        {
+            m_fSpawnDelay -= 0.1f;
+            m_fSpawnDelay = Mathf.Clamp(m_fSpawnDelay, MyGlobals.StageMgr.m_fSpawnDelayMin, MyGlobals.StageMgr.m_fSpawnDelayMax);
+            //++MyGlobals.StageMgr.ComboCount;
+            //if(MyGlobals.StageMgr.ComboCount > 0)//두번째 성공부터 콤보로 침
+            //    ++MyGlobals.StageMgr.TotalComboCount;
+        }
 
-        //OnChangeTarget();
+        MyGlobals.ScoreMgr.UpdateScore(m_eEvaluation, bByItem);
     }
+
+    //void OnActivateSuperSkill()
+    //{
+    //    NumDropCtrl tempScript;
+    //    for (int i = 0; i < m_objPool.Count; ++i)
+    //    {
+    //        if (m_objPool[i].gameObject.activeSelf == false)
+    //            continue;
+
+    //        tempScript = m_objPool[i].GetComponent<NumDropCtrl>();
+
+    //        fCurHeight = tempScript.GetHeight();
+    //        if (fCurHeight >= m_fHeightGreat)
+    //            m_eEvaluation = eEVALUATION.GREAT;
+    //        else if (fCurHeight >= m_fHeightCool)
+    //            m_eEvaluation = eEVALUATION.COOL;
+    //        else
+    //            m_eEvaluation = eEVALUATION.NICE;
+
+    //        //m_scriptTarget.Correct(m_eEvaluation);
+
+    //        MyGlobals.ScoreMgr.UpdateScore(m_eEvaluation, false);
+    //    }
+    //}
     
     private void OnDestroy()
     {

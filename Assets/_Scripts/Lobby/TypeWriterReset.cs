@@ -16,11 +16,7 @@ public class TypeWriterReset : MonoBehaviour
 
 	void OnEnable ()
     {
-        if (m_typeWriter)
-        {
-            m_typeWriter.gameObject.SetActive(true);
-            m_typeWriter.StartNewWrite();
-        }
+        OnManualReset();
     }
 
     public void OnManualReset()

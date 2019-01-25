@@ -1,6 +1,6 @@
 ﻿i_ID	s_CHAR_NAME_KR	s_CHAR_NAME_US	s_CHAR_STORY_KR	s_CHAR_STORY_US	s_SKILL_KR	s_SKILL_US	i_UNLOCK_STAGE_INFO
 200	더하기맨	ADD MAN	더하기맨 스토리	when~	더하기로 계산하여..정답..({0})	Add ….finish…({0})	0
-201	빼기맨	ADD MAN	빼기맨 스토리	when~	더하기로 계산하여..정답..({0})	Add ….finish…({0})	2
-202	곱하기맨	ADD MAN	곱하기맨 스토리	when~	더하기로 계산하여..정답..({0})	Add ….finish…({0})	4
-203	나누기맨	ADD MAN	나누기맨 스토리	when~	더하기로 계산하여..정답..({0})	Add ….finish…({0})	6
+201	빼기맨	ADD MAN	빼기맨 스토리	when~	빼기로 계산하여..정답..({0})	Sub ….finish…({0})	2
+202	곱하기맨	ADD MAN	곱하기맨 스토리	when~	곱하기로 계산하여..정답..({0})	Mul ….finish…({0})	4
+203	나누기맨	ADD MAN	나누기맨 스토리	when~	나누기로 계산하여..정답..({0})	DIv ….finish…({0})	6
 204	무한도전모드	Infinity challenger	모드 언락 전용	캐릭터 아님	모드 언락 전용	캐릭터 아님	40

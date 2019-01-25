@@ -8,11 +8,15 @@ public class CharacterSelectMgr : MonoBehaviour
     [Header("Gold Info")]
     public UILabel m_labelGoldAmount;
 
-    //[Header("Character Btn")]
-    //public GameObject m_objSelectAdd;
-    //public GameObject m_objSelectSub;
-    //public GameObject m_objSelectMul;
-    //public GameObject m_objSelectDiv;
+    [Header("Character Btn")]
+    public GameObject m_objAdd;
+    public GameObject m_objSub;
+    public GameObject m_objMul;
+    public GameObject m_objDiv;
+    public CharacterBtnCtrl m_scriptAddBtn;
+    public CharacterBtnCtrl m_scriptSubBtn;
+    public CharacterBtnCtrl m_scriptMulBtn;
+    public CharacterBtnCtrl m_scriptDivBtn;
 
     [Header("Character Profile")]
     public UILabel m_labelName;
@@ -41,7 +45,7 @@ public class CharacterSelectMgr : MonoBehaviour
         EventListener.AddListener("OnCharacterChanged", this);
     }
 
-    void Start()
+    void OnEnable()
     {
         m_eTableChatacter = eTABLE_LIST.CHAR_INFO;
 
@@ -89,12 +93,14 @@ public class CharacterSelectMgr : MonoBehaviour
     {
         RetargetCharacterSelect();
 
+        int iChoosenCharacter = (int)PrefsMgr.Instance.GetChoosenCharacter();
+
         m_labelCharName.text = (string)TableDB.Instance.GetData(m_eTableChatacter,
-            (int)MyGlobals.UserState.m_eCurCharacter, m_eKeyCharName);
+            iChoosenCharacter, m_eKeyCharName);
 
         m_labelCharStory.text = (string)TableDB.Instance.GetData(m_eTableChatacter,
-            (int)MyGlobals.UserState.m_eCurCharacter, m_eKeyCharStory);
-        m_scriptTypewriter.OnManualReset();
+            iChoosenCharacter, m_eKeyCharStory);
+        //m_scriptTypewriter.OnManualReset();
 
         m_labelSkillLv.text = MyUtility.GetLevelText(MyGlobals.UserState.GetCurSkillLv());
 
@@ -103,7 +109,7 @@ public class CharacterSelectMgr : MonoBehaviour
 
         m_labelSkillExplanation.text = string.Format(
             (string)TableDB.Instance.GetData(m_eTableChatacter,
-                                    (int)MyGlobals.UserState.m_eCurCharacter, m_eKeyCharSkillExplanation),
+                                    iChoosenCharacter, m_eKeyCharSkillExplanation),
                                 TableDB.Instance.GetData(m_eTableCharacterLv,
                                     iSkillLevelCur, eKEY_TABLEDB.i_SKILL_VALUE));
 
@@ -131,61 +137,92 @@ public class CharacterSelectMgr : MonoBehaviour
 
     void RetargetCharacterSelect()
     {
-        //m_objSelectAdd.SetActive(false);
-        //m_objSelectSub.SetActive(false);
-        //m_objSelectMul.SetActive(false);
-        //m_objSelectDiv.SetActive(false);
+        m_objAdd.SetActive(false);
+        m_objSub.SetActive(false);
+        m_objMul.SetActive(false);
+        m_objDiv.SetActive(false);
+        m_scriptAddBtn.OnDeactivate();
+        m_scriptSubBtn.OnDeactivate();
+        m_scriptMulBtn.OnDeactivate();
+        m_scriptDivBtn.OnDeactivate();
 
-        switch (MyGlobals.UserState.m_eCurCharacter)
+        //EventListener.Broadcast("OnCharacterChanged", PrefsMgr.Instance.GetChoosenCharacter());
+
+        switch (PrefsMgr.Instance.GetChoosenCharacter())
         {
             case eCHARACTER.ADD:
                 m_eTableCharacterLv = eTABLE_LIST.CHAR_LEVEL_ADD;
-                //m_objSelectAdd.SetActive(true);
+                m_objAdd.SetActive(true);
+                m_scriptAddBtn.OnActivate();
                 break;
             case eCHARACTER.SUB:
                 m_eTableCharacterLv = eTABLE_LIST.CHAR_LEVEL_SUB;
-                //m_objSelectSub.SetActive(true);
+                m_objSub.SetActive(true);
+                m_scriptSubBtn.OnActivate();
                 break;
             case eCHARACTER.MUL:
                 m_eTableCharacterLv = eTABLE_LIST.CHAR_LEVEL_MUL;
-                //m_objSelectMul.SetActive(true);
+                m_objMul.SetActive(true);
+                m_scriptMulBtn.OnActivate();
                 break;
             case eCHARACTER.DIV:
                 m_eTableCharacterLv = eTABLE_LIST.CHAR_LEVEL_DIV;
-                //m_objSelectDiv.SetActive(true);
+                m_objDiv.SetActive(true);
+                m_scriptDivBtn.OnActivate();
                 break;
             default:
                 m_eTableCharacterLv = eTABLE_LIST.CHAR_LEVEL_ADD;
-                //m_objSelectAdd.SetActive(true);
+                m_objAdd.SetActive(true);
+                m_scriptAddBtn.OnActivate();
                 break;
         }
     }
 
     public void OnPress_Add()
     {
-        MyGlobals.UserState.m_eCurCharacter = eCHARACTER.ADD;
+        //if (PrefsMgr.Instance.GetCharacterOpen(eCHARACTER.ADD) == false)
+        //    return;
 
-        OnCharacterChanged();
+        //MyGlobals.UserState.m_eCurCharacter = eCHARACTER.ADD;
+        PrefsMgr.Instance.SetChoosenCharacter(eCHARACTER.ADD);
+
+        //OnCharacterChanged();
+        EventListener.Broadcast("OnCharacterChanged");
     }
 
     public void OnPress_Sub()
     {
-        MyGlobals.UserState.m_eCurCharacter = eCHARACTER.SUB;
+        if (PrefsMgr.Instance.GetCharacterOpen(eCHARACTER.SUB) == false)
+            return;
 
-        OnCharacterChanged();
+        //MyGlobals.UserState.m_eCurCharacter = eCHARACTER.SUB;
+        PrefsMgr.Instance.SetChoosenCharacter(eCHARACTER.SUB);
+
+        //OnCharacterChanged();
+        EventListener.Broadcast("OnCharacterChanged");
     }
 
     public void OnPress_Mul()
     {
-        MyGlobals.UserState.m_eCurCharacter = eCHARACTER.MUL;
+        if (PrefsMgr.Instance.GetCharacterOpen(eCHARACTER.MUL) == false)
+            return;
 
-        OnCharacterChanged();
+        //MyGlobals.UserState.m_eCurCharacter = eCHARACTER.MUL;
+        PrefsMgr.Instance.SetChoosenCharacter(eCHARACTER.MUL);
+
+        //OnCharacterChanged();
+        EventListener.Broadcast("OnCharacterChanged");
     }
 
     public void OnPress_Div()
     {
-        MyGlobals.UserState.m_eCurCharacter = eCHARACTER.DIV;
+        if (PrefsMgr.Instance.GetCharacterOpen(eCHARACTER.DIV) == false)
+            return;
 
-        OnCharacterChanged();
+        //MyGlobals.UserState.m_eCurCharacter = eCHARACTER.DIV;
+        PrefsMgr.Instance.SetChoosenCharacter(eCHARACTER.DIV);
+
+        //OnCharacterChanged();
+        EventListener.Broadcast("OnCharacterChanged");
     }
 }

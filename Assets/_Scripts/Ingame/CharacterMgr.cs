@@ -28,16 +28,24 @@ public class CharacterMgr : MonoBehaviour
         EventListener.AddListener("OnActivateSuperSkill", this);
         //1차 발표버전에서는 캐릭터 애드/마이 중 하나 랜덤 등장
         //m_eCurCharacter = Random.Range(0, 2) == 0 ? eCHARACTER.ADD : eCHARACTER.SUB;
+        //CurCharacter = (eCHARACTER)PrefsMgr.Instance.GetInt(PrefsMgr.strChoosenChar, (int)eCHARACTER.ADD);
+        //if (MyGlobals.EnterIngameFromOutgame)
+        //    CurCharacter = PrefsMgr.Instance.GetChoosenCharacter();
+        //else
+        //    CurCharacter = MyGlobals.StageMgr.m_eCharacter;
     }
 
     void Start()
     {
-        CurCharacter = (eCHARACTER)PrefsMgr.Instance.GetInt(PrefsMgr.strChoosenChar, (int)eCHARACTER.ADD);
-
         MyUtility.ActivateAll(m_arrAdd, false);
         MyUtility.ActivateAll(m_arrSub, false);
         MyUtility.ActivateAll(m_arrMul, false);
         MyUtility.ActivateAll(m_arrDiv, false);
+
+        if (MyGlobals.EnterIngameFromOutgame)
+            CurCharacter = PrefsMgr.Instance.GetChoosenCharacter();
+        else
+            CurCharacter = MyGlobals.StageMgr.m_eCharacter;
 
         switch (CurCharacter)
         {

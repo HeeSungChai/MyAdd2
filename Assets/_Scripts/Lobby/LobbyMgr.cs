@@ -123,6 +123,8 @@ public class LobbyMgr : MonoBehaviour
         RefreshGradeInfo();
 
         RefreshCharacterInfo();
+
+        ShowCharacter();
     }
 
     void RefreshGradeInfo()
@@ -144,18 +146,18 @@ public class LobbyMgr : MonoBehaviour
         UpdateCharacterTable();
 
         m_labelCharName.text = (string)TableDB.Instance.GetData(m_eTableChatacter,
-            (int)MyGlobals.UserState.m_eCurCharacter, m_eKeyCharName);
+            (int)PrefsMgr.Instance.GetChoosenCharacter(), m_eKeyCharName);
 
         m_labelCharAbility.text = string.Format(
             (string)TableDB.Instance.GetData(m_eTableChatacter,
-                (int)MyGlobals.UserState.m_eCurCharacter, m_eKeyCharAbility),
+                (int)PrefsMgr.Instance.GetChoosenCharacter(), m_eKeyCharAbility),
             TableDB.Instance.GetData(m_eTableCharacterLv,
                 (int)m_iCurLevel, eKEY_TABLEDB.i_SKILL_VALUE));
     }
 
     void UpdateCharacterTable()
     {
-        switch (MyGlobals.UserState.m_eCurCharacter)
+        switch (PrefsMgr.Instance.GetChoosenCharacter())
         {
             case eCHARACTER.ADD:
                 m_eTableCharacterLv = eTABLE_LIST.CHAR_LEVEL_ADD;
@@ -192,7 +194,7 @@ public class LobbyMgr : MonoBehaviour
 
     void ShowCharacter()
     {
-        switch (MyGlobals.UserState.m_eCurCharacter)
+        switch (PrefsMgr.Instance.GetChoosenCharacter())
         {
             case eCHARACTER.ADD:
                 m_objAdd.SetActive(true);
@@ -209,34 +211,36 @@ public class LobbyMgr : MonoBehaviour
 
     public void OnPress_CharacterLeft()
     {
-        switch (MyGlobals.UserState.m_eCurCharacter)
+        switch (PrefsMgr.Instance.GetChoosenCharacter())
         {
             case eCHARACTER.ADD:
-                MyGlobals.UserState.m_eCurCharacter = eCHARACTER.SUB;
+                PrefsMgr.Instance.SetChoosenCharacter(eCHARACTER.SUB);// = eCHARACTER.SUB;
                 break;
             case eCHARACTER.SUB:
-                MyGlobals.UserState.m_eCurCharacter = eCHARACTER.ADD;
+                PrefsMgr.Instance.SetChoosenCharacter(eCHARACTER.ADD);// = eCHARACTER.ADD;
                 break;
             default:
                 break;
         }
         ShowCharacter();
+        RefreshCharacterInfo();
     }
 
     public void OnPress_CharacterRight()
     {
-        switch(MyGlobals.UserState.m_eCurCharacter)
+        switch(PrefsMgr.Instance.GetChoosenCharacter())
         {
             case eCHARACTER.ADD:
-                MyGlobals.UserState.m_eCurCharacter = eCHARACTER.SUB;
+                PrefsMgr.Instance.SetChoosenCharacter(eCHARACTER.SUB);
                 break;
             case eCHARACTER.SUB:
-                MyGlobals.UserState.m_eCurCharacter = eCHARACTER.ADD;
+                PrefsMgr.Instance.SetChoosenCharacter(eCHARACTER.ADD);
                 break;
             default:
                 break;
         }
         ShowCharacter();
+        RefreshCharacterInfo();
     }
 
     public void OnPress_CharacterChoice()

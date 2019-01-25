@@ -28,6 +28,11 @@ public class HpBarMgr : MonoBehaviour
         StartCoroutine("CoroutineActivateHp");
     }
 
+    void SetTable()
+    {
+
+    }
+
     IEnumerator CoroutineActivateHp()
     {
         int iActivatedCount = 0;

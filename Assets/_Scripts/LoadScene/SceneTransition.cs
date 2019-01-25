@@ -14,8 +14,8 @@ public class SceneTransition : MonoBehaviour
     {
         if(m_bEnterIngame)
         {
-            if (MyGlobals.EnteringIngame)
-                return;
+            //if (MyGlobals.EnteringIngame)
+            //    return;
 
             MyGlobals.GameType = m_eGameType;
 
@@ -24,6 +24,24 @@ public class SceneTransition : MonoBehaviour
 
             EventListener.Broadcast("OnEnterIngame");
         }
+
+        Transition.LoadLevel(m_strScene, m_fDuration, m_color);
+    }
+
+    public void GoToNextLevel()
+    {
+        if (MyGlobals.EnteringIngame)
+            return;
+
+        MyGlobals.GameType = INGAME_TYPE.ADVENTURE;
+
+        MyGlobals.EnteringIngame = true;
+        if(MyGlobals.StageMgr && MyGlobals.StageMgr.m_bIsTest)
+            MyGlobals.EnterIngameFromOutgame = false;
+        else
+            MyGlobals.EnterIngameFromOutgame = true;
+
+        EventListener.Broadcast("OnEnterIngame");
 
         Transition.LoadLevel(m_strScene, m_fDuration, m_color);
     }

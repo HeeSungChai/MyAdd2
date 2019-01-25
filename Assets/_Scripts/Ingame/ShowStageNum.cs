@@ -8,6 +8,9 @@ public class ShowStageNum : MonoBehaviour
 
 	void Start ()
     {
-        m_label.text = MyGlobals.StageMgr.StageNum.ToString();
+        if(MyGlobals.StageMgr.IsAdventure())
+            m_label.text = MyGlobals.StageMgr.StageNum.ToString();
+        else
+            m_label.text = "";
     }
 }

@@ -22,7 +22,7 @@ public class ResultMgr : MonoBehaviour
     {
         SetScoreValues();
 
-        StartCoroutine("CoroutineGameClearSeauence");
+        StartCoroutine("CoroutineGameClearSequence");
     }
 
     void SetScoreValues()
@@ -33,7 +33,8 @@ public class ResultMgr : MonoBehaviour
             m_scriptCounterBonus.Init(0, MyGlobals.ScoreMgr.TotalCharBonusScore, 1.0f);
             m_scriptCounterTotalScore.Init(0, MyGlobals.ScoreMgr.TotalScore, 1.0f);
 
-            PrefsMgr.Instance.SetInt(PrefsMgr.strStageScore + MyGlobals.StageMgr.StageNum, MyGlobals.ScoreMgr.TotalScore);
+            //PrefsMgr.Instance.SetInt(PrefsMgr.strStageScore + MyGlobals.StageMgr.StageNum, MyGlobals.ScoreMgr.TotalScore);
+            PrefsMgr.Instance.SetStageScore(MyGlobals.ScoreMgr.TotalScore);
         }
         else
         {
@@ -44,7 +45,7 @@ public class ResultMgr : MonoBehaviour
         }
     }
 
-    IEnumerator CoroutineGameClearSeauence()
+    IEnumerator CoroutineGameClearSequence()
     {
         yield return new WaitForSeconds(0.5f);
 

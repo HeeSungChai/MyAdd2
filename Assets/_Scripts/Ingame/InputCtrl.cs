@@ -24,7 +24,7 @@ public class InputCtrl : MonoBehaviour
     InputButtonCtrl[] m_arrScriptInputButtonOperator;
     public SuperGaugeCtrl m_scriptGaugeCtrl;
     public UILabel m_labelAnswer;
-
+    
     int m_iCurAnswer;
     int m_iCorrectAnswerLeft;
     int m_iCorrectAnswerRight;
@@ -84,11 +84,29 @@ public class InputCtrl : MonoBehaviour
         m_bSelected_Right = false;
         m_bSelected_Operator = false;
         EventListener.Broadcast("OnDeselectAll");
+
+        SetOperatorCondition();
     }
 
     public void SetOperatorCondition()
     {
-        //일거리. 연산기호에 해당하는 캐릭터를 획득한 경우에만 해당 오퍼레이터 활성화
+        if (MyGlobals.StageMgr.GameType == INGAME_TYPE.ADVENTURE)
+        {
+            //PrefsMgr.Instance.InitializeAllState();
+            //연산기호에 해당하는 캐릭터를 획득한 경우에만 해당 오퍼레이터 활성화
+            //if (PrefsMgr.Instance.GetCharacterOpen(eCHARACTER.SUB) == false)
+            //    m_arrScriptInputButtonOperator[(int)eOPERATOR.SUBTRACTION].DisableButton();
+            //if (PrefsMgr.Instance.GetCharacterOpen(eCHARACTER.MUL) == false)
+            //    m_arrScriptInputButtonOperator[(int)eOPERATOR.MULTIPLICATION].DisableButton();
+            //if (PrefsMgr.Instance.GetCharacterOpen(eCHARACTER.DIV) == false)
+            //    m_arrScriptInputButtonOperator[(int)eOPERATOR.DIVISION].DisableButton();
+            if (MyGlobals.StageMgr.m_eMaxOperator < eOPERATOR.DIVISION)
+                m_arrScriptInputButtonOperator[(int)eOPERATOR.DIVISION].DisableButton();
+            else if (MyGlobals.StageMgr.m_eMaxOperator < eOPERATOR.MULTIPLICATION)
+                m_arrScriptInputButtonOperator[(int)eOPERATOR.MULTIPLICATION].DisableButton();
+            else if (MyGlobals.StageMgr.m_eMaxOperator < eOPERATOR.SUBTRACTION)
+                m_arrScriptInputButtonOperator[(int)eOPERATOR.SUBTRACTION].DisableButton();
+        }
     }
 	
     public void OnTargetChanged()
@@ -171,21 +189,8 @@ public class InputCtrl : MonoBehaviour
 
     void SetFormulaForAnswer2()//1~9의 숫자만 사용하는 버전
     {
-        if (m_iCurAnswer > 18)      //한자리 숫자만 사용하게 되면 18을 초과하는 수는 무조건 연산기호가 곱하기가 되고
-            m_iCorrectAnswerOperator = (int)eOPERATOR.MULTIPLICATION;
-        else if (m_iCurAnswer > 9)   //9를 초과하는 수는 빼기와 나누기가 답이 될 수 없음
-        {
-            if(m_iCurAnswer == 11 || m_iCurAnswer == 13 || m_iCurAnswer == 17)
-                m_iCorrectAnswerOperator = (int)eOPERATOR.ADDITION;
-            else
-                m_iCorrectAnswerOperator = Random.Range(0, 2) == 0 ? (int)eOPERATOR.ADDITION : (int)eOPERATOR.MULTIPLICATION;
-        }
-        //else if (m_iCurAnswer > 8)
-        //    m_iCorrectAnswerOperator = Random.Range(0, 3) == 0 ? (int)eOPERATOR.DIVISION : Random.Range(0, 2) == 0 ? (int)eOPERATOR.ADDITION : (int)eOPERATOR.MULTIPLICATION;
-        else if(m_iCurAnswer == 0)
-            m_iCorrectAnswerOperator = Random.Range(0, 2) == 0 ? (int)eOPERATOR.SUBTRACTION : (int)eOPERATOR.MULTIPLICATION;
-        else
-            m_iCorrectAnswerOperator = Random.Range(0, (int)eOPERATOR.DIVISION + 1);
+        iAllocatingCount = 0;
+        AllocateOperator();
 
         switch ((eOPERATOR)m_iCorrectAnswerOperator)
         {
@@ -259,10 +264,65 @@ public class InputCtrl : MonoBehaviour
         ShowAnswer();
     }
 
+    int iAllocatingCount;
+    void AllocateOperator()
+    {
+        if (m_iCurAnswer > 18)      //한자리 숫자만 사용하게 되면 18을 초과하는 수는 무조건 연산기호가 곱하기가 되고
+            m_iCorrectAnswerOperator = (int)eOPERATOR.MULTIPLICATION;
+        else if (m_iCurAnswer > 9)   //9를 초과하는 수는 빼기와 나누기가 답이 될 수 없음
+        {
+            if (m_iCurAnswer == 11 || m_iCurAnswer == 13 || m_iCurAnswer == 17)
+                m_iCorrectAnswerOperator = (int)eOPERATOR.ADDITION;
+            else
+                m_iCorrectAnswerOperator = Random.Range(0, 2) == 0 ? (int)eOPERATOR.ADDITION : (int)eOPERATOR.MULTIPLICATION;
+        }
+        //else if (m_iCurAnswer > 8)
+        //    m_iCorrectAnswerOperator = Random.Range(0, 3) == 0 ? (int)eOPERATOR.DIVISION : Random.Range(0, 2) == 0 ? (int)eOPERATOR.ADDITION : (int)eOPERATOR.MULTIPLICATION;
+        else if (m_iCurAnswer == 0)
+            m_iCorrectAnswerOperator = Random.Range(0, 2) == 0 ? (int)eOPERATOR.SUBTRACTION : (int)eOPERATOR.MULTIPLICATION;
+        else
+            //m_iCorrectAnswerOperator = Random.Range(0, (int)eOPERATOR.DIVISION + 1);
+            m_iCorrectAnswerOperator = Random.Range(0, (int)MyGlobals.StageMgr.m_eMaxOperator + 1);
+
+        if(iAllocatingCount > 10)//주어진 조건하에 도저히 답이 안나올 때에 대한 예외처리
+        {
+            MyUtility.DebugLog("Allocating too many times");
+            MyGlobals.DigitSpawner.m_scriptTarget.SetDigitByForce(5);
+            MyGlobals.DigitSpawner.LowestDigit = 5;
+            m_iCurAnswer = 5;
+            m_iCorrectAnswerOperator = (int)eOPERATOR.ADDITION;
+            return;
+        }
+
+        //if (PrefsMgr.Instance.GetOperatorOpen((eOPERATOR)m_iCorrectAnswerOperator) == false)
+        if (m_iCorrectAnswerOperator > (int)MyGlobals.StageMgr.m_eMaxOperator)
+        {
+            ++iAllocatingCount;
+            AllocateOperator();
+            return;
+        }
+    }
+
+    string tempOperator;
     void ShowAnswer()
     {
 #if DEBUG
-        m_labelAnswer.text = m_iCorrectAnswerLeft.ToString() + ((eOPERATOR)m_iCorrectAnswerOperator).ToString() + m_iCorrectAnswerRight.ToString();
+        switch (m_iCorrectAnswerOperator)
+        {
+            case 0:
+                tempOperator = " + ";
+                break;
+            case 1:
+                tempOperator = " - ";
+                break;
+            case 2:
+                tempOperator = " * ";
+                break;
+            case 3:
+                tempOperator = " / ";
+                break;
+        }
+        m_labelAnswer.text = m_iCorrectAnswerLeft.ToString() + tempOperator + m_iCorrectAnswerRight.ToString();
 #endif
     }
 
@@ -368,6 +428,7 @@ public class InputCtrl : MonoBehaviour
             {
                 IsWrongAnswer();
                 Invoke("ResetSelection", 0.2f);
+                MyGlobals.SoundMgr.OnPlayFx(eSOUND_FX.WRONG_ANSWER);
             }
         }
     }
@@ -423,6 +484,7 @@ public class InputCtrl : MonoBehaviour
             m_iSelectedDigitLeft = m_listLeftDigits[iIndex];
             m_iIndexSelectedLeft = iIndex;
             CheckIsCorrectAnswer();
+            MyGlobals.SoundMgr.OnPlayFx(eSOUND_FX.INPUT_TOUCH_FIRST);
             return;
         }
 
@@ -435,6 +497,7 @@ public class InputCtrl : MonoBehaviour
             m_iSelectedDigitLeft = m_listLeftDigits[iIndex];
             m_iIndexSelectedLeft = iIndex;
             CheckIsCorrectAnswer();
+            MyGlobals.SoundMgr.OnPlayFx(eSOUND_FX.INPUT_TOUCH_FIRST);
         }
         else    //선택된 숫자를 한번 더 누른 경우에는 선택 해제
         {
@@ -442,6 +505,7 @@ public class InputCtrl : MonoBehaviour
             m_bSelected_Left = false;
             m_iSelectedDigitLeft = 0;
             m_iIndexSelectedLeft = -1;
+            MyGlobals.SoundMgr.OnPlayFx(eSOUND_FX.INPUT_TOUCH_SECOND);
         }
     }
 
@@ -457,6 +521,7 @@ public class InputCtrl : MonoBehaviour
             m_iSelectedDigitRight = m_listRightDigits[iIndex];
             m_iIndexSelectedRight = iIndex;
             CheckIsCorrectAnswer();
+            MyGlobals.SoundMgr.OnPlayFx(eSOUND_FX.INPUT_TOUCH_FIRST);
             return;
         }
 
@@ -468,6 +533,7 @@ public class InputCtrl : MonoBehaviour
             m_iSelectedDigitRight = m_listRightDigits[iIndex];
             m_iIndexSelectedRight = iIndex;
             CheckIsCorrectAnswer();
+            MyGlobals.SoundMgr.OnPlayFx(eSOUND_FX.INPUT_TOUCH_FIRST);
         }
         else
         {
@@ -475,6 +541,7 @@ public class InputCtrl : MonoBehaviour
             m_bSelected_Right = false;
             m_iSelectedDigitRight = 0;
             m_iIndexSelectedRight = -1;
+            MyGlobals.SoundMgr.OnPlayFx(eSOUND_FX.INPUT_TOUCH_SECOND);
         }
     }
 
@@ -489,6 +556,7 @@ public class InputCtrl : MonoBehaviour
             m_bSelected_Operator = true;
             m_eSelected_Operator = eOperator;
             CheckIsCorrectAnswer();
+            MyGlobals.SoundMgr.OnPlayFx(eSOUND_FX.INPUT_TOUCH_FIRST);
             return;
         }
 
@@ -499,11 +567,13 @@ public class InputCtrl : MonoBehaviour
             m_bSelected_Operator = true;
             m_eSelected_Operator = eOperator;
             CheckIsCorrectAnswer();
+            MyGlobals.SoundMgr.OnPlayFx(eSOUND_FX.INPUT_TOUCH_FIRST);
         }
         else
         {
             m_arrScriptInputButtonOperator[(int)m_eSelected_Operator].Deselect();
             m_bSelected_Operator = false;
+            MyGlobals.SoundMgr.OnPlayFx(eSOUND_FX.INPUT_TOUCH_SECOND);
         }
     }
 

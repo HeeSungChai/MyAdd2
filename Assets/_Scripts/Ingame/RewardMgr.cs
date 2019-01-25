@@ -62,11 +62,29 @@ public class RewardMgr : MonoBehaviour
         }
 
         m_iUnlockID = (int)TableDB.Instance.GetData(m_eTableName, MyGlobals.StageMgr.StageNum, eKEY_TABLEDB.i_UNLOCK_ID);
+        if (m_iUnlockID != -1)
+            UnlockCharacter();
     }
 
     void ShowReward(int iIndex, int iRewardID, int iValue)
     {
         m_scriptRewardCtrl[iIndex].gameObject.SetActive(true);
         m_scriptRewardCtrl[iIndex].Init((eITEM_ID)iRewardID, m_iReward1_Value);
+    }
+
+    void UnlockCharacter()
+    {
+        switch((eCHARACTER)m_iUnlockID)
+        {
+            case eCHARACTER.SUB:
+                PrefsMgr.Instance.SetCharacterOpen(eCHARACTER.SUB);
+                break;
+            case eCHARACTER.MUL:
+                PrefsMgr.Instance.SetCharacterOpen(eCHARACTER.MUL);
+                break;
+            case eCHARACTER.DIV:
+                PrefsMgr.Instance.SetCharacterOpen(eCHARACTER.DIV);
+                break;
+        }
     }
 }
