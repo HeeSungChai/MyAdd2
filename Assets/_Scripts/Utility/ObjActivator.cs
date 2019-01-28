@@ -12,10 +12,16 @@ public class ObjActivator : MonoBehaviour
     public bool m_bTimeSkipByTouch;
     public float m_fSkipTime = 1f;
     bool m_bTouched = false;
+    public bool m_bActivateByLanguage = false;
+    public bool m_bApplyOnLanguageChange = false;
+    public GameObject m_objENG;
+    public GameObject m_objKR;
 
     virtual public void Start()
     {
         EventListener.AddListener("OnTouched", this);
+        if(m_bApplyOnLanguageChange)
+            EventListener.AddListener("OnLanguageChanged", this);
     }
 
     virtual public void OnEnable()
@@ -46,16 +52,25 @@ public class ObjActivator : MonoBehaviour
             yield break;
         }
 
-        m_obj.SetActive(false);
+        Activate(false);
 
         yield return new WaitForSeconds(m_fDelay);
 
-        m_obj.SetActive(true);
+        if (m_obj)
+            m_obj.SetActive(true);
+
+        if (m_bActivateByLanguage)
+        {
+            if (LanguageMgr.Instance.GetLanguage() == eLANGUAGE.ENGLISH && m_objENG)
+                m_objENG.SetActive(true);
+            else if (LanguageMgr.Instance.GetLanguage() == eLANGUAGE.KOREAN && m_objKR)
+                m_objKR.SetActive(true);
+        }
     }
 
     virtual public IEnumerator CoroutineSkippableActivator()
     {
-        m_obj.SetActive(false);
+        Activate(false);
 
         float fElased = 0f;
 
@@ -71,7 +86,16 @@ public class ObjActivator : MonoBehaviour
             yield return null;
         }
 
-        m_obj.SetActive(true);
+        if (m_obj)
+            m_obj.SetActive(true);
+
+        if (m_bActivateByLanguage)
+        {
+            if (LanguageMgr.Instance.GetLanguage() == eLANGUAGE.ENGLISH && m_objENG)
+                m_objENG.SetActive(true);
+            else if (LanguageMgr.Instance.GetLanguage() == eLANGUAGE.KOREAN && m_objKR)
+                m_objKR.SetActive(true);
+        }
     }
 
     void OnTouched()
@@ -83,17 +107,45 @@ public class ObjActivator : MonoBehaviour
     {
         yield return new WaitForSeconds(m_fDelay);
 
-        m_obj.SetActive(false);
+        Activate(false);
     }
 
     virtual public void OnDeactivate()
     {
-        m_obj.SetActive(false);
+        Activate(false);
     }
 
-    //private void OnDisable()
-    //{
-    //    if (m_bAutoDeactivation)
-    //        OnDeactivate();
-    //}
+    void Activate(bool bActivate)
+    {
+        if (m_obj)
+            m_obj.SetActive(bActivate);
+
+        if (m_bActivateByLanguage)
+        {
+            if (m_objENG)
+                m_objENG.SetActive(bActivate);
+            if (m_objKR)
+                m_objKR.SetActive(bActivate);
+        }
+    }
+
+    void OnLanguageChanged()
+    {
+        if (LanguageMgr.Instance.GetLanguage() == eLANGUAGE.ENGLISH && m_objENG)
+        {
+            m_objENG.SetActive(true);
+            m_objKR.SetActive(false);
+        }
+        else if (LanguageMgr.Instance.GetLanguage() == eLANGUAGE.KOREAN && m_objKR)
+        {
+            m_objENG.SetActive(false);
+            m_objKR.SetActive(true);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
+        EventListener.RemoveListener(this);
+    }
 }

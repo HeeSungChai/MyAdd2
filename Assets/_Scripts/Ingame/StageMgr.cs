@@ -74,12 +74,12 @@ public partial class StageMgr : MonoBehaviour
     [Header("Infinite Mode")]
     public float m_fSpawnDelayMin = 0.8f;
     public float m_fSpawnDelayMax = 3f;
-    [HideInInspector]
-    public float RemainTime { get; set; }
+    public float RemainTime = 999f;
     [HideInInspector]
     public int ComboCount = -1;
     [HideInInspector]
     public int TotalComboCount;
+    public UILabel m_labelRemainTime;
 
     private void Awake()
     {
@@ -93,6 +93,11 @@ public partial class StageMgr : MonoBehaviour
                 if (MyGlobals.StageNum == 0)
                     MyGlobals.StageNum = 1;
                 StageNum = MyGlobals.StageNum;
+                m_labelRemainTime.gameObject.SetActive(false);
+            }
+            else
+            {
+                m_labelRemainTime.gameObject.SetActive(true);
             }
             m_eCharacter = PrefsMgr.Instance.GetChoosenCharacter();
             m_iCharacterLv = PrefsMgr.Instance.GetCharacterLevel(m_eCharacter);
@@ -107,8 +112,13 @@ public partial class StageMgr : MonoBehaviour
             else
                 MyGlobals.StageNum = StageNum;
 
-            if (!IsAdventure())
+            if (IsAdventure())
+                m_labelRemainTime.gameObject.SetActive(false);
+            else
+            {
+                m_labelRemainTime.gameObject.SetActive(true);
                 m_eMaxOperator = GetMaxOperator();
+            }
         }
 
         EventListener.AddListener("OnCountdownDone", this);
@@ -156,6 +166,19 @@ public partial class StageMgr : MonoBehaviour
         //else
         //{
         //}
+    }
+
+    private void Update()
+    {
+#if UNITY_ANDROID
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            if(Input.GetKey(KeyCode.Escape))
+            {
+                Application.Quit();
+            }
+        }
+#endif
     }
 
     public bool IsAdventure()
@@ -246,7 +269,17 @@ public partial class StageMgr : MonoBehaviour
             }
 
             PlayTime += Time.deltaTime;
-            RemainTime -= Time.deltaTime;
+            if (!IsAdventure())
+            {
+                RemainTime -= Time.deltaTime;
+                m_labelRemainTime.text = Mathf.RoundToInt(RemainTime).ToString();
+
+                if (RemainTime < 0)
+                {
+                    RemainTime = 0f;
+                    EventListener.Broadcast("OnGameClear");
+                }
+            }
 
             yield return null;
         }

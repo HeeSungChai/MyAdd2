@@ -1,0 +1,25 @@
+﻿i_STRING_ID	s_LANGUAGE_KOR	s_LANGUAGE_ENG
+500	모험시작	CHALLENGE
+501	무한도전모드	INFINITY CHALLENGE
+502	효과음	FX
+503	게임 효과 볼륨을 조절합니다.	EFFECT SOUND SETTING
+504	배경음	BGA
+505	게임 배경음악 볼륨을 조절합니다.	BACK GROUND MUSIC SOUND SETTING
+506	언  어	LANGUAGE
+507	게임 언어를 변경합니다.	CHANGE LANGUAGE
+508	변경 시 재시동 후 적용됩니다.	Changes will take effect after reboot.
+509	한국어	KOREAN
+510	영어	ENGLISH
+511	적  용	APPLY
+512	특성	SKILL
+513	레벨	LEVEL
+514	출  발!	LET`S GO!
+515	완료	CLEAR
+516	결과	RESULT
+517	나가기	EXIT
+518	다음레벨	NEXT
+519	성장	LEVEL UP
+520	최대	MAX LEVEL
+521	새로운 칭호가 부여되었습니다.	GET NEW TITLE!
+522	새로운 캐릭터를 선택할 수 있습니다.	Lets you select a new character.
+523	재도전	REPLAY

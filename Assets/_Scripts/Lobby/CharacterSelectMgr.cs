@@ -22,7 +22,7 @@ public class CharacterSelectMgr : MonoBehaviour
     public UILabel m_labelName;
     public UILabel m_labelCharName;
     public UILabel m_labelCharStory;
-    public UILabel m_labelSkillLv;
+    public UILabel m_labelSkillValue;
     public UILabel m_labelSkillExplanation;
     public TypeWriterReset m_scriptTypewriter;
     public UILabel m_labelSkill;
@@ -45,7 +45,7 @@ public class CharacterSelectMgr : MonoBehaviour
         EventListener.AddListener("OnCharacterChanged", this);
     }
 
-    void OnEnable()
+    void Start()
     {
         m_eTableChatacter = eTABLE_LIST.CHAR_INFO;
 
@@ -74,12 +74,12 @@ public class CharacterSelectMgr : MonoBehaviour
             m_eKeyCharSkillExplanation = eKEY_TABLEDB.s_SKILL_US;
         }
 
-        if(m_labelName)
-            m_labelName.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.CHARACTER_SELECT_NAME);
+        //if(m_labelName)
+        //    m_labelName.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.CHARACTER_SELECT_NAME);
         if(m_labelSkill)
-            m_labelSkill.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.CHARACTER_SELECT_PROPERTY);
+            m_labelSkill.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_DATA.SKILL);
         if(m_labelBtnUpgrade)
-            m_labelBtnUpgrade.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.CHARACTER_SELECT_UPGRADE_BTN);
+            m_labelBtnUpgrade.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_DATA.LEVEL_UP);
 
         RefreshCharacterInfo();
     }
@@ -101,11 +101,12 @@ public class CharacterSelectMgr : MonoBehaviour
         m_labelCharStory.text = (string)TableDB.Instance.GetData(m_eTableChatacter,
             iChoosenCharacter, m_eKeyCharStory);
         //m_scriptTypewriter.OnManualReset();
-
-        m_labelSkillLv.text = MyUtility.GetLevelText(MyGlobals.UserState.GetCurSkillLv());
-
+        
         int iSkillLevelCur = MyGlobals.UserState.GetCurSkillLv();
         int iSkillLevelNext = iSkillLevelCur + 1;
+
+        m_labelSkillValue.text = ((int)TableDB.Instance.GetData(m_eTableCharacterLv,
+                                    iSkillLevelCur, eKEY_TABLEDB.i_SKILL_VALUE)).ToString();
 
         m_labelSkillExplanation.text = string.Format(
             (string)TableDB.Instance.GetData(m_eTableChatacter,
@@ -113,15 +114,15 @@ public class CharacterSelectMgr : MonoBehaviour
                                 TableDB.Instance.GetData(m_eTableCharacterLv,
                                     iSkillLevelCur, eKEY_TABLEDB.i_SKILL_VALUE));
 
-        m_labelSkillLvCur.text = m_labelSkillLv.text;
-        m_labelSkillBonusCur.text = ((int)TableDB.Instance.GetData(m_eTableCharacterLv,
-                                    iSkillLevelCur, eKEY_TABLEDB.i_SKILL_VALUE)).ToString();
+        m_labelSkillLvCur.text = MyUtility.GetLevelText(MyGlobals.UserState.GetCurSkillLv());
+        m_labelSkillBonusCur.text = "(+" + ((int)TableDB.Instance.GetData(m_eTableCharacterLv,
+                                    iSkillLevelCur, eKEY_TABLEDB.i_SKILL_VALUE)).ToString() + ")";
 
         if (iSkillLevelNext <= 10)
         {
             m_labelSkillLvNext.text = MyUtility.GetLevelText(iSkillLevelNext);
-            m_labelSkillBonusNext.text = ((int)TableDB.Instance.GetData(m_eTableCharacterLv,
-                                    iSkillLevelNext, eKEY_TABLEDB.i_SKILL_VALUE)).ToString();
+            m_labelSkillBonusNext.text = "(+" + ((int)TableDB.Instance.GetData(m_eTableCharacterLv,
+                                    iSkillLevelNext, eKEY_TABLEDB.i_SKILL_VALUE)).ToString() + ")";
             m_labelAquiredCoinAmount.text = ((int)TableDB.Instance.GetData(m_eTableCharacterLv,
                                     iSkillLevelNext, eKEY_TABLEDB.i_AMOUNT)).ToString();
         }

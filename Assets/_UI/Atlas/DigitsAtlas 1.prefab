@@ -53,58 +53,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 9ec55e360ce3fe84fa35c853703a64c2, type: 2}
   mSprites:
-  - name: ColorAllInOneWithComma_0
+  - name: ColorFont_0
     x: 0
-    y: 208
-    width: 446
-    height: 395
+    y: 54
+    width: 469
+    height: 458
     borderLeft: 0
     borderRight: 0
     borderTop: 0
     borderBottom: 0
     paddingLeft: 0
-    paddingRight: 66
+    paddingRight: 43
     paddingTop: 0
-    paddingBottom: 117
-  - name: DigitsColor_0
-    x: 447
-    y: 208
-    width: 421
-    height: 395
+    paddingBottom: 54
+  - name: MonoFont_0
+    x: 470
+    y: 52
+    width: 471
+    height: 460
     borderLeft: 0
     borderRight: 0
     borderTop: 0
     borderBottom: 0
     paddingLeft: 0
-    paddingRight: 91
+    paddingRight: 41
     paddingTop: 0
-    paddingBottom: 117
-  - name: DigitsMono_0
-    x: 487
-    y: 604
-    width: 453
-    height: 420
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 59
-    paddingTop: 0
-    paddingBottom: 92
-  - name: MonoAllInOneWithComma_0
-    x: 0
-    y: 604
-    width: 486
-    height: 420
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 26
-    paddingTop: 0
-    paddingBottom: 92
+    paddingBottom: 52
   mPixelSize: 1
   mReplacement: {fileID: 0}
   mCoordinates: 0

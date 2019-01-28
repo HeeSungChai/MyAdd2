@@ -15,7 +15,8 @@ public class HpBarActivator : MonoBehaviour
 
     void Start ()
     {
-        int iCharacterLv = PrefsMgr.Instance.GetCharacterLevel(MyGlobals.StageMgr.m_eCharacter);
+        int iCharacterLv = MyGlobals.StageMgr.m_iCharacterLv;
+        //= PrefsMgr.Instance.GetCharacterLevel(MyGlobals.StageMgr.m_eCharacter);
 
         eTABLE_LIST eTable;
         switch (MyGlobals.StageMgr.m_eCharacter)

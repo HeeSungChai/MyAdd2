@@ -44,6 +44,7 @@ public class MyGlobals
     public static bool EnterIngameFromTestMode { get; set; }
     public static int MaxValue = 81;
     public static int MaxInputValue = 9;
+    public static int ItemMaxAmount = 999;
 
     public static void GoBackToLobby()
     {

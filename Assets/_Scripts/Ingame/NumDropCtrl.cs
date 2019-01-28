@@ -99,7 +99,7 @@ public class NumDropCtrl : MonoBehaviour
         {
             if (MyGlobals.StageMgr.IsPauseDrop)
             {
-                yield return null;
+                yield return new WaitForFixedUpdate();
                 continue;
             }
 
@@ -110,7 +110,7 @@ public class NumDropCtrl : MonoBehaviour
             if (m_bCorrect)
                 yield break;
 
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
 
         m_transform.localPosition = m_vTargetPos;

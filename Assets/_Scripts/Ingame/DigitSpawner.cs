@@ -21,19 +21,12 @@ public partial class DigitSpawner : MonoBehaviour
     //public int m_iMaxSpawnCount = 20;
     eTABLE_LIST m_eTableStageLevel;
     int m_iLineID;
-    public Vector3[] m_arrSpawnPos;
-    public float m_fHeightSpawn;
-    public float m_fHeightGreat;
-    public float m_fHeightCool;
-    public float m_fHeightFail;
-    float m_fAppearTime;
-    bool m_bSpawnedAll;
-    public Color m_colorLowest;
     public int TargetID { get; set; }
     public int TargetIDMax { get; set; }
     public NumDropCtrl m_scriptTarget;
     private int m_iLowestDigit;
-    public int LowestDigit {
+    public int LowestDigit
+    {
         get
         {
             //if (m_scriptTarget == null)
@@ -53,6 +46,14 @@ public partial class DigitSpawner : MonoBehaviour
         }
     }
     public int DigitsCount { get; set; }
+    public Vector3[] m_arrSpawnPos;
+    public float m_fHeightSpawn;
+    public float m_fHeightGreat;
+    public float m_fHeightCool;
+    public float m_fHeightFail;
+    float m_fAppearTime;
+    bool m_bSpawnedAll;
+    public Color m_colorLowest;    
 
     public UILabel m_labelNext;
 
@@ -145,12 +146,12 @@ public partial class DigitSpawner : MonoBehaviour
         //int iSpawedCount = 0;
         while (MyGlobals.StageMgr.StageState < STAGE_STATE.GAMECLEAR && m_bSpawnedAll == false)
         {
-            //if (DigitsCount > 0)
-            //    IfNotLockOnFindTargetAgain();
+            if (DigitsCount > 0)
+                IfNotLockOnFindTargetAgain();
 
             if (MyGlobals.StageMgr.PlayTime < m_fAppearTime)
             {
-                yield return null;
+                yield return new WaitForFixedUpdate();
                 continue;
             }
 
@@ -169,12 +170,12 @@ public partial class DigitSpawner : MonoBehaviour
                 MyUtility.DebugLog("SpawnedAll");
             }
 
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
 
         while(DigitsCount > 0)
         {
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
 
         yield return new WaitForSeconds(1.0f);
@@ -333,7 +334,7 @@ public partial class DigitSpawner : MonoBehaviour
         {
             if(MyGlobals.StageMgr.IsPauseDrop)
             {
-                yield return null;
+                yield return new WaitForFixedUpdate();
                 continue;
             }
 
@@ -342,7 +343,7 @@ public partial class DigitSpawner : MonoBehaviour
 
             fElased += Time.deltaTime;
 
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
 
         SpawnOne();

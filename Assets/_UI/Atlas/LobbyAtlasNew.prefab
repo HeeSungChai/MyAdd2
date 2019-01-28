@@ -53,9 +53,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 05c2c5253d00f6a4981c6d73f1477238, type: 2}
   mSprites:
+  - name: Btn_Exit
+    x: 1594
+    y: 454
+    width: 64
+    height: 56
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: Btn_Left
-    x: 835
-    y: 44
+    x: 1662
+    y: 498
     width: 107
     height: 128
     borderLeft: 0
@@ -67,8 +80,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Btn_Left_Shadow
-    x: 892
-    y: 896
+    x: 1497
+    y: 382
     width: 96
     height: 128
     borderLeft: 0
@@ -80,8 +93,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Btn_Option
-    x: 706
-    y: 81
+    x: 1239
+    y: 475
     width: 128
     height: 112
     borderLeft: 0
@@ -93,8 +106,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Btn_Right
-    x: 892
-    y: 767
+    x: 926
+    y: 356
     width: 91
     height: 128
     borderLeft: 0
@@ -106,8 +119,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Btn_Right_Shadow
-    x: 892
-    y: 638
+    x: 834
+    y: 356
     width: 91
     height: 128
     borderLeft: 0
@@ -118,9 +131,9 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: Btn_Shadow
-    x: 834
-    y: 286
+  - name: Btn_Shop
+    x: 1091
+    y: 378
     width: 128
     height: 112
     borderLeft: 0
@@ -131,11 +144,50 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: Btn_Shop
-    x: 835
-    y: 173
-    width: 128
-    height: 112
+  - name: BtnA
+    x: 1091
+    y: 491
+    width: 147
+    height: 129
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: BtnA_Shadow
+    x: 1820
+    y: 841
+    width: 210
+    height: 183
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: BtnB
+    x: 1073
+    y: 823
+    width: 489
+    height: 201
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: BtnB_Shadow
+    x: 577
+    y: 821
+    width: 495
+    height: 203
     borderLeft: 0
     borderRight: 0
     borderTop: 0
@@ -145,8 +197,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: CharacterInfo
-    x: 834
-    y: 399
+    x: 1368
+    y: 475
     width: 128
     height: 112
     borderLeft: 0
@@ -157,50 +209,50 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: CharInfoBG
-    x: 577
-    y: 372
-    width: 256
-    height: 139
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: CharName_Add
-    x: 706
-    y: 24
-    width: 128
-    height: 56
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: CharWindowBG
-    x: 577
-    y: 512
-    width: 314
-    height: 512
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
   - name: GoldBG
-    x: 577
-    y: 194
+    x: 1533
+    y: 627
     width: 256
     height: 73
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Item_Clock
+    x: 834
+    y: 621
+    width: 201
+    height: 199
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Item_Eraser
+    x: 1073
+    y: 621
+    width: 252
+    height: 201
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Item_Recovery
+    x: 1326
+    y: 588
+    width: 206
+    height: 234
     borderLeft: 0
     borderRight: 0
     borderTop: 0
@@ -222,11 +274,11 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: StartBtn_Adventure
-    x: 577
-    y: 268
+  - name: Name_Add_ENG
+    x: 834
+    y: 485
     width: 256
-    height: 103
+    height: 135
     borderLeft: 0
     borderRight: 0
     borderTop: 0
@@ -235,11 +287,50 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: StartBtn_Adventure_Shadow
+  - name: Name_Add_KR
+    x: 1563
+    y: 818
+    width: 256
+    height: 206
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Name_Div_ENG
+    x: 1790
+    y: 647
+    width: 256
+    height: 74
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 4
+    paddingBottom: 0
+  - name: Name_Div_KR
+    x: 1790
+    y: 588
+    width: 256
+    height: 58
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Name_Mul_ENG
     x: 577
-    y: 26
-    width: 128
-    height: 51
+    y: 475
+    width: 256
+    height: 162
     borderLeft: 0
     borderRight: 0
     borderTop: 0
@@ -248,11 +339,50 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: Title_Beginner
-    x: 835
-    y: 2
-    width: 128
-    height: 41
+  - name: Name_Mul_KR
+    x: 1533
+    y: 701
+    width: 256
+    height: 116
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Name_Sub_ENG
+    x: 577
+    y: 638
+    width: 256
+    height: 182
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Name_Sub_KR
+    x: 1790
+    y: 722
+    width: 256
+    height: 95
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 3
+  - name: Square
+    x: 1018
+    y: 434
+    width: 50
+    height: 50
     borderLeft: 0
     borderRight: 0
     borderTop: 0
@@ -262,8 +392,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: TitleBadge_Beginner
-    x: 577
-    y: 78
+    x: 1533
+    y: 511
     width: 128
     height: 115
     borderLeft: 0

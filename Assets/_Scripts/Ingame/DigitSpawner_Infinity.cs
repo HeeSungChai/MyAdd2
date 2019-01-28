@@ -18,15 +18,15 @@ partial class DigitSpawner
         {
             if(MyGlobals.StageMgr.IsPauseDrop)
             {
-                yield return null;
+                yield return new WaitForFixedUpdate();
                 continue;
             }
 
             fElased += Time.deltaTime;
 
             //간혹 타깃이 지정되지 않는 경우에 대한 예외처리
-            //if (DigitsCount > 0)
-            //    IfNotLockOnFindTargetAgain();
+            if (DigitsCount > 0)
+                IfNotLockOnFindTargetAgain();
 
             if (fElased > m_fSpawnDelay)
             {
@@ -50,13 +50,13 @@ partial class DigitSpawner
                 }
             }
 
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
 
-        while (DigitsCount > 0)
-        {
-            yield return null;
-        }
+        //while (DigitsCount > 0)
+        //{
+        //    yield return null;
+        //}
 
         yield return new WaitForSeconds(1.0f);
 

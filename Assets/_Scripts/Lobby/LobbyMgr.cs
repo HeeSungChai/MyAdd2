@@ -2,31 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum eGRADE
+public enum eUSER_TITLE
 {
     BEGINNER = 100,
-    KINDERGARTEN_FIRST_GRADE,
-    KINDERGARTEN_SECOND_GRADE,
-    KINDERGARTEN_THIRD_GRADE,
-    ELEMENTARY_SCHOOL_FIRST_GRADE,
-    ELEMENTARY_SCHOOL_SECOND_GRADE,
-    ELEMENTARY_SCHOOL_THIRD_GRADE,
-    ELEMENTARY_SCHOOL_FOURTH_GRADE,
-    ELEMENTARY_SCHOOL_FIFTH_GRADE,
-    ELEMENTARY_SCHOOL_SIXTH_GRADE,
-    MIDDLE_SCHOOL_FIRST_GRADE,
-    MIDDLE_SCHOOL_SECOND_GRADE,
-    MIDDLE_SCHOOL_THIRD_GRADE,
-    HIGH_SCHOOL_FIRST_GRADE,
-    HIGH_SCHOOL_SECOND_GRADE,
-    HIGH_SCHOOL_THIRD_GRADE,
-    FRESHMAN,
-    SOPHOMORE,
-    JUNIOR,
-    SENIOR,
-    MASTER,
+    KINDERGARTEN,
+    ELEMENTARY_SCHOOL,
+    MIDDLE_SCHOOL,
+    HIGH_SCHOOL,
+    UNIVERSITY,
     DOCTOR,
-    PROFESSOR,
     GOD_OF_MATH
 }
 
@@ -109,11 +93,11 @@ public class LobbyMgr : MonoBehaviour
             m_eKeyCharAbility = eKEY_TABLEDB.s_SKILL_US;
         }
 
-        m_labelBtnCharSelect.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.CHARACTER_SELECT_BUTTON);
-        m_labelBtnShop.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.SHOP_BUTTON);
-        m_labelBtnStartAdventure.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.LOBBY_ADVENTURE_START);
-        m_labelBtnStartAdventure2.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.LOBBY_ADVENTURE_START);
-        m_labelBtnStartInfinite.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.LOBBY_INFINITE_START);
+        //m_labelBtnCharSelect.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.CHARACTER_SELECT_BUTTON);
+        //m_labelBtnShop.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.SHOP_BUTTON);
+        m_labelBtnStartAdventure.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_DATA.CHALLENGE);
+        m_labelBtnStartAdventure2.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_DATA.CHALLENGE);
+        m_labelBtnStartInfinite.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_DATA.INFINITY_CHALLENGE);
 
         OnCharacterChanged();
     }
@@ -132,21 +116,21 @@ public class LobbyMgr : MonoBehaviour
         m_labelTitle.text = (string)TableDB.Instance.GetData(m_eTableTitle,
             (int)MyGlobals.UserState.m_eTitle, m_eKeyTitleName);
 
-        string tempStr = (string)TableDB.Instance.GetData(m_eTableTitle,
-            (int)MyGlobals.UserState.m_eTitle, m_eKeyGradeName);
+        //string tempStr = (string)TableDB.Instance.GetData(m_eTableTitle,
+        //    (int)MyGlobals.UserState.m_eTitle, m_eKeyGradeName);
 
-        if (tempStr == null || tempStr == "noText")
-            m_labelGrade.text = "";
-        else
-            m_labelGrade.text = tempStr;
+        //if (tempStr == null || tempStr == "noText")
+        //    m_labelGrade.text = "";
+        //else
+        //    m_labelGrade.text = tempStr;
     }
 
     void RefreshCharacterInfo()
     {
         UpdateCharacterTable();
 
-        m_labelCharName.text = (string)TableDB.Instance.GetData(m_eTableChatacter,
-            (int)PrefsMgr.Instance.GetChoosenCharacter(), m_eKeyCharName);
+        //m_labelCharName.text = (string)TableDB.Instance.GetData(m_eTableChatacter,
+        //    (int)PrefsMgr.Instance.GetChoosenCharacter(), m_eKeyCharName);
 
         m_labelCharAbility.text = string.Format(
             (string)TableDB.Instance.GetData(m_eTableChatacter,

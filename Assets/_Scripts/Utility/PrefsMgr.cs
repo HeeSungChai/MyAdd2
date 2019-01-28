@@ -2,19 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PrefsMgr{
-
+public class PrefsMgr
+{
+    [Header("Character Info")]
+    public static string strTitle = "UserTitle";
     public static string strChoosenChar = "Chosen_Character";
     //public static string strChoosenCharLv = "Chosen_CharacterLV";
     public static string strCharLv = "CharacterLV_";
+    public static string strCharacterOpen = "CharacterOpen_";
+    public static string strOperatorOpen = "OperatorOpen_";
+
+    [Header("Stage")]
+    public static string strMaxSelectableLv = "MaxSelectableLv";
+
+    [Header("Score")]
     public static string strStageScore = "Score_Stage_";
     public static string strTotalScore = "TotalScore";
+    public static string strBestComboScore = "BestComboScore";
+    public static string strInfiniteModeBestScore = "InfiniteModeBestScore";
+
+    [Header("Option")]
     public static string strVolumnFX = "VolumnFx";
     public static string strVolumnBGM = "VolumnBGM";
     public static string strLanguage = "Language";
-    public static string strCharacterOpen = "CharacterOpen_";
-    public static string strOperatorOpen = "OperatorOpen_";
-    public static string strMaxSelectableLv = "MaxSelectableLv";
+
+    [Header("Inventory")]
+    public static string strCoinCount = "CoinCount";
+    public static string strItemEraserCount = "ItemEraserCount";
+    public static string strItemClockCount = "ItemClockCount";
+    public static string strItemRecoveryCount = "ItemRecoveryCount";
+
 
     #region Singleton Pattern Implementation
     private static PrefsMgr instance;
@@ -152,5 +169,75 @@ public class PrefsMgr{
     public int GetMaxSelectableLv()
     {
         return GetInt(strMaxSelectableLv, 1);
+    }
+
+    public void SetCoinAmount(int iAmount)
+    {
+        SetInt(strCoinCount, iAmount);
+    }
+
+    public int GetCoinAmount()
+    {
+        return GetInt(strCoinCount, 0);
+    }
+
+    public void ItemUsed(eITEM_TYPE eItem)
+    {
+        int iCurAmount;
+        switch(eItem)
+        {
+            case eITEM_TYPE.ERASER:
+                iCurAmount = GetInt(strItemEraserCount, 0);
+                --iCurAmount;
+                Mathf.Clamp(iCurAmount, 0, MyGlobals.ItemMaxAmount);
+                SetInt(strItemEraserCount, iCurAmount);
+                break;
+            case eITEM_TYPE.CLOCK:
+                iCurAmount = GetInt(strItemClockCount, 0);
+                --iCurAmount;
+                Mathf.Clamp(iCurAmount, 0, MyGlobals.ItemMaxAmount);
+                SetInt(strItemClockCount, iCurAmount);
+                break;
+            case eITEM_TYPE.RECOVERY:
+                iCurAmount = GetInt(strItemRecoveryCount, 0);
+                --iCurAmount;
+                Mathf.Clamp(iCurAmount, 0, MyGlobals.ItemMaxAmount);
+                SetInt(strItemRecoveryCount, iCurAmount);
+                break;
+        }
+    }
+
+    public int GetItemAmount(eITEM_TYPE eItem)
+    {
+        int iCurAmount;
+        switch (eItem)
+        {
+            case eITEM_TYPE.ERASER:
+                iCurAmount = GetInt(strItemEraserCount, 0);
+                break;
+            case eITEM_TYPE.CLOCK:
+                iCurAmount = GetInt(strItemClockCount, 0);
+                break;
+            case eITEM_TYPE.RECOVERY:
+                iCurAmount = GetInt(strItemRecoveryCount, 0);
+                break;
+            default:
+                iCurAmount = 0;
+                break;
+        }
+
+        return iCurAmount;
+    }
+
+    public int SetTitle(eUSER_TITLE eTitle)
+    {
+        int iTitle = Mathf.Clamp((int)eTitle, (int)eUSER_TITLE.BEGINNER, (int)eUSER_TITLE.GOD_OF_MATH);
+        return GetInt(strTitle, (int)iTitle);
+    }
+
+    public eUSER_TITLE GetTitle()
+    {
+        int iTitle = GetInt(strTitle, 100);
+        return (eUSER_TITLE)iTitle;
     }
 }

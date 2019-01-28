@@ -53,11 +53,102 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 8666f3c2eefc4e24f876626fc5a36742, type: 2}
   mSprites:
-  - name: TitleBG
+  - name: BackgroundSky
+    x: 437
+    y: 512
+    width: 288
+    height: 512
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Hill
     x: 0
-    y: 0
-    width: 576
-    height: 1024
+    y: 291
+    width: 512
+    height: 220
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 6
+    paddingBottom: 0
+  - name: info
+    x: 0
+    y: 248
+    width: 954
+    height: 42
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Numbers
+    x: 0
+    y: 512
+    width: 436
+    height: 512
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: StartBtn_ENG
+    x: 513
+    y: 296
+    width: 256
+    height: 107
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: StartBtn_KR
+    x: 513
+    y: 404
+    width: 256
+    height: 107
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: StartButton
+    x: 726
+    y: 938
+    width: 256
+    height: 86
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: WhiteBG
+    x: 955
+    y: 887
+    width: 50
+    height: 50
     borderLeft: 0
     borderRight: 0
     borderTop: 0

@@ -47,23 +47,30 @@ public class ResultMgr : MonoBehaviour
 
     IEnumerator CoroutineGameClearSequence()
     {
-        yield return new WaitForSeconds(0.5f);
+        if (MyGlobals.StageMgr.IsAdventure())
+        {
+            yield return new WaitForSeconds(0.5f);
 
-        m_objGameClear.SetActive(true);
+            m_objGameClear.SetActive(true);
 
-        yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(1.5f);
+            
+            //일거리. 새로운 칭호 얻거나 새로 오픈된 캐릭터 연출 추가
 
-        //일거리. 새로운 칭호 얻거나 새로 오픈된 캐릭터 연출 추가
-
+        }
         m_objGameClear.SetActive(false);
 
-        if (MyGlobals.StageMgr.GameType == INGAME_TYPE.ADVENTURE)
+        if (MyGlobals.StageMgr.IsAdventure())
         {
             if (m_objGameClear_Adventure)
                 m_objGameClear_Adventure.SetActive(true);
+            if (m_objGameClear_Infinite)
+                m_objGameClear_Infinite.SetActive(false);
         }
         else
         {
+            if (m_objGameClear_Adventure)
+                m_objGameClear_Adventure.SetActive(false);
             if (m_objGameClear_Infinite)
                 m_objGameClear_Infinite.SetActive(true);
         }

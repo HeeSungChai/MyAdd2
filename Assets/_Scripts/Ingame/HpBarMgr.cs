@@ -37,7 +37,7 @@ public class HpBarMgr : MonoBehaviour
     {
         int iActivatedCount = 0;
 
-        while(iActivatedCount < m_iFullHP)
+        while (iActivatedCount < m_iFullHP)
         {
             yield return new WaitForSeconds(m_fDelayActivateEachHp);
 
@@ -69,12 +69,22 @@ public class HpBarMgr : MonoBehaviour
         --m_iIndexCurHp;
 
         if (m_iIndexCurHp < 0)
-            GameOver();
+        {
+            if (MyGlobals.StageMgr.IsAdventure())
+                GameOver();
+            else
+                InfiniteModeClear();
+        }
     }
 
     void GameOver()
     {
         EventListener.Broadcast("OnGameOver", false);
+    }
+
+    void InfiniteModeClear()
+    {
+        EventListener.Broadcast("OnGameClear");
     }
 
     private void OnDestroy()

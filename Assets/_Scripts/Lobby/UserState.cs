@@ -7,7 +7,7 @@ public class UserState : MonoBehaviour
     public bool m_IsTestMode = true;
     public bool m_ResetAllData = false;
     public int m_iCoinAmount;
-    public eGRADE m_eTitle;
+    public eUSER_TITLE m_eTitle;
     eCHARACTER m_eCurCharacter;
     //public eCHARACTER m_eCharacterOpenUntil;
     public int m_iLvAdd;
@@ -39,6 +39,14 @@ public class UserState : MonoBehaviour
             PrefsMgr.Instance.SetCharacterLevel(eCHARACTER.DIV, m_iLvDiv);
 
             PrefsMgr.Instance.SetMaxSelectableLv(m_iMaxSelectableLv);
+
+            PrefsMgr.Instance.SetCoinAmount(m_iCoinAmount);
+            PrefsMgr.Instance.SetTitle(m_eTitle);
+        }
+        else
+        {
+            m_iCoinAmount = PrefsMgr.Instance.GetCoinAmount();
+            m_eTitle = PrefsMgr.Instance.GetTitle();
         }
     }
 

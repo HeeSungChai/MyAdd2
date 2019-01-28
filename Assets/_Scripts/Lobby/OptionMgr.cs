@@ -34,6 +34,7 @@ public class OptionMgr : MonoBehaviour
         m_labelVolumnBGMValue.text = m_iCurVolumnBGM.ToString();
         m_eCurLanguage = LanguageMgr.Instance.GetLanguage();
         OnLanguageChanged();
+        SetLanguageLabel();
     }
 	
 	public void OnFxVolumnUp()
@@ -82,9 +83,7 @@ public class OptionMgr : MonoBehaviour
         ++iLanguage;
         iLanguage = iLanguage % 2;
         m_eCurLanguage = (eLANGUAGE)iLanguage;
-        m_labelLanguageValue.text = LanguageMgr.Instance.GetLanguageData(
-                                        eLANGUAGE_ID.OPTION_LANGUAGE_VALUE,
-                                        m_eCurLanguage);
+        SetLanguageLabel();
     }
 
     public void OnLanguageDown()
@@ -97,9 +96,7 @@ public class OptionMgr : MonoBehaviour
         --iLanguage;
         iLanguage = Mathf.Abs(iLanguage % 2);
         m_eCurLanguage = (eLANGUAGE)iLanguage;
-        m_labelLanguageValue.text = LanguageMgr.Instance.GetLanguageData(
-                                        eLANGUAGE_ID.OPTION_LANGUAGE_VALUE,
-                                        m_eCurLanguage);
+        SetLanguageLabel();
     }
 
     public void OnApply()
@@ -108,27 +105,42 @@ public class OptionMgr : MonoBehaviour
         MyGlobals.SoundMgr.OnSetVolumnBGM(m_iCurVolumnBGM);
         LanguageMgr.Instance.SetLanguage(m_eCurLanguage);
         EventListener.Broadcast("OnLanguageChanged");
+
+        SetLanguageLabel();
+    }
+
+    void SetLanguageLabel()
+    {
+        eLANGUAGE_DATA eLangData;
+        if (m_eCurLanguage == eLANGUAGE.ENGLISH)
+            eLangData = eLANGUAGE_DATA.ENGLISH;
+        else
+            eLangData = eLANGUAGE_DATA.KOREAN;
+
+        m_labelLanguageValue.text = LanguageMgr.Instance.GetLanguageData(
+                                        eLangData,
+                                        LanguageMgr.Instance.GetLanguage());
     }
 
     void OnLanguageChanged()
     {
-        if(m_labelOption)
-            m_labelOption.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.OPTION_SETTING);
-        if(m_labelVolumnFxName)
-            m_labelVolumnFxName.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.OPTION_SOUND_EFFECT);
-        if(m_labelVolumnBGMName)
-            m_labelVolumnBGMName.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.OPTION_BGM);
-        if(m_labelLanguageName)
-            m_labelLanguageName.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.OPTION_LANGUAGE);
-        if(m_labelLanguageValue)
-            m_labelLanguageValue.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.OPTION_LANGUAGE_VALUE);
-        if(m_labelVolumnFxExplanation)
-            m_labelVolumnFxExplanation.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.OPTION_SOUND_EFFECT_EXPLANATION);
-        if(m_labelVolumnBGMExplanation)
-            m_labelVolumnBGMExplanation.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.OPTION_BGM_EXPLANATION);
-        if(m_labelLanguageExplanation)
-            m_labelLanguageExplanation.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.OPTION_LANGUAGE_EXPLANATION);
-        if(m_labelApply)
-            m_labelApply.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.OPTION_APPLY_BTN);
+        //if(m_labelOption)
+        //    m_labelOption.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.OPTION_SETTING);
+        if (m_labelVolumnFxName)
+            m_labelVolumnFxName.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_DATA.FX);
+        if (m_labelVolumnBGMName)
+            m_labelVolumnBGMName.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_DATA.BGM);
+        if (m_labelLanguageName)
+            m_labelLanguageName.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_DATA.LANGUAGE);
+        //if (m_labelLanguageValue)
+        //    m_labelLanguageValue.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_ID.OPTION_LANGUAGE_VALUE);
+        if (m_labelVolumnFxExplanation)
+            m_labelVolumnFxExplanation.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_DATA.FX_EXPLANATION);
+        if (m_labelVolumnBGMExplanation)
+            m_labelVolumnBGMExplanation.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_DATA.BGM_EXPLANATION);
+        if (m_labelLanguageExplanation)
+            m_labelLanguageExplanation.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_DATA.LANGUAGE_EXPLANATION);
+        if (m_labelApply)
+            m_labelApply.text = LanguageMgr.Instance.GetLanguageData(eLANGUAGE_DATA.APPLY);
     }
 }
