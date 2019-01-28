@@ -5,12 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/_Scene/TitleAllInOne.unity
-    guid: ada84742adfed37499d25a5340ec6c16
   - enabled: 1
-    path: Assets/_Scene/TitleAllInOneReduce.unity
+    path: Assets/_Scene/TitleAllInOneReduced.unity
     guid: 2c5e2040b3f19924fb4e74a08c9b41a0
+  - enabled: 0
+    path: Assets/_Scene/Title_regacy.unity
+    guid: 5fe38ee93e7ca75458cc6a0c04105794
   - enabled: 1
     path: Assets/_Scene/Lobby.unity
     guid: 14aacb8d8b217934ab6d7060fc117865
