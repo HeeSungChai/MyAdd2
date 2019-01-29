@@ -56,7 +56,34 @@ public class CharacterSelectMgr : MonoBehaviour
 
     void OnGoldAmountChanged()
     {
-        m_labelGoldAmount.text = MyUtility.CommaSeparateDigit(MyGlobals.UserState.m_iCoinAmount);
+        //m_labelGoldAmount.text = MyUtility.CommaSeparateDigit(PrefsMgr.Instance.GetCoinAmount());
+        UpdateGoldAmount();
+    }
+
+    int iStartAmount = 0;
+    int iTargetAmount = 0;
+    public void UpdateGoldAmount()
+    {
+        iTargetAmount = PrefsMgr.Instance.GetCoinAmount();
+
+        StopCoroutine("CoroutineCount");
+        StartCoroutine("CoroutineCount");
+    }
+
+    IEnumerator CoroutineCount()
+    {
+        float fElased = 0f;
+        while (fElased < 1f)
+        {
+            fElased += Time.deltaTime;
+
+            m_labelGoldAmount.text = MyUtility.CommaSeparateDigit(((int)(Mathf.Lerp(iStartAmount, iTargetAmount, fElased / 1f)))).ToString();
+
+            yield return null;
+        }
+
+        iStartAmount = iTargetAmount;
+        m_labelGoldAmount.text = MyUtility.CommaSeparateDigit(PrefsMgr.Instance.GetCoinAmount());
     }
 
     void OnLanguageChanged()
@@ -89,6 +116,8 @@ public class CharacterSelectMgr : MonoBehaviour
         RefreshCharacterInfo();
     }
 
+    int m_iSkillLevelCur;
+    int m_iSkillLevelNext;
     void RefreshCharacterInfo()
     {
         RetargetCharacterSelect();
@@ -102,29 +131,29 @@ public class CharacterSelectMgr : MonoBehaviour
             iChoosenCharacter, m_eKeyCharStory);
         //m_scriptTypewriter.OnManualReset();
         
-        int iSkillLevelCur = MyGlobals.UserState.GetCurSkillLv();
-        int iSkillLevelNext = iSkillLevelCur + 1;
+        m_iSkillLevelCur = MyGlobals.UserState.GetCurSkillLv();
+        m_iSkillLevelNext = m_iSkillLevelCur + 1;
 
         m_labelSkillValue.text = ((int)TableDB.Instance.GetData(m_eTableCharacterLv,
-                                    iSkillLevelCur, eKEY_TABLEDB.i_SKILL_VALUE)).ToString();
+                                    m_iSkillLevelCur, eKEY_TABLEDB.i_SKILL_VALUE)).ToString();
 
         m_labelSkillExplanation.text = string.Format(
             (string)TableDB.Instance.GetData(m_eTableChatacter,
                                     iChoosenCharacter, m_eKeyCharSkillExplanation),
                                 TableDB.Instance.GetData(m_eTableCharacterLv,
-                                    iSkillLevelCur, eKEY_TABLEDB.i_SKILL_VALUE));
+                                    m_iSkillLevelCur, eKEY_TABLEDB.i_SKILL_VALUE));
 
         m_labelSkillLvCur.text = MyUtility.GetLevelText(MyGlobals.UserState.GetCurSkillLv());
         m_labelSkillBonusCur.text = "(+" + ((int)TableDB.Instance.GetData(m_eTableCharacterLv,
-                                    iSkillLevelCur, eKEY_TABLEDB.i_SKILL_VALUE)).ToString() + ")";
+                                    m_iSkillLevelCur, eKEY_TABLEDB.i_SKILL_VALUE)).ToString() + ")";
 
-        if (iSkillLevelNext <= 10)
+        if (m_iSkillLevelNext <= 10)
         {
-            m_labelSkillLvNext.text = MyUtility.GetLevelText(iSkillLevelNext);
+            m_labelSkillLvNext.text = MyUtility.GetLevelText(m_iSkillLevelNext);
             m_labelSkillBonusNext.text = "(+" + ((int)TableDB.Instance.GetData(m_eTableCharacterLv,
-                                    iSkillLevelNext, eKEY_TABLEDB.i_SKILL_VALUE)).ToString() + ")";
+                                    m_iSkillLevelNext, eKEY_TABLEDB.i_SKILL_VALUE)).ToString() + ")";
             m_labelAquiredCoinAmount.text = ((int)TableDB.Instance.GetData(m_eTableCharacterLv,
-                                    iSkillLevelNext, eKEY_TABLEDB.i_AMOUNT)).ToString();
+                                    m_iSkillLevelNext, eKEY_TABLEDB.i_AMOUNT)).ToString();
         }
         else
         {
@@ -225,5 +254,26 @@ public class CharacterSelectMgr : MonoBehaviour
 
         //OnCharacterChanged();
         EventListener.Broadcast("OnCharacterChanged");
+    }
+
+    public void OnPressUpgrade()
+    {
+        eCHARACTER eChar = PrefsMgr.Instance.GetChoosenCharacter();
+        int iCurLevel = PrefsMgr.Instance.GetCharacterLevel(eChar);
+
+        if (iCurLevel >= 10)
+            return;
+
+        int iRequiredCoinAmount = (int)(TableDB.Instance.GetData(m_eTableCharacterLv,
+                                    m_iSkillLevelNext, eKEY_TABLEDB.i_AMOUNT));
+
+        if (PrefsMgr.Instance.GetCoinAmount() < iRequiredCoinAmount)
+            return;
+
+        PrefsMgr.Instance.CoinUsed(iRequiredCoinAmount);
+        PrefsMgr.Instance.SetCharacterLevel(eChar, ++iCurLevel);
+
+        RefreshCharacterInfo();
+        EventListener.Broadcast("OnGoldAmountChanged");
     }
 }

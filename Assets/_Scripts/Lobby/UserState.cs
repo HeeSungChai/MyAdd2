@@ -45,7 +45,7 @@ public class UserState : MonoBehaviour
         }
         else
         {
-            m_iCoinAmount = PrefsMgr.Instance.GetCoinAmount();
+            //m_iCoinAmount = PrefsMgr.Instance.GetCoinAmount();
             m_eTitle = PrefsMgr.Instance.GetTitle();
         }
     }

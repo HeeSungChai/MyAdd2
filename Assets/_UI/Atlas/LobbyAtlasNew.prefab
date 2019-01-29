@@ -54,8 +54,8 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 05c2c5253d00f6a4981c6d73f1477238, type: 2}
   mSprites:
   - name: 01_BEGINNER
-    x: 833
-    y: 247
+    x: 1627
+    y: 214
     width: 82
     height: 113
     borderLeft: 0
@@ -67,8 +67,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: 02_KINDERGARTEN
-    x: 725
-    y: 253
+    x: 1627
+    y: 328
     width: 107
     height: 107
     borderLeft: 0
@@ -80,8 +80,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: 03_ELEMENTARY_SCHOOL
-    x: 1679
-    y: 245
+    x: 1045
+    y: 248
     width: 126
     height: 140
     borderLeft: 0
@@ -93,8 +93,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: 04_MIDDLE_SCHOOL
-    x: 1036
-    y: 412
+    x: 1440
+    y: 2
     width: 128
     height: 152
     borderLeft: 0
@@ -106,8 +106,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: 05_HIGH_SCHOOL
-    x: 1294
-    y: 482
+    x: 1339
+    y: 155
     width: 137
     height: 175
     borderLeft: 0
@@ -119,8 +119,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: 06_UNIVERSITY
-    x: 1854
-    y: 252
+    x: 1239
+    y: 639
     width: 172
     height: 178
     borderLeft: 0
@@ -132,8 +132,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: 07_DOCTOR
-    x: 1854
-    y: 431
+    x: 1218
+    y: 427
     width: 173
     height: 190
     borderLeft: 0
@@ -145,8 +145,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: 08_GOD_OF_MATH
-    x: 1698
-    y: 386
+    x: 1183
+    y: 153
     width: 155
     height: 235
     borderLeft: 0
@@ -158,8 +158,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Btn_Exit
-    x: 779
-    y: 361
+    x: 1477
+    y: 200
     width: 149
     height: 130
     borderLeft: 0
@@ -171,8 +171,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Btn_Left
-    x: 1838
-    y: 806
+    x: 577
+    y: 3
     width: 183
     height: 218
     borderLeft: 0
@@ -184,8 +184,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Btn_Left_Shadow
-    x: 1432
-    y: 529
+    x: 1521
+    y: 436
     width: 96
     height: 128
     borderLeft: 0
@@ -197,8 +197,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Btn_Option
-    x: 1581
-    y: 678
+    x: 972
+    y: 57
     width: 210
     height: 183
     borderLeft: 0
@@ -210,8 +210,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Btn_Right
-    x: 1535
-    y: 449
+    x: 1055
+    y: 389
     width: 162
     height: 228
     borderLeft: 0
@@ -223,8 +223,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Btn_Right_Shadow
-    x: 1935
-    y: 123
+    x: 1618
+    y: 436
     width: 91
     height: 128
     borderLeft: 0
@@ -236,8 +236,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Btn_Shop
-    x: 1792
-    y: 622
+    x: 761
+    y: 38
     width: 210
     height: 183
     borderLeft: 0
@@ -249,8 +249,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: BtnA
-    x: 577
-    y: 291
+    x: 1569
+    y: 70
     width: 147
     height: 129
     borderLeft: 0
@@ -262,8 +262,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: BtnA_Shadow
-    x: 1806
-    y: 139
+    x: 1392
+    y: 452
     width: 128
     height: 112
     borderLeft: 0
@@ -288,8 +288,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: BtnB_Shadow
-    x: 1165
-    y: 512
+    x: 972
+    y: 4
     width: 128
     height: 52
     borderLeft: 0
@@ -301,8 +301,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: CharacterInfo
-    x: 1324
-    y: 658
+    x: 834
+    y: 241
     width: 210
     height: 183
     borderLeft: 0
@@ -313,9 +313,22 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: Coin
+    x: 577
+    y: 405
+    width: 220
+    height: 215
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 18
+    paddingRight: 18
+    paddingTop: 20
+    paddingBottom: 21
   - name: GoldBG
-    x: 1422
-    y: 375
+    x: 1392
+    y: 565
     width: 256
     height: 73
     borderLeft: 0
@@ -327,8 +340,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Item_Clock
-    x: 577
-    y: 421
+    x: 1037
+    y: 618
     width: 201
     height: 199
     borderLeft: 0
@@ -379,8 +392,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Name_Add_ENG
-    x: 1037
-    y: 682
+    x: 1183
+    y: 17
     width: 256
     height: 135
     borderLeft: 0
@@ -405,8 +418,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Name_Div_ENG
-    x: 1165
-    y: 407
+    x: 1324
+    y: 833
     width: 256
     height: 74
     borderLeft: 0
@@ -418,8 +431,8 @@ MonoBehaviour:
     paddingTop: 4
     paddingBottom: 0
   - name: Name_Div_KR
-    x: 929
-    y: 348
+    x: 1569
+    y: 11
     width: 256
     height: 58
     borderLeft: 0
@@ -431,8 +444,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Name_Mul_ENG
-    x: 1581
-    y: 862
+    x: 798
+    y: 425
     width: 256
     height: 162
     borderLeft: 0
@@ -444,8 +457,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Name_Mul_KR
-    x: 1037
-    y: 565
+    x: 1324
+    y: 908
     width: 256
     height: 116
     borderLeft: 0
@@ -457,8 +470,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Name_Sub_ENG
-    x: 1324
-    y: 842
+    x: 577
+    y: 222
     width: 256
     height: 182
     borderLeft: 0
@@ -470,8 +483,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Name_Sub_KR
-    x: 779
-    y: 492
+    x: 1339
+    y: 331
     width: 256
     height: 95
     borderLeft: 0
@@ -483,8 +496,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 3
   - name: Square
-    x: 725
-    y: 370
+    x: 1101
+    y: 6
     width: 50
     height: 50
     borderLeft: 0

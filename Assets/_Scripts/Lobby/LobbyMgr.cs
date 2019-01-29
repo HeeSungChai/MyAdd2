@@ -73,7 +73,7 @@ public class LobbyMgr : MonoBehaviour
 
     void OnGoldAmountChanged()
     {
-        m_labelGoldAmount.text = MyUtility.CommaSeparateDigit(MyGlobals.UserState.m_iCoinAmount);
+        m_labelGoldAmount.text = MyUtility.CommaSeparateDigit(PrefsMgr.Instance.GetCoinAmount());
     }
 
     void OnLanguageChanged()
