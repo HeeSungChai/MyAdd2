@@ -14,6 +14,7 @@ public class PrefsMgr
 
     [Header("Stage")]
     public static string strMaxSelectableLv = "MaxSelectableLv";
+    public static string strInfiniteModeOpen = "InfiniteModeOpen";
 
     [Header("Score")]
     public static string strStageScore = "Score_Stage_";
@@ -102,6 +103,36 @@ public class PrefsMgr
         return GetInt(strStageScore + iStageNum, 0);
     }
 
+    public void SetBestComboScore(int iScore)
+    {
+        SetInt(strBestComboScore, iScore);
+    }
+
+    public int GetBestComboScore()
+    {
+        return GetInt(strBestComboScore, 0);
+    }
+
+    public void SetInfiniteModeOpen()
+    {
+        SetInt(strInfiniteModeOpen, 1);
+    }
+
+    public bool GetInfiniteModeOpen()
+    {
+        return GetInt(strInfiniteModeOpen, 0) == 1 ? true : false;
+    }
+
+    public void SetInfiniteModeBestScore(int iScore)
+    {
+        SetInt(strInfiniteModeBestScore, iScore);
+    }
+
+    public int GetInfiniteModeBestScore()
+    {
+        return GetInt(strInfiniteModeBestScore, 0);
+    }
+
     public void SetCharacterOpen(eCHARACTER eCharacter)
     {
         SetInt(strCharacterOpen + eCharacter.ToString(), 1);
@@ -173,7 +204,16 @@ public class PrefsMgr
 
     public void SetCoinAmount(int iAmount)
     {
+        iAmount = Mathf.Clamp(iAmount, 0, MyGlobals.CoinMaxAmount);
         SetInt(strCoinCount, iAmount);
+    }
+
+    public void IncreaseCoinAmount(int iAmount)
+    {
+        int iCurAmount = GetInt(strCoinCount, 0);
+        iCurAmount += iAmount;
+        iCurAmount = Mathf.Clamp(iCurAmount, 0, MyGlobals.CoinMaxAmount);
+        SetInt(strCoinCount, iCurAmount);
     }
 
     public int GetCoinAmount()
@@ -181,45 +221,53 @@ public class PrefsMgr
         return GetInt(strCoinCount, 0);
     }
 
-    public void ItemUsed(eITEM_TYPE eItem)
+    public void CoinUsed(int iAmount)
+    {
+        int iCurAmount = GetInt(strCoinCount, 0);
+        iCurAmount -= iAmount;
+        iCurAmount = Mathf.Clamp(iCurAmount, 0, MyGlobals.CoinMaxAmount);
+        SetInt(strCoinCount, iCurAmount);
+    }
+
+    public void ItemUsed(eITEM_ID eItem)
     {
         int iCurAmount;
         switch(eItem)
-        {
-            case eITEM_TYPE.ERASER:
-                iCurAmount = GetInt(strItemEraserCount, 0);
+        {            
+            case eITEM_ID.ERASER:
+                iCurAmount = GetInt(strItemEraserCount, 10);
                 --iCurAmount;
-                Mathf.Clamp(iCurAmount, 0, MyGlobals.ItemMaxAmount);
+                iCurAmount = Mathf.Clamp(iCurAmount, 0, MyGlobals.ItemMaxAmount);
                 SetInt(strItemEraserCount, iCurAmount);
                 break;
-            case eITEM_TYPE.CLOCK:
-                iCurAmount = GetInt(strItemClockCount, 0);
+            case eITEM_ID.CLOCK:
+                iCurAmount = GetInt(strItemClockCount, 10);
                 --iCurAmount;
-                Mathf.Clamp(iCurAmount, 0, MyGlobals.ItemMaxAmount);
+                iCurAmount = Mathf.Clamp(iCurAmount, 0, MyGlobals.ItemMaxAmount);
                 SetInt(strItemClockCount, iCurAmount);
                 break;
-            case eITEM_TYPE.RECOVERY:
-                iCurAmount = GetInt(strItemRecoveryCount, 0);
+            case eITEM_ID.RECOVERY:
+                iCurAmount = GetInt(strItemRecoveryCount, 10);
                 --iCurAmount;
-                Mathf.Clamp(iCurAmount, 0, MyGlobals.ItemMaxAmount);
+                iCurAmount = Mathf.Clamp(iCurAmount, 0, MyGlobals.ItemMaxAmount);
                 SetInt(strItemRecoveryCount, iCurAmount);
                 break;
         }
     }
 
-    public int GetItemAmount(eITEM_TYPE eItem)
+    public int GetItemAmount(eITEM_ID eItem)
     {
         int iCurAmount;
         switch (eItem)
         {
-            case eITEM_TYPE.ERASER:
-                iCurAmount = GetInt(strItemEraserCount, 0);
+            case eITEM_ID.ERASER:
+                iCurAmount = GetInt(strItemEraserCount, 10);//테스트. 데이터 초기화해도 10개는 남도록 함
                 break;
-            case eITEM_TYPE.CLOCK:
-                iCurAmount = GetInt(strItemClockCount, 0);
+            case eITEM_ID.CLOCK:
+                iCurAmount = GetInt(strItemClockCount, 10);
                 break;
-            case eITEM_TYPE.RECOVERY:
-                iCurAmount = GetInt(strItemRecoveryCount, 0);
+            case eITEM_ID.RECOVERY:
+                iCurAmount = GetInt(strItemRecoveryCount, 10);
                 break;
             default:
                 iCurAmount = 0;
@@ -229,10 +277,37 @@ public class PrefsMgr
         return iCurAmount;
     }
 
-    public int SetTitle(eUSER_TITLE eTitle)
+    public void IncreaseItemAmount(eITEM_ID eItem, int iIncreaseAmount)
+    {
+        iIncreaseAmount = Mathf.Abs(iIncreaseAmount);
+        int iCurAmount;
+        switch (eItem)
+        {
+            case eITEM_ID.ERASER:
+                iCurAmount = GetInt(strItemEraserCount, 10);
+                iCurAmount += iIncreaseAmount;
+                iCurAmount = Mathf.Clamp(iCurAmount, 0, MyGlobals.ItemMaxAmount);
+                SetInt(strItemEraserCount, iCurAmount);
+                break;
+            case eITEM_ID.CLOCK:
+                iCurAmount = GetInt(strItemClockCount, 10);
+                iCurAmount += iIncreaseAmount;
+                iCurAmount = Mathf.Clamp(iCurAmount, 0, MyGlobals.ItemMaxAmount);
+                SetInt(strItemClockCount, iCurAmount);
+                break;
+            case eITEM_ID.RECOVERY:
+                iCurAmount = GetInt(strItemRecoveryCount, 10);
+                iCurAmount += iIncreaseAmount;
+                iCurAmount = Mathf.Clamp(iCurAmount, 0, MyGlobals.ItemMaxAmount);
+                SetInt(strItemRecoveryCount, iCurAmount);
+                break;
+        }
+    }
+
+    public void SetTitle(eUSER_TITLE eTitle)
     {
         int iTitle = Mathf.Clamp((int)eTitle, (int)eUSER_TITLE.BEGINNER, (int)eUSER_TITLE.GOD_OF_MATH);
-        return GetInt(strTitle, (int)iTitle);
+        SetInt(strTitle, (int)iTitle);
     }
 
     public eUSER_TITLE GetTitle()

@@ -30,10 +30,11 @@ public class LobbyMgr : MonoBehaviour
 
     [Header("Title Info")]
     private eTABLE_LIST m_eTableTitle;
+    public UISprite m_sprTitleIcon;
     public UILabel m_labelTitle;
     public UILabel m_labelGrade;
     eKEY_TABLEDB m_eKeyTitleName;
-    eKEY_TABLEDB m_eKeyGradeName;
+    //eKEY_TABLEDB m_eKeyGradeName;
 
     [Header("Character Info")]
     private eTABLE_LIST m_eTableChatacter;
@@ -81,14 +82,14 @@ public class LobbyMgr : MonoBehaviour
         if (LanguageMgr.Instance.GetLanguage() == eLANGUAGE.KOREAN)
         {
             m_eKeyTitleName = eKEY_TABLEDB.s_TITLE_NAME_KR;
-            m_eKeyGradeName = eKEY_TABLEDB.s_GRADE_NAME_KR;
+            //m_eKeyGradeName = eKEY_TABLEDB.s_GRADE_NAME_KR;
             m_eKeyCharName = eKEY_TABLEDB.s_CHAR_NAME_KR;
             m_eKeyCharAbility = eKEY_TABLEDB.s_SKILL_KR;
         }
         else
         {
             m_eKeyTitleName = eKEY_TABLEDB.s_TITLE_NAME_US;
-            m_eKeyGradeName = eKEY_TABLEDB.s_GRADE_NAME_US;
+            //m_eKeyGradeName = eKEY_TABLEDB.s_GRADE_NAME_US;
             m_eKeyCharName = eKEY_TABLEDB.s_CHAR_NAME_US;
             m_eKeyCharAbility = eKEY_TABLEDB.s_SKILL_US;
         }
@@ -115,6 +116,10 @@ public class LobbyMgr : MonoBehaviour
     {
         m_labelTitle.text = (string)TableDB.Instance.GetData(m_eTableTitle,
             (int)MyGlobals.UserState.m_eTitle, m_eKeyTitleName);
+
+        m_sprTitleIcon.spriteName = (string)TableDB.Instance.GetData(m_eTableTitle,
+            (int)MyGlobals.UserState.m_eTitle, eKEY_TABLEDB.s_RESOURCE);
+        m_sprTitleIcon.MakePixelPerfect();
 
         //string tempStr = (string)TableDB.Instance.GetData(m_eTableTitle,
         //    (int)MyGlobals.UserState.m_eTitle, m_eKeyGradeName);
@@ -178,15 +183,23 @@ public class LobbyMgr : MonoBehaviour
 
     void ShowCharacter()
     {
+        m_objAdd.SetActive(false);
+        m_objMi.SetActive(false);
+        m_objDouble.SetActive(false);
+        m_objDividivi.SetActive(false);
         switch (PrefsMgr.Instance.GetChoosenCharacter())
         {
             case eCHARACTER.ADD:
                 m_objAdd.SetActive(true);
-                m_objMi.SetActive(false);
                 break;
             case eCHARACTER.SUB:
-                m_objAdd.SetActive(false);
                 m_objMi.SetActive(true);
+                break;
+            case eCHARACTER.MUL:
+                m_objDouble.SetActive(true);
+                break;
+            case eCHARACTER.DIV:
+                m_objDividivi.SetActive(true);
                 break;
             default:
                 break;
@@ -198,10 +211,17 @@ public class LobbyMgr : MonoBehaviour
         switch (PrefsMgr.Instance.GetChoosenCharacter())
         {
             case eCHARACTER.ADD:
-                PrefsMgr.Instance.SetChoosenCharacter(eCHARACTER.SUB);// = eCHARACTER.SUB;
+                //PrefsMgr.Instance.geto
+                //PrefsMgr.Instance.SetChoosenCharacter(eCHARACTER.SUB);
                 break;
             case eCHARACTER.SUB:
-                PrefsMgr.Instance.SetChoosenCharacter(eCHARACTER.ADD);// = eCHARACTER.ADD;
+                PrefsMgr.Instance.SetChoosenCharacter(eCHARACTER.ADD);
+                break;
+            case eCHARACTER.MUL:
+                PrefsMgr.Instance.SetChoosenCharacter(eCHARACTER.SUB);
+                break;
+            case eCHARACTER.DIV:
+                PrefsMgr.Instance.SetChoosenCharacter(eCHARACTER.MUL);
                 break;
             default:
                 break;
@@ -215,10 +235,16 @@ public class LobbyMgr : MonoBehaviour
         switch(PrefsMgr.Instance.GetChoosenCharacter())
         {
             case eCHARACTER.ADD:
-                PrefsMgr.Instance.SetChoosenCharacter(eCHARACTER.SUB);
+                if(PrefsMgr.Instance.GetCharacterOpen(eCHARACTER.SUB))
+                    PrefsMgr.Instance.SetChoosenCharacter(eCHARACTER.SUB);
                 break;
             case eCHARACTER.SUB:
-                PrefsMgr.Instance.SetChoosenCharacter(eCHARACTER.ADD);
+                if (PrefsMgr.Instance.GetCharacterOpen(eCHARACTER.MUL))
+                    PrefsMgr.Instance.SetChoosenCharacter(eCHARACTER.MUL);
+                break;
+            case eCHARACTER.MUL:
+                if (PrefsMgr.Instance.GetCharacterOpen(eCHARACTER.DIV))
+                    PrefsMgr.Instance.SetChoosenCharacter(eCHARACTER.DIV);
                 break;
             default:
                 break;

@@ -270,6 +270,8 @@ public class LevelRouletteCtrl : MonoBehaviour
     {
         m_arrLabelStageNum[m_iIndexFocusedLabel].FocusOff();
 
+        MyGlobals.SoundMgr.OnPlayFx(eSOUND_FX.BUTTON);
+
         if (bHighWay)
             ++m_iIndexFocusedLabel;
         else

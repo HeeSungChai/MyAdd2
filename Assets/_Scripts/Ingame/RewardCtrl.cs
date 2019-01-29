@@ -11,6 +11,7 @@ public class RewardCtrl : MonoBehaviour
     {
         SetIcon(eRewardID);
         SetRewardCount(iCount);
+        PrefsMgr.Instance.IncreaseItemAmount(eRewardID, iCount);
     }
 
     void SetIcon(eITEM_ID eRewardID)

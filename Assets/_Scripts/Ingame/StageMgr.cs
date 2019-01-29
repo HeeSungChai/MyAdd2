@@ -78,6 +78,8 @@ public partial class StageMgr : MonoBehaviour
     [HideInInspector]
     public int ComboCount = -1;
     [HideInInspector]
+    public int MaxComboCount = -1;
+    [HideInInspector]
     public int TotalComboCount;
     public UILabel m_labelRemainTime;
 

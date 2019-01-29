@@ -12,10 +12,21 @@ public enum eITEM_TYPE
 public class ItemCtrl : MonoBehaviour
 {
     public ItemCoolTimeCtrl[] m_scriptCoolTime;
-    
-	void Start ()
+    public UILabel m_labelAmount_Eraser;
+    public UILabel m_labelAmount_Clock;
+    public UILabel m_labelAmount_Recovery;
+
+    void Start ()
     {
-	}
+        RefreshItemAmount();
+    }
+
+    void RefreshItemAmount()
+    {
+        m_labelAmount_Eraser.text = PrefsMgr.Instance.GetItemAmount(eITEM_ID.ERASER).ToString();
+        m_labelAmount_Clock.text = PrefsMgr.Instance.GetItemAmount(eITEM_ID.CLOCK).ToString();
+        m_labelAmount_Recovery.text = PrefsMgr.Instance.GetItemAmount(eITEM_ID.RECOVERY).ToString();
+    }
 
     public void OnPress_Eraser()
     {
@@ -31,6 +42,9 @@ public class ItemCtrl : MonoBehaviour
 
         m_scriptCoolTime[(int)eITEM_TYPE.ERASER].OnActivate();
         EventListener.Broadcast("OnCorrectAnswer", true);
+
+        PrefsMgr.Instance.ItemUsed(eITEM_ID.ERASER);
+        RefreshItemAmount();
     }
 
     public void OnPress_Clock()
@@ -43,6 +57,9 @@ public class ItemCtrl : MonoBehaviour
 
         m_scriptCoolTime[(int)eITEM_TYPE.CLOCK].OnActivate();
         EventListener.Broadcast("OnTimePaused");
+
+        PrefsMgr.Instance.ItemUsed(eITEM_ID.CLOCK);
+        RefreshItemAmount();
     }
 
     public void OnPress_Heart()
@@ -60,5 +77,8 @@ public class ItemCtrl : MonoBehaviour
 
         m_scriptCoolTime[(int)eITEM_TYPE.RECOVERY].OnActivate();
         EventListener.Broadcast("OnRecoverHp");
+
+        PrefsMgr.Instance.ItemUsed(eITEM_ID.RECOVERY);
+        RefreshItemAmount();
     }
 }

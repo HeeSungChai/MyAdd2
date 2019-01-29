@@ -198,6 +198,8 @@ public class NumDropCtrl : MonoBehaviour
         if (!MyGlobals.StageMgr.IsAdventure())
         {
             ++MyGlobals.StageMgr.ComboCount;
+            if (MyGlobals.StageMgr.ComboCount > MyGlobals.StageMgr.MaxComboCount)
+                MyGlobals.StageMgr.MaxComboCount = MyGlobals.StageMgr.ComboCount;
             if (MyGlobals.StageMgr.ComboCount > 0)//두번째 성공부터 콤보로 침
                 ++MyGlobals.StageMgr.TotalComboCount;
         }
